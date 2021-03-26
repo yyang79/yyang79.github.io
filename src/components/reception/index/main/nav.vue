@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import carousel1 from "../../../assets/images/carousel/x.jpg";
-import carousel2 from "../../../assets/images/carousel/y.jpg";
-import carousel3 from "../../../assets/images/carousel/z.jpg";
+import carousel1 from "../../../../assets/images/carousel/x.jpg";
+import carousel2 from "../../../../assets/images/carousel/y.jpg";
+import carousel3 from "../../../../assets/images/carousel/z.jpg";
 export default {
   data() {
     return {
@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .nav {
   position: relative;

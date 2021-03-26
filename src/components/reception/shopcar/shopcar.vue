@@ -216,14 +216,14 @@
 <script>
 import Shopcarhead from "../index/header";
 import Recommend from "./recommend";
-import flower1 from "../../assets/images/love/2.jpg";
-import flower2 from "../../assets/images/love/3.jpg";
-import flower3 from "../../assets/images/love/4.jpg";
-import flower4 from "../../assets/images/love/5.jpg";
-import flower5 from "../../assets/images/love/6.jpg";
-import flower6 from "../../assets/images/love/7.jpg";
-import flower7 from "../../assets/images/love/8.jpg";
-import flower8 from "../../assets/images/love/9.jpg";
+import flower1 from "../../../assets/images/love/2.jpg";
+import flower2 from "../../../assets/images/love/3.jpg";
+import flower3 from "../../../assets/images/love/4.jpg";
+import flower4 from "../../../assets/images/love/5.jpg";
+import flower5 from "../../../assets/images/love/6.jpg";
+import flower6 from "../../../assets/images/love/7.jpg";
+import flower7 from "../../../assets/images/love/8.jpg";
+import flower8 from "../../../assets/images/love/9.jpg";
 export default {
   name: "shopcar",
   inject: ["reload"],

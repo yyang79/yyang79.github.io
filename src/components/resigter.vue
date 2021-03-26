@@ -122,9 +122,9 @@
 </template>
 
 <script>
-import Resigterhead from "../index/header";
-import backimage from "../../assets/images/backimage.jpg";
-import VerificationCode from "../verificationcode/verificationcode";
+import Resigterhead from "./reception/index/header";
+import backimage from "../assets/images/backimage.jpg";
+import VerificationCode from "./reception/verificationcode/verificationcode";
 export default {
   name: "resigter",
   components: {

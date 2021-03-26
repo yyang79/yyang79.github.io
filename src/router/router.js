@@ -1,22 +1,46 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import index from '../components/index/index'
-import login from '../components/login/login'
-import resigter from '../components/resigter/resigter'
-import personal from '../components/personal/personal'
-import myorder from '../components/myorder/myorder'
-import shopcar from '../components/shopcar/shopcar'
-import move from '../components/move/move'
-import detailpage from '../components/detailpage/detailpage'
-import forget from '../components/forget/forget'
+import login from '../components/login'
+import resigter from '../components/resigter'
+import forget from '../components/forget'
+//前台
+import reception_index from '../components/reception/index/index'
+import reception_personal from '../components/reception/personal/personal'
+import reception_myorder from '../components/reception/myorder/myorder'
+import reception_shopcar from '../components/reception/shopcar/shopcar'
+import reception_move from '../components/reception/move/move'
+import reception_detailpage from '../components/reception/detailpage/detailpage'
+//后台
+import backstage_index from '../components/backstage/index/index'
+import backstage_customer from '../components/backstage/info/customer'
+import backstage_product from '../components/backstage/info/product'
+import backstage_prosize from '../components/backstage/info/prosize'
+import backstage_protype from '../components/backstage/info/protype'
+import backstage_supplier from '../components/backstage/info/supplier'
+import backstage_purchase from '../components/backstage/purchase/purchase'
+import backstage_historypurchase from '../components/backstage/purchase/historypurchase'
+import backstage_historypurchasedetails from '../components/backstage/purchase/historypurchasedetails'
+import backstage_sale from '../components/backstage/sale/sale'
+import backstage_order from '../components/backstage/sale/order'
+import backstage_orderdetails from '../components/backstage/sale/orderdetails'
+import backstage_historysale from '../components/backstage/sale/historysale'
+import backstage_historysaledetails from '../components/backstage/sale/historysaledetails'
+import backstage_stockcheck from '../components/backstage/stock/stockcheck'
+import backstage_stockwarn from '../components/backstage/stock/stockwarn'
+import backstage_historystockcheck from '../components/backstage/stock/historystockcheck'
+import backstage_historystockcheckdetails from '../components/backstage/stock/historystockcheckdetails'
+import backstage_salechart from '../components/backstage/chart/salechart'
+import backstage_stockchart from '../components/backstage/chart/stockchart'
+import backstage_purchasechart from '../components/backstage/chart/purchasechart'
+import backstage_user from '../components/backstage/system/user'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: "/",
-        component: index
+        component: reception_index
     },
     {
         name: 'forget',
@@ -33,27 +57,118 @@ const routes = [
     },
     {
         path: "/shopcar",
-        component: shopcar
+        component: reception_shopcar
     },
     {
         path: "/move",
-        component: move
+        component: reception_move
     },
     {
         path: "/detailpage",
-        component: detailpage
+        component: reception_detailpage
     },
     {
         path: "/index",
-        component: index
+        component: reception_index
     },
     {
         path: "/personal",
-        component: personal
+        component: reception_personal
     },
     {
         path: "/myorder",
-        component: myorder
+        component: reception_myorder
+    },
+    {
+        path: "/backstage",
+        component: backstage_index,
+        children: [{
+            path: "/",
+            component: backstage_stockwarn,
+        },
+        {
+            path: "/customer",
+            component: backstage_customer,
+        },
+        {
+            path: "/product",
+            component: backstage_product,
+        },
+        {
+            path: "/prosize",
+            component: backstage_prosize,
+        },
+        {
+            path: "/protype",
+            component: backstage_protype,
+        },
+        {
+            path: "/supplier",
+            component: backstage_supplier,
+        },
+        {
+            path: "/purchase",
+            component: backstage_purchase,
+        },
+        {
+            path: "/historypurchase",
+            component: backstage_historypurchase,
+        },
+        {
+            path: "/historypurchasedetails/:id",
+            component: backstage_historypurchasedetails,
+            props: true
+        },
+        {
+            path: "/sale",
+            component: backstage_sale,
+        },
+        {
+            path: "/order",
+            component: backstage_order,
+        },
+        {
+            path: "/orderdetails/:id",
+            component: backstage_orderdetails,
+            props: true
+        },
+        {
+            path: "/historysale",
+            component: backstage_historysale,
+        },
+        {
+            path: "/historysaledetails/:id",
+            component: backstage_historysaledetails,
+            props: true
+        },
+        {
+            path: "/stockcheck",
+            component: backstage_stockcheck,
+        },
+        {
+            path: "/historystockcheck",
+            component: backstage_historystockcheck,
+        },
+        {
+            path: "/historystockcheckdetails/:id",
+            component: backstage_historystockcheckdetails,
+        },
+        {
+            path: "/purchasechart",
+            component: backstage_purchasechart,
+        },
+        {
+            path: "/salechart",
+            component: backstage_salechart,
+        },
+        {
+            path: "/stockchart",
+            component: backstage_stockchart,
+        },
+        {
+            path: "/user",
+            component: backstage_user,
+        },]
     }
 ]
 

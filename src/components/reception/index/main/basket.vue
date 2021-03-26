@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import lf1 from "../../../assets/images/basket/1.jpg";
+import lf1 from "../../../../assets/images/basket/1.jpg";
 export default {
   data() {
     return {

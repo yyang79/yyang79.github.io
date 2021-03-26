@@ -58,7 +58,7 @@ export default {
   methods: {
     goshopcar() {
       if (this.$store.state.login.loginback) {
-        this.$router.replace("/shopcar");
+        this.$router.replace("/hopcar");
       } else {
         alert("当前未登录，请先登录后查看！！");
       }

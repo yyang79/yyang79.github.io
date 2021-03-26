@@ -1,23 +1,21 @@
 <template>
-  <div class="friend">
-    <div class="friend-top">
-      <span>
-        &nbsp;&nbsp;&nbsp;友情鲜花&nbsp;|
-      </span>
-      <router-link :to="{ path: '/move/', query: { keyword: 'Friend' } }"
+  <div class="love">
+    <div class="love-top">
+      <span> &nbsp;&nbsp;&nbsp;爱情鲜花&nbsp;| </span>
+      <router-link :to="{ path: '/move/', query: { keyword: 'Love' } }"
         >查看更多 >></router-link
       >
     </div>
-    <div class="show-main">
+    <div class="love-main">
       <div class="show-image">
-        <router-link :to="{ path: '/move/', query: { keyword: 'Friend' } }">
-        <el-image style="width: 232px; height: 650px" :src="src"></el-image>
+        <router-link :to="{ path: '/move/', query: { keyword: 'Love' } }">
+          <el-image style="width: 232px; height: 650px" :src="src"></el-image>
         </router-link>
       </div>
       <div class="show-flower">
         <router-link :to="{ path: '/detailpage', query: { search: 's' } }">
           <div
-            v-for="flower in this.$store.state.index.friendlist"
+            v-for="flower in this.$store.state.index.lovelist"
             :key="flower.src"
           >
             <el-image :src="flower.src"></el-image>
@@ -46,7 +44,7 @@
 </template>
 
 <script>
-import lf1 from "../../../assets/images/friend/1.jpg";
+import lf1 from "../../../../assets/images/love/1.jpg";
 export default {
   data() {
     return {
@@ -57,7 +55,7 @@ export default {
 </script>
 
 <style>
-.friend {
+.love {
   position: relative;
   top: 0px;
   left: 50%;
@@ -65,10 +63,6 @@ export default {
   margin-left: -600px;
   height: 730px;
   background-color: #f3f3f3;
-}
-
-.friend-top a{
-  float: right;
 }
 
 .show-image {
@@ -103,5 +97,10 @@ export default {
   height: 200px;
   border: none;
 }
-
+.love-top a {
+  float: right;
+}
+.show-flower a > div:hover {
+  box-shadow: 0 0 10px 5px gray;
+}
 </style>

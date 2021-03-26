@@ -248,7 +248,7 @@
 </template>
 
 <script>
-import logo from "../../../assets/images/love/2.jpg";
+import logo from "../../../../assets/images/love/2.jpg";
 export default {
   inject: ["reload"],
   data() {

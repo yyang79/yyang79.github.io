@@ -1,21 +1,23 @@
 <template>
-  <div class="box">
-    <div class="box-top">
-      <span>&nbsp;&nbsp;&nbsp;精品礼盒&nbsp;|</span>
-      <router-link :to="{ path: '/move/', query: { keyword: 'Box}' } }"
+  <div class="friend">
+    <div class="friend-top">
+      <span>
+        &nbsp;&nbsp;&nbsp;友情鲜花&nbsp;|
+      </span>
+      <router-link :to="{ path: '/move/', query: { keyword: 'Friend' } }"
         >查看更多 >></router-link
       >
     </div>
     <div class="show-main">
       <div class="show-image">
-        <router-link :to="{ path: '/move/', query: { keyword: 'Box}' } }">
+        <router-link :to="{ path: '/move/', query: { keyword: 'Friend' } }">
         <el-image style="width: 232px; height: 650px" :src="src"></el-image>
         </router-link>
       </div>
       <div class="show-flower">
         <router-link :to="{ path: '/detailpage', query: { search: 's' } }">
           <div
-            v-for="flower in this.$store.state.index.boxlist"
+            v-for="flower in this.$store.state.index.friendlist"
             :key="flower.src"
           >
             <el-image :src="flower.src"></el-image>
@@ -44,7 +46,7 @@
 </template>
 
 <script>
-import lf1 from "../../../assets/images/box/1.jpg";
+import lf1 from "../../../../assets/images/friend/1.jpg";
 export default {
   data() {
     return {
@@ -55,18 +57,20 @@ export default {
 </script>
 
 <style>
-.box {
+.friend {
   position: relative;
   top: 0px;
   left: 50%;
   width: 1200px;
   margin-left: -600px;
-  height: 690px;
+  height: 730px;
   background-color: #f3f3f3;
 }
-.box-top a {
+
+.friend-top a{
   float: right;
 }
+
 .show-image {
   position: absolute;
   top: 40px;
@@ -99,4 +103,5 @@ export default {
   height: 200px;
   border: none;
 }
+
 </style>

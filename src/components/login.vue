@@ -51,8 +51,8 @@
         </div>
       </el-main>
       <el-footer height="100px">
-        <div style="width: 100%; height: 300px;">
-          <Loginfooter/>
+        <div style="width: 100%; height: 300px">
+          <Loginfooter />
         </div>
       </el-footer>
     </el-container>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import Loginfooter from "../index/footer";
+import Loginfooter from "./reception/index/footer";
 export default {
   components: {
     Loginfooter,
@@ -69,14 +69,50 @@ export default {
     return {
       user: "",
       pad: "",
-      loginbackimg: require("../../assets/images/loginbackimg.jpg"),
-      radio: "admin",
+      loginbackimg: require("../assets/images/loginbackimg.jpg"),
+      radio: "user",
     };
   },
   methods: {
     login() {
-      this.$store.dispatch("login/loginbackstatus");
-      this.$router.back(-1);
+      if (this.radio == "admin") {
+        this.$axios
+        .post("http://127.0.0.1:3000/login", {
+            user: this.user,
+            pad: this.pad,
+            type: this.radio,
+          })
+          .then((res) => {
+            if (res.data == "验证通过") {
+              this.$message({ message: "登录成功！！！", type: "success" });
+              this.$router.replace("/backstage");
+            } else {
+              this.$message.error("用户名或密码不正确！！！");
+            }
+          })
+          .catch((error) => {
+            window.console.log(error);
+          });
+      } else if (this.radio == "user") {
+        this.$axios
+        .post("http://127.0.0.1:3000/login", {
+            user: this.user,
+            pad: this.pad,
+            type: this.radio,
+          })
+          .then((res) => {
+            if (res.data == "验证通过") {
+              this.$message({ message: "登录成功！！！", type: "success" });
+              this.$store.dispatch("login/loginbackstatus");
+              this.$router.replace("/index");
+            } else {
+              this.$message.error("用户名或密码不正确！！！");
+            }
+          })
+          .catch((error) => {
+            window.console.log(error);
+          });
+      }
     },
   },
 };
