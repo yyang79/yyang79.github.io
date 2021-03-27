@@ -2,9 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import login from '../components/login'
-import resigter from '../components/resigter'
-import forget from '../components/forget'
 //前台
+import reception_resigter from '../components/reception/resigter/resigter'
+import reception_forget from '../components/reception/forget/forget'
 import reception_index from '../components/reception/index/index'
 import reception_personal from '../components/reception/personal/personal'
 import reception_myorder from '../components/reception/myorder/myorder'
@@ -45,7 +45,7 @@ const routes = [
     {
         name: 'forget',
         path: "/forget",
-        component: forget
+        component: reception_forget
     },
     {
         path: "/login",
@@ -53,7 +53,7 @@ const routes = [
     },
     {
         path: "/resigter",
-        component: resigter
+        component: reception_resigter
     },
     {
         path: "/shopcar",

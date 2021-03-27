@@ -2,51 +2,65 @@
   <div id="login">
     <el-container>
       <el-header height="100px">
-        <div style="width: 100%; height: 100px; background-color: red"></div>
+        <div style="width: 100%; height: 100px"></div>
       </el-header>
       <el-main
         height="500px"
         :style="{ background: 'url(' + loginbackimg + ')' }"
       >
-        <div class="login-mian"></div>
         <div class="table-container">
           <el-form>
-            <h2 style="color: red; text-align: center">用户登录</h2>
-            <el-divider></el-divider>
-            <el-input
-              style="width: 380px; margin: 0px 10px 0px 10px"
-              prefix-icon="el-icon-user"
-              placeholder="请输入用户名"
-              clearable
-              v-model="user"
-            ></el-input>
-            <el-input
-              style="width: 380px; margin: 20px 10px 20px 10px"
-              prefix-icon="el-icon-lock"
-              placeholder="请输入密码"
-              show-password
-              clearable
-              v-model="pad"
-            ></el-input>
-            <el-radio style="margin-left: 30px" v-model="radio" label="admin"
-              >管理员</el-radio
+            <el-form-item>
+              <h2 style="color: red; text-align: center">用户登录</h2>
+              <el-divider></el-divider>
+            </el-form-item>
+            <el-form-item>
+              <el-input
+                style="width: 380px; margin: 0px 10px 0px 10px"
+                prefix-icon="el-icon-user"
+                placeholder="请输入用户名"
+                autofocus="true"
+                clearable
+                v-model="user"
+              ></el-input
+            ></el-form-item>
+            <el-form-item>
+              <el-input
+                style="width: 380px; margin: 20px 10px 10px 10px"
+                prefix-icon="el-icon-lock"
+                placeholder="请输入密码"
+                show-password
+                v-model="pad"
+              ></el-input
+            ></el-form-item>
+            <el-form-item>
+              <el-radio style="margin-left: 30px" v-model="radio" label="admin"
+                >管理员</el-radio
+              >
+              <el-radio v-model="radio" label="user"
+                >普通用户</el-radio
+              ></el-form-item
             >
-            <el-radio v-model="radio" label="user">普通用户</el-radio>
-            <el-button
-              style="width: 380px; margin: 20px 10px 10px 10px"
-              @click="login"
-              type="primary"
-              >立即登录</el-button
+            <el-form-item>
+              <el-button
+                style="width: 380px; margin: 10px"
+                @click="login()"
+                type="primary"
+                >立即登录</el-button
+              ></el-form-item
             >
-            <div style="margin-bottom: 30px; text-align: center">
-              <router-link to="/forgtpad">忘记密码?</router-link>
-            </div>
-            <el-row>
-              <el-col :span="17">&nbsp;</el-col>
-              <el-col :span="4">
-                <router-link to="/resigter">立即注册 >>></router-link>
-              </el-col>
-            </el-row>
+            <el-form-item>
+              <router-link to="/forget" style="float: right; margin-right: 10px"
+                >忘记密码?</router-link
+              >
+            </el-form-item>
+            <el-form-item>
+              <router-link
+                to="/resigter"
+                style="float: right; margin-right: 10px"
+                >没有账号？ 立即注册 >>></router-link
+              ></el-form-item
+            >
           </el-form>
         </div>
       </el-main>
@@ -67,17 +81,17 @@ export default {
   },
   data() {
     return {
-      user: "",
-      pad: "",
+      user: "admin",
+      pad: "123",
+      radio: "admin",
       loginbackimg: require("../assets/images/loginbackimg.jpg"),
-      radio: "user",
     };
   },
   methods: {
     login() {
       if (this.radio == "admin") {
         this.$axios
-        .post("http://127.0.0.1:3000/login", {
+          .post("http://127.0.0.1:3000/login", {
             user: this.user,
             pad: this.pad,
             type: this.radio,
@@ -95,7 +109,7 @@ export default {
           });
       } else if (this.radio == "user") {
         this.$axios
-        .post("http://127.0.0.1:3000/login", {
+          .post("http://127.0.0.1:3000/login", {
             user: this.user,
             pad: this.pad,
             type: this.radio,
@@ -136,5 +150,8 @@ export default {
   background-color: #f3f3f3;
   border: 1px solid #f3f3f3;
   border-radius: 10px;
+}
+.el-form-item {
+  margin: 0px;
 }
 </style>

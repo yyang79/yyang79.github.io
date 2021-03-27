@@ -28,8 +28,8 @@
           <el-form-item label="商品花语" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.language" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="商品花语" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.prince" autocomplete="off"></el-input>
+          <el-form-item label="商品价格" :label-width="formLabelWidth + 'px'">
+            <el-input v-model="addform.price" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="供应商" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.supplier" autocomplete="off"></el-input>
@@ -63,16 +63,13 @@
       ref="multipleTable"
       :data="tableData"
       border
+      style="margin: 10px 30px; width: 1000px"
       tooltip-effect="dark"
-      style="width: auto"
       height="380"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column prop="goodsId" label="商品编号"></el-table-column>
       <el-table-column prop="goodsName" label="商品名称"></el-table-column>
-      <el-table-column prop="goodsMaster" label="商品材料"> </el-table-column>
-      <el-table-column prop="goodsPackage" label="商品包装"> </el-table-column>
-      <el-table-column prop="goodsLanguage" label="商品花语"></el-table-column>
+      <el-table-column prop="goodsPrice" label="商品价格"></el-table-column>
       <el-table-column prop="supName" label="供应商"></el-table-column>
       <el-table-column prop="goodsStatus" label="商品状态"></el-table-column>
       <el-table-column prop="typeName" label="商品类型"></el-table-column>
@@ -90,35 +87,39 @@
       :visible.sync="dialogFormVisible_update"
       :modal-append-to-body="false"
     >
-        <el-form :model="updateform">
-          <el-form-item label="商品编号" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.id" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="商品材料" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.master" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="商品包装" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.package" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="商品花语" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.language" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="商品花语" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.prince" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="供应商" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.supplier" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="商品状态" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.status" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="商品类型" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.type" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-form>
+      <el-form :model="updateform">
+        <el-form-item label="商品编号" :label-width="formLabelWidth + 'px'">
+          <el-input
+            v-model="updateform.id"
+            disabled
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="商品材料" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.master" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="商品包装" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.package" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="商品花语" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.language" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="商品价格" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.price" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="供应商" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.supplier" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="商品状态" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.status" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="商品类型" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.type" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible__update = false">取 消</el-button>
         <el-button type="primary" @click="update()">确 定</el-button>
@@ -149,7 +150,7 @@ export default {
         name: "",
         master: "",
         package: "",
-        prince: "",
+        price: "",
         language: "",
         supplier: "",
         status: "",
@@ -158,11 +159,13 @@ export default {
       updateform: {
         id: "",
         name: "",
-        type: "",
-        size: "",
-        prince: "",
+        master: "",
+        package: "",
+        price: "",
+        language: "",
         supplier: "",
-        remark: "",
+        status: "",
+        type: "",
       },
       dialogFormVisible_add: false,
       dialogFormVisible_update: false,
@@ -200,17 +203,19 @@ export default {
           name: this.addform.name,
           master: this.addform.master,
           package: this.addform.package,
-          prince: this.addform.prince,
+          price: this.addform.price,
           language: this.addform.language,
           supplier: this.addform.supplier,
           status: this.addform.status,
           type: this.addform.type,
         })
-        .then((req) => {
-          this.dialogFormVisible_add = false;
-          this.reload();
-          this.showproduct();
-          this.$message({ message: "添加成功", type: "success" });
+        .then((res) => {
+          if (res.data == "添加成功") {
+            this.dialogFormVisible_add = false;
+            this.reload();
+            this.showproduct();
+            this.$message({ message: "添加成功", type: "success" });
+          }
         })
         .catch((error) => {
           window.console.log(error);
@@ -218,18 +223,18 @@ export default {
     },
     handleEdit(row) {
       this.dialogFormVisible_update = true;
-      this.updateform.id = row.id;
-      this.updateform.name = row.name;
-      this.updateform.master = row.master;
-      this.updateform.package = row.package;
-      this.updateform.prince = row.prince;
-      this.updateform.language = row.language;
-      this.updateform.supplier = row.supplier;
-      this.updateform.status = row.status;
-      this.updateform.type = row.type;
+      this.updateform.id = row.goodsId;
+      this.updateform.name = row.goodsName;
+      this.updateform.master = row.goodsMaster;
+      this.updateform.package = row.goodsPackage;
+      this.updateform.price = row.goodsPrice;
+      this.updateform.language = row.goodsLanguage;
+      this.updateform.supplier = row.supName;
+      this.updateform.status = row.goodsStatus;
+      this.updateform.type = row.typeName;
     },
     handleDelete(row) {
-      var id = row.pro_id;
+      var id = row.goodsId;
       this.$confirm("确定删除吗？", "确认信息", {
         distinguishCancelAndClose: true,
         confirmButtonText: "确定",
@@ -238,8 +243,10 @@ export default {
         this.$axios
           .post("http://127.0.0.1:3000/goods/delete", { id: id })
           .then((res) => {
-            this.$message({ message: "删除成功", type: "success" });
-            this.showproduct();
+            if (res.data == "删除成功") {
+              this.$message({ message: "删除成功", type: "success" });
+              this.showproduct();
+            }
           })
           .catch((error) => {
             window.console.log(error);
@@ -272,17 +279,19 @@ export default {
           name: this.updateform.name,
           master: this.updateform.master,
           package: this.updateform.package,
-          prince: this.updateform.prince,
+          price: this.updateform.price,
           language: this.updateform.language,
           supplier: this.updateform.supplier,
           status: this.updateform.status,
           type: this.updateform.type,
         })
         .then((req) => {
-          this.dialogFormVisible_update = false;
-          this.reload();
-          this.showproduct();
-          this.$message({ message: "修改成功", type: "success" });
+          if (req.data == "更新成功") {
+            this.dialogFormVisible_update = false;
+            this.reload();
+            this.showproduct();
+            this.$message({ message: "修改成功", type: "success" });
+          }
         })
         .catch((error) => {
           window.console.log(error);
@@ -292,7 +301,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #product {
   width: 100%;
 }
@@ -305,9 +314,10 @@ export default {
   position: absolute;
   width: 200px;
   top: 10px;
-  right: 50px;
+  left: 50%;
+  margin-left: 200px;
 }
-.el-form-item .el-input {
+.el-form .el-form-item .el-input {
   width: 400px;
 }
 </style>

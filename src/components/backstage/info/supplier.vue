@@ -2,7 +2,7 @@
   <div id="supplier">
     <div class="add">
       <el-button type="primary" @click="dialogFormVisible_add = true"
-        >Add</el-button
+        >新建供应商</el-button
       >
       <el-button v-show="proquit" type="primary" @click="quit()"
         >返回</el-button
@@ -12,33 +12,30 @@
         :visible.sync="dialogFormVisible_add"
         :modal-append-to-body="false"
       >
-        <el-form :model="form">
+        <el-form :model="addform">
           <el-form-item label="供应商编号" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.id" autocomplete="off"></el-input>
+            <el-input v-model="addform.id" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="供应商名称" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
+            <el-input v-model="addform.name" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="负责人" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.type" autocomplete="off"></el-input>
+            <el-input v-model="addform.manager" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="性别" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.size" autocomplete="off"></el-input>
+            <el-input v-model="addform.sex" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="年龄" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.prince" autocomplete="off"></el-input>
+            <el-input v-model="addform.age" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="电话" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.supplier" autocomplete="off"></el-input>
+            <el-input v-model="addform.tel" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="地址" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.supplier" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="状态" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.supplier" autocomplete="off"></el-input>
+            <el-input v-model="addform.address" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="备注" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.remark" autocomplete="off"></el-input>
+            <el-input v-model="addform.remark" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -64,26 +61,24 @@
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: auto"
+      style="margin: 0px 30px"
       height="380"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="pro_id" label="供应商编号" width="120">
+      <el-table-column prop="supId" label="供应商编号" width="120">
       </el-table-column>
-      <el-table-column prop="pro_name" label="供应商名称" width="120">
+      <el-table-column prop="supName" label="供应商名称" width="120">
       </el-table-column>
-      <el-table-column prop="type" label="负责人" width="120">
+      <el-table-column prop="supManager" label="负责人" width="120">
       </el-table-column>
-      <el-table-column prop="size" label="性别" width="120"> </el-table-column>
-      <el-table-column prop="sup_name" label="年龄" width="120">
+      <el-table-column prop="supSex" label="性别" width="120">
       </el-table-column>
-      <el-table-column prop="pro_prince" label="电话" width="120">
+      <el-table-column prop="supAge" label="年龄" width="120">
       </el-table-column>
-      <el-table-column prop="sup_name" label="地址" width="120">
+      <el-table-column prop="supTel" label="电话" width="120">
       </el-table-column>
-      <el-table-column prop="sup_name" label="状态" width="120">
+      <el-table-column prop="supAddress" label="地址" width="120">
       </el-table-column>
-      <el-table-column prop="pro_remark" label="备注" width="120">
+      <el-table-column prop="supRemark" label="备注" width="120">
       </el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
@@ -111,19 +106,19 @@
           <el-input v-model="updateform.name" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="负责人" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.type" autocomplete="off"></el-input>
+          <el-input v-model="updateform.manager" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="性别" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.size" autocomplete="off"></el-input>
+          <el-input v-model="updateform.sex" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="年龄" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.prince" autocomplete="off"></el-input>
+          <el-input v-model="updateform.age" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="电话" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.supplier" autocomplete="off"></el-input>
+          <el-input v-model="updateform.tel" autocomplete="off"></el-input>
         </el-form-item>
-                <el-form-item label="地址" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.supplier" autocomplete="off"></el-input>
+        <el-form-item label="地址" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.address" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="备注" :label-width="formLabelWidth + 'px'">
           <el-input v-model="updateform.remark" autocomplete="off"></el-input>
@@ -154,22 +149,24 @@ export default {
     return {
       tableData: [],
       multipleSelection: [],
-      form: {
+      addform: {
         id: "",
         name: "",
-        type: "",
-        size: "",
-        prince: "",
-        supplier: "",
+        manager: "",
+        sex: "",
+        age: "",
+        tel: "",
+        address: "",
         remark: "",
       },
       updateform: {
         id: "",
         name: "",
-        type: "",
-        size: "",
-        prince: "",
-        supplier: "",
+        manager: "",
+        sex: "",
+        age: "",
+        tel: "",
+        address: "",
         remark: "",
       },
       dialogFormVisible_add: false,
@@ -188,7 +185,7 @@ export default {
   methods: {
     showproduct() {
       this.$axios
-        .get("http://127.0.0.1:3000/product")
+        .get("http://127.0.0.1:3000/supplier")
         .then((res) => {
           if (res.data.length == 0) {
             this.show = false;
@@ -203,55 +200,50 @@ export default {
     },
     add() {
       this.$axios
-        .post("http://127.0.0.1:3000/product/add", {
-          id: this.form.id,
-          name: this.form.name,
-          type: this.form.type,
-          size: this.form.size,
-          prince: this.form.prince,
-          suplier: this.form.supplier,
-          remark: this.form.remark,
+        .post("http://127.0.0.1:3000/supplier/add", {
+          id: this.addform.id,
+          name: this.addform.name,
+          manager: this.addform.manager,
+          sex: this.addform.sex,
+          age: this.addform.age,
+          tel: this.addform.tel,
+          address: this.addform.address,
+          remark: this.addform.remark,
         })
         .then((req) => {
-          this.dialogFormVisible_add = false;
-          this.reload();
-          this.showproduct();
-          this.func1();
+          if (req.data == "添加成功") {
+            this.dialogFormVisible_add = false;
+            this.reload();
+            this.showproduct();
+            this.$message({ message: "添加成功", type: "success" });
+          }
         })
         .catch((error) => {
           window.console.log(error);
         });
     },
-    func1() {
-      this.$message({ message: "添加成功", type: "success" });
-    },
-    func2() {
-      this.$message({ message: "删除成功", type: "success" });
-    },
-    func3() {
-      this.$message({ message: "修改成功", type: "success" });
-    },
     handleEdit(row) {
       this.dialogFormVisible_update = true;
-      this.updateform.id = row.pro_id;
-      this.updateform.name = row.pro_name;
-      this.updateform.type = row.type;
-      this.updateform.size = row.size;
-      this.updateform.prince = row.pro_prince;
-      this.updateform.supplier = row.sup_name;
-      this.updateform.remark = row.pro_remark;
+      this.updateform.id = row.supId;
+      this.updateform.name = row.supName;
+      this.updateform.manager = row.supManager;
+      this.updateform.sex = row.supSex;
+      this.updateform.age = row.supAge;
+      this.updateform.tel = row.supTel;
+      this.updateform.address = row.supAddress;
+      this.updateform.remark = row.supRemark;
     },
     handleDelete(row) {
-      var id = row.pro_id;
+      var id = row.supId;
       this.$confirm("确定删除吗？", "确认信息", {
         distinguishCancelAndClose: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
       }).then(() => {
         this.$axios
-          .post("http://127.0.0.1:3000/product/delete", { id: id })
+          .post("http://127.0.0.1:3000/supplier/delete", { id: id })
           .then((res) => {
-            this.func2();
+            this.$message({ message: "删除成功", type: "success" });
             this.showproduct();
           })
           .catch((error) => {
@@ -262,7 +254,7 @@ export default {
     psearch() {
       this.proquit = true;
       this.$axios
-        .post("http://127.0.0.1:3000/product/select", {
+        .post("http://127.0.0.1:3000/supplier/select", {
           id: this.search,
         })
         .then((req) => {
@@ -280,20 +272,23 @@ export default {
     },
     update() {
       this.$axios
-        .post("http://127.0.0.1:3000/product/update", {
+        .post("http://127.0.0.1:3000/supplier/update", {
           id: this.updateform.id,
           name: this.updateform.name,
-          type: this.updateform.type,
-          size: this.updateform.size,
-          prince: this.updateform.prince,
-          supplier: this.updateform.supplier,
+          manager: this.updateform.manager,
+          sex: this.updateform.sex,
+          age: this.updateform.age,
+          tel: this.updateform.tel,
+          address: this.updateform.address,
           remark: this.updateform.remark,
         })
         .then((req) => {
-          this.dialogFormVisible_update = false;
-          this.reload();
-          this.showproduct();
-          this.func3();
+          if (req.data == "修改成功") {
+            this.dialogFormVisible_update = false;
+            this.reload();
+            this.showproduct();
+            this.$message({ message: "修改成功", type: "success" });
+          }
         })
         .catch((error) => {
           window.console.log(error);
@@ -316,9 +311,10 @@ export default {
   position: absolute;
   width: 200px;
   top: 10px;
-  right: 50px;
+  left: 50%;
+  margin-left: 200px;
 }
 .el-form-item .el-input {
-  width: 150px;
+  width: 400px;
 }
 </style>
