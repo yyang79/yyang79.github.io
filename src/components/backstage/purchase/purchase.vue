@@ -6,16 +6,16 @@
       :visible.sync="dialogFormVisible"
       :modal-append-to-body="false"
     >
-      <el-form :model="addform">
+      <el-form :model="this.$store.state.purchase.addform">
         <el-form-item label="商品编号" :label-width="formLabelWidth">
           <el-select
-            v-model="goods"
+            v-model="this.$store.state.purchase.goods"
             filterable
             placeholder="请选择"
-            @change="selectchange()"
+            @change="goodsselectchange"
           >
             <el-option
-              v-for="item in goodslist"
+              v-for="item in this.$store.state.purchase.goodslist"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -25,42 +25,42 @@
         </el-form-item>
         <el-form-item label="商品名称" :label-width="formLabelWidth">
           <el-input
-            v-model="addform.goodsName"
+            :value="this.$store.state.purchase.addform.goodsName"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
         <el-form-item label="商品材料" :label-width="formLabelWidth">
           <el-input
-            v-model="addform.goodsMaster"
+            :value="this.$store.state.purchase.addform.goodsMaster"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
         <el-form-item label="商品包装" :label-width="formLabelWidth">
           <el-input
-            v-model="addform.goodsPackage"
+            :value="this.$store.state.purchase.addform.goodsPackage"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
         <el-form-item label="商品花语" :label-width="formLabelWidth">
           <el-input
-            v-model="addform.goodsLanguage"
+            :value="this.$store.state.purchase.addform.goodsLanguage"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
         <el-form-item label="供应商" :label-width="formLabelWidth">
           <el-input
-            v-model="addform.supName"
+            :value="this.$store.state.purchase.addform.supName"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
         <el-form-item label="价格" :label-width="formLabelWidth">
           <el-input
-            v-model="addform.goodsPrice"
+            :value="this.$store.state.purchase.addform.goodsPrice"
             autocomplete="off"
             disabled
           ></el-input>
@@ -74,7 +74,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="addgoodsquit">取 消</el-button>
         <el-button type="primary" @click="goodsadd()">确 定</el-button>
       </div>
     </el-dialog>
@@ -89,14 +89,24 @@
       </div>
       <div style="float: left; margin: 10px 30px 10px 0px">
         <span>入库时间：</span>
-        <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+        <el-date-picker
+          v-model="date"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyy-MM-dd"
+          type="date"
+          placeholder="选择日期"
+        >
         </el-date-picker>
       </div>
       <div style="float: left; margin: 10px 30px 10px 0px">
         <span>入库操作人：</span>
-        <el-select v-model="player" placeholder="请选择">
+        <el-select
+          v-model="this.$store.state.purchase.player"
+          placeholder="请选择"
+          @change="playerselectchange"
+        >
           <el-option
-            v-for="item in playerlist"
+            v-for="item in this.$store.state.purchase.playerlist"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -107,17 +117,37 @@
     </div>
     <el-table
       ref="multipleTable"
-      :data="tableData"
+      :data="this.$store.state.purchase.tableData"
       border
       tooltip-effect="dark"
       style="margin: 20px; width: 1050px"
       height="450"
     >
-      <el-table-column prop="goodsId" label="商品编号"></el-table-column>
-      <el-table-column prop="goodsName" label="商品名称"></el-table-column>
-      <el-table-column prop="goodsPrice" label="商品价格"></el-table-column>
-      <el-table-column prop="supName" label="供应商"></el-table-column>
-      <el-table-column prop="goodsNum" label="数量"> </el-table-column>
+      <el-table-column label="商品编号">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.goodsId }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="商品名称">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.goodsName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="商品价格">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.goodsPrice }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="供应商">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.supName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="数量">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.goodsNum }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -132,27 +162,30 @@
       :visible.sync="updateformvisible"
       :modal-append-to-body="false"
     >
-      <el-form :model="updateform">
+      <el-form :model="this.$store.state.purchase.updateform">
         <el-form-item label="商品编号" :label-width="formLabelWidth">
-          <el-input v-model="updateform.goodsId" disabled></el-input>
+          <el-input
+            v-model="this.$store.state.purchase.updateform.goodsId"
+            disabled
+          ></el-input>
         </el-form-item>
         <el-form-item label="商品名称" :label-width="formLabelWidth">
           <el-input
-            v-model="updateform.goodsName"
+            v-model="this.$store.state.purchase.updateform.goodsName"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
         <el-form-item label="供应商" :label-width="formLabelWidth">
           <el-input
-            v-model="updateform.supName"
+            v-model="this.$store.state.purchase.updateform.supName"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
         <el-form-item label="价格" :label-width="formLabelWidth">
           <el-input
-            v-model="updateform.goodsPrice"
+            v-model="this.$store.state.purchase.updateform.goodsPrice"
             autocomplete="off"
             disabled
           ></el-input>
@@ -160,13 +193,13 @@
         <el-form-item label="数量" :label-width="formLabelWidth">
           <el-input
             type="number"
-            v-model="updateform.goodsNum"
+            v-model="updatenum"
             autocomplete="off"
           ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="updateformvisible = false">取 消</el-button>
         <el-button type="primary" @click="goodsupdate()">确 定</el-button>
       </div>
     </el-dialog>
@@ -195,62 +228,60 @@
 
 <script>
 export default {
-  name: "purchase",
+  computed: {
+    date: {
+      get() {
+        return this.$store.state.purchase.date;
+      },
+      set(val) {
+        return this.$store.commit("purchase/datechange", val);
+      },
+    },
+    updatenum: {
+      get() {
+        return this.$store.state.purchase.updateform.goodsNum;
+      },
+      set(val) {
+        return this.$store.commit("purchase/updatenum", val);
+      },
+    },
+    goodsnum: {
+      get() {
+        return this.$store.state.purchase.goodsnum;
+      },
+      set(val) {
+        return this.$store.commit("purchase/goodsnum", val);
+      },
+    },
+  },
   data() {
     return {
-      tableData: [],
-      multipleSelection: [],
+      formLabelWidth: "100px",
       dialogTableVisible: false,
       dialogFormVisible: false,
-      goodsdata: [],
-      addform: [],
-      updateform: [],
       updateformvisible: false,
 
-      formLabelWidth: "100px",
-      goodslist: [],
-      goods: "",
-      goodsnum: "",
+      tableData: [],
+      updateform: [],
+      addform: [],
 
-      playerlist: [
-        {
-          value: "选项1",
-          label: "选项1",
-        },
-        {
-          value: "选项2",
-          label: "选项2",
-        },
-        {
-          value: "选项3",
-          label: "选项3",
-        },
-        {
-          value: "选项4",
-          label: "选项4",
-        },
-        {
-          value: "选项5",
-          label: "选项5",
-        },
-      ],
-      player: "",
-      value1: "",
-      inputval: "",
+      inputval: "RK0000001",
     };
   },
   beforeCreate: function () {
     this.$axios
       .get("http://127.0.0.1:3000/purchase")
       .then((res) => {
-        this.goods = res.data[0].goodsId;
-        this.goodsdata = res.data;
-        this.addform = this.goodsdata[0];
+        this.$store.commit("purchase/goodsdata", res.data);
+        var num = this.$store.state.purchase.num;
         for (var i = 0; i < res.data.length; i++) {
-          this.goodslist.push({
-            value: res.data[i].goodsId,
-            label: res.data[i].goodsId,
-          });
+          if (num < res.data.length) {
+            this.$store.commit("purchase/goodslist", {
+              value: res.data[i].goodsId,
+              lable: res.data[i].goodsId,
+            });
+            this.$store.commit("purchase/countnum", num + res.data.length);
+          }
         }
       })
       .catch((error) => {
@@ -258,12 +289,24 @@ export default {
       });
   },
   methods: {
+    playerselectchange(val) {
+      this.$store.commit("purchase/playerchange", val);
+    },
+    goodsselectchange(val) {
+      this.$store.commit("purchase/selectchange", val);
+      var list = this.$store.state.purchase.goodsdata;
+      for (var i = 0; i < list.length; i++) {
+        if (val == list[i].goodsId) {
+          this.$store.commit("purchase/addform", list[i]);
+        }
+      }
+    },
     add() {
       this.dialogFormVisible = true;
     },
     handleEdit(row) {
       this.updateformvisible = true;
-      this.updateform = row;
+      this.$store.commit("purchase/updateform", row);
     },
     handleDelete(row) {
       this.$confirm("确定删除吗？", "确认信息", {
@@ -272,73 +315,119 @@ export default {
         cancelButtonText: "取消",
       })
         .then(() => {
-          for (var i = 0; i < this.tableData.length; i++) {
-            if (this.tableData[i].goodsId == row.goodsId) {
-              this.tableData.splice(i, 1);
+          var tableData = this.$store.state.purchase.tableData;
+          for (var i = 0; i < tableData.length; i++) {
+            if (tableData[i].goodsId == row.goodsId) {
+              this.$store.commit("purchase/tableDatadelete", i);
+              this.$message({ message: "删除成功", type: "success" });
+              this.$store.commit("purchase/goodslist", {
+                value: row.goodsId,
+                lable: row.goodsId,
+              });
             }
           }
-          this.goodslist.push({
-            value: row.goodsId,
-            label: row.goodsId,
-          });
-          this.$message({ message: "删除成功", type: "success" });
+          this.$store.commit("purchase/goodslistsort");
         })
         .catch((error) => {
           window.console.log(error);
         });
     },
+    addgoodsquit() {
+      this.dialogFormVisible = false;
+      this.$store.commit("purchase/goods", "");
+      this.$store.commit("purchase/goodsnum", "");
+    },
     goodsadd() {
-      if (this.goodsnum == "") {
-        alert("数目不能为空");
+      var goods = this.$store.state.purchase.goods;
+      if (goods == "") {
+        alert("请选择商品条目");
+      } else if (this.goodsnum == "") {
+        alert("商品数目不能为空");
       } else {
-        this.tableData.push({
-          goodsId: this.addform.goodsId,
-          goodsName: this.addform.goodsName,
-          goodsPrice: this.addform.goodsPrice,
-          supName: this.addform.supName,
-          goodsNum: this.goodsnum,
+        var list = this.$store.state.purchase.addform;
+        var goodsnum = this.$store.state.purchase.goodsnum;
+        this.$store.commit("purchase/tableDataadd", {
+          goodsId: list.goodsId,
+          goodsName: list.goodsName,
+          goodsPrice: list.goodsPrice,
+          supName: list.supName,
+          goodsNum: goodsnum,
         });
-        for (var i = 0; i < this.goodslist.length; i++) {
-          if (this.goodslist[i].value == this.addform.goodsId) {
-            this.goodslist.splice(i, 1);
+        var goodslist = this.$store.state.purchase.goodslist;
+        for (var i = 0; i < goodslist.length; i++) {
+          if (goodslist[i].value == list.goodsId) {
+            goodslist.splice(i, 1);
           }
         }
-        this.goods = this.goodslist[0].value;
-        for (var i = 0; i < this.goodsdata.length; i++) {
-          if (this.goods == this.goodsdata[i].goodsId) {
-            this.addform = this.goodsdata[i];
-          }
-        }
-        this.goodsnum = "";
+        this.$store.commit("purchase/goods", "");
+        this.$store.commit("purchase/goodsnum", "");
+        this.$store.commit("purchase/addform", []);
         this.dialogFormVisible = false;
       }
     },
     goodsupdate() {
-      for (var i = 0; i < this.goodsdata.length; i++) {
-        if (this.updateform.goodsId == this.goodsdata[i].goodsId) {
-          this.goodsdata[i].goodsNum = this.updateform.goodsNum;
+      var tableData = this.$store.state.purchase.tableData;
+      var updateform = this.$store.state.purchase.updateform;
+      for (var i = 0; i < tableData.length; i++) {
+        if (updateform.goodsId == tableData[i].goodsId) {
+          tableData[i].goodsNum = updateform.goodsNum;
         }
       }
+      this.$store.commit("purchase/tableDatachange", tableData);
       this.updateformvisible = false;
-      this.$message({message:"修改成功",type:"success"})
+      this.$message({ message: "修改成功", type: "success" });
     },
-    selectchange() {
-      for (var i = 0; i < this.goodsdata.length; i++) {
-        if (this.goods == this.goodsdata[i].goodsId) {
-          this.addform = this.goodsdata[i];
-        }
-      }
-    },
+
     submit() {
-      if (this.value1 == "") {
+      var player = this.$store.state.purchase.player;
+      var goodslist = this.$store.state.purchase.goodslist;
+      if (this.date == "" || this.date == null) {
         alert("请填写入库时间");
-      }else if (this.player == "") {
+      } else if (player == "") {
         alert("请填写入库操作人");
-      }else{
-        alert("提交成功！")
+      } else {
+        var tableData = this.$store.state.purchase.tableData;
+        var list = [];
+        for (var i = 0; i < tableData.length; i++) {
+          list.push({
+            goodsId: tableData[i].goodsId,
+            num: tableData[i].goodsNum,
+          });
+          goodslist.push({
+            value: tableData[i].goodsId,
+            lable: tableData[i].goodsId,
+          });
+        }
+
+        this.$store.commit("purchase/goodslistsort");
+
+        this.$axios
+          .post("http://127.0.0.1:3000/purchase/submit", {
+            id: this.inputval,
+            date: this.date,
+            player: player,
+            goodslist: list,
+          })
+          .then((res) => {
+            if (res.data == "提交成功") {
+              this.$message({ message: "提交成功", type: "success" });
+            }
+          })
+          .catch((error) => {
+            window.console.log(error);
+          });
+        this.$store.commit("purchase/goods", "");
+        this.$store.commit("purchase/goodsnum", "");
+        this.$store.commit("purchase/addform", []);
+        this.$store.commit("purchase/tableData", []);
+        this.$store.commit("purchase/datechange", "");
+        this.$store.commit("purchase/playerchange", "");
+        this.inputval = "RK000000" + "2";
       }
     },
-    recovery() {},
+    recovery() {
+      alert(JSON.stringify(this.$store.state.purchase.num));
+    },
   },
 };
 </script>

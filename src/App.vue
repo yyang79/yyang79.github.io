@@ -7,7 +7,6 @@
 <script>
 export default {
   name: "app",
-
 /*   created() {
     //在页面刷新时将vuex里的信息保存到localStorage里
     window.addEventListener("beforeunload", () => {

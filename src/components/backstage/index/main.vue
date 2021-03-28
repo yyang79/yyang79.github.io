@@ -91,6 +91,7 @@
       <li><router-link to="/sale">销售出库</router-link></li>
       <li><router-link to="/order">订单管理</router-link></li>
       <li><router-link to="/stockcheck">库存盘点</router-link></li>
+      <li><router-link to="/purchasechart">采购报表</router-link></li>
       <li><router-link to="/user">用户管理</router-link></li>
     </div>
     <div class="show">
