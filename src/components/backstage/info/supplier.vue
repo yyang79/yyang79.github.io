@@ -61,25 +61,16 @@
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="margin: 0px 30px"
-      height="380"
+      style="margin: 0px 30px; width: 1050px"
     >
-      <el-table-column prop="supId" label="供应商编号" width="120">
-      </el-table-column>
-      <el-table-column prop="supName" label="供应商名称" width="120">
-      </el-table-column>
-      <el-table-column prop="supManager" label="负责人" width="120">
-      </el-table-column>
-      <el-table-column prop="supSex" label="性别" width="120">
-      </el-table-column>
-      <el-table-column prop="supAge" label="年龄" width="120">
-      </el-table-column>
-      <el-table-column prop="supTel" label="电话" width="120">
-      </el-table-column>
-      <el-table-column prop="supAddress" label="地址" width="120">
-      </el-table-column>
-      <el-table-column prop="supRemark" label="备注" width="120">
-      </el-table-column>
+      <el-table-column prop="supId" label="供应商编号"> </el-table-column>
+      <el-table-column prop="supName" label="供应商名称"> </el-table-column>
+      <el-table-column prop="supManager" label="负责人"> </el-table-column>
+      <el-table-column prop="supSex" label="性别"> </el-table-column>
+      <el-table-column prop="supAge" label="年龄"> </el-table-column>
+      <el-table-column prop="supTel" label="电话"> </el-table-column>
+      <el-table-column prop="supAddress" label="地址"> </el-table-column>
+      <el-table-column prop="supRemark" label="备注"> </el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -210,8 +201,8 @@ export default {
           address: this.addform.address,
           remark: this.addform.remark,
         })
-        .then((req) => {
-          if (req.data == "添加成功") {
+        .then((res) => {
+          if (res.data == "添加成功") {
             this.dialogFormVisible_add = false;
             this.reload();
             this.showproduct();
@@ -242,7 +233,7 @@ export default {
       }).then(() => {
         this.$axios
           .post("http://127.0.0.1:3000/supplier/delete", { id: id })
-          .then((res) => {
+          .then(() => {
             this.$message({ message: "删除成功", type: "success" });
             this.showproduct();
           })
@@ -257,8 +248,8 @@ export default {
         .post("http://127.0.0.1:3000/supplier/select", {
           id: this.search,
         })
-        .then((req) => {
-          this.tableData = req.data;
+        .then((res) => {
+          this.tableData = res.data;
           this.show = false;
           this.search = "";
         })

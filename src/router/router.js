@@ -15,7 +15,6 @@ import reception_detailpage from '../components/reception/detailpage/detailpage'
 import backstage_index from '../components/backstage/index/index'
 import backstage_customer from '../components/backstage/info/customer'
 import backstage_product from '../components/backstage/info/product'
-import backstage_prosize from '../components/backstage/info/prosize'
 import backstage_protype from '../components/backstage/info/protype'
 import backstage_supplier from '../components/backstage/info/supplier'
 import backstage_purchase from '../components/backstage/purchase/purchase'
@@ -93,10 +92,6 @@ const routes = [
         {
             path: "/product",
             component: backstage_product,
-        },
-        {
-            path: "/prosize",
-            component: backstage_prosize,
         },
         {
             path: "/protype",

@@ -63,7 +63,7 @@
       ref="multipleTable"
       :data="tableData"
       border
-      style="margin: 10px 30px; width: 1000px"
+      style="margin: 10px 30px; width: 1050px"
       tooltip-effect="dark"
       height="380"
     >

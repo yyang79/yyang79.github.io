@@ -38,7 +38,7 @@ export default {
       this.$router.replace("/login");
     },
     quit: function () {
-      window.close();
+      this.$router.replace("/index");
     },
   },
 };

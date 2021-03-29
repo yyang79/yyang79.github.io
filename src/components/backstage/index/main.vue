@@ -24,7 +24,6 @@
                 <el-menu-item index="/supplier">供应商资料</el-menu-item>
                 <el-menu-item index="/customer">客户资料</el-menu-item>
                 <el-menu-item index="/product">商品资料</el-menu-item>
-                <el-menu-item index="/prosize">规格资料</el-menu-item>
                 <el-menu-item index="/protype">类型资料</el-menu-item>
               </el-menu-item-group>
             </el-submenu>

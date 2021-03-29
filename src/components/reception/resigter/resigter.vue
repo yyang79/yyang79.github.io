@@ -52,6 +52,7 @@
             <h3 style="text-align: center">账号注册</h3>
             <el-form-item style="margin: 10px 10px">
               <el-input
+                style="width: 280px"
                 prefix-icon="el-icon-user"
                 v-model="name"
                 placeholder="请输入手机号"
@@ -69,6 +70,7 @@
             </el-form-item>
             <el-form-item style="margin: 10px 10px">
               <el-input
+                style="width: 280px"
                 prefix-icon="el-icon-lock"
                 v-model="name"
                 placeholder="请输入密码"
@@ -76,6 +78,7 @@
             </el-form-item>
             <el-form-item style="margin: 10px 10px">
               <el-input
+                style="width: 280px"
                 prefix-icon="el-icon-lock"
                 v-model="name"
                 placeholder="请再次输入密码"
@@ -156,4 +159,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

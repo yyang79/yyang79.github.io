@@ -1,9 +1,7 @@
 <template>
   <div id="type">
     <div class="add">
-      <el-button type="primary" @click="dialogFormVisible_add = true"
-        >Add</el-button
-      >
+      <el-button type="primary" @click="addtype">添加商品类型</el-button>
       <el-button v-show="proquit" type="primary" @click="quit()"
         >返回</el-button
       >
@@ -12,12 +10,16 @@
         :visible.sync="dialogFormVisible_add"
         :modal-append-to-body="false"
       >
-        <el-form :model="form">
-          <el-form-item label="类型编号" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.id" autocomplete="off"></el-input>
+        <el-form :model="addform">
+          <el-form-item label="类型编号：" :label-width="formLabelWidth + 'px'">
+            <el-input
+              disabled
+              v-model="addform.typeId"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="类型名称" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
+          <el-form-item label="类型名称：" :label-width="formLabelWidth + 'px'">
+            <el-input v-model="addform.typeName" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -38,18 +40,23 @@
     <div style="text-align: center">
       <h3 style="color: red">商品类型资料</h3>
     </div>
+    <el-divider></el-divider>
     <el-table
       ref="multipleTable"
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: auto"
-      height="380"
+      style="width: 500px; margin: 20px auto"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="pro_id" label="类型编号" width="120">
+      <el-table-column label="类型编号">
+        <template slot-scope="scope">
+          <span>{{ scope.row.typeId }}</span>
+        </template>
       </el-table-column>
-      <el-table-column prop="pro_name" label="类型名称" width="120">
+      <el-table-column prop="pro_name" label="类型名称">
+        <template slot-scope="scope">
+          <span>{{ scope.row.typeName }}</span>
+        </template>
       </el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
@@ -66,15 +73,15 @@
       :modal-append-to-body="false"
     >
       <el-form :model="updateform">
-        <el-form-item label="类型编号" :label-width="formLabelWidth + 'px'">
+        <el-form-item label="类型编号：" :label-width="formLabelWidth + 'px'">
           <el-input
-            v-model="updateform.id"
+            v-model="updateform.typeId"
             autocomplete="off"
             disabled
           ></el-input>
         </el-form-item>
-        <el-form-item label="类型名称" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.name" autocomplete="off"></el-input>
+        <el-form-item label="类型名称：" :label-width="formLabelWidth + 'px'">
+          <el-input v-model="updateform.typeName" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -101,25 +108,8 @@ export default {
   data() {
     return {
       tableData: [],
-      multipleSelection: [],
-      form: {
-        id: "",
-        name: "",
-        type: "",
-        size: "",
-        prince: "",
-        supplier: "",
-        remark: "",
-      },
-      updateform: {
-        id: "",
-        name: "",
-        type: "",
-        size: "",
-        prince: "",
-        supplier: "",
-        remark: "",
-      },
+      addform: [],
+      updateform: [],
       dialogFormVisible_add: false,
       dialogFormVisible_update: false,
       formLabelWidth: 100,
@@ -128,6 +118,7 @@ export default {
       search: "",
       show: true,
       proquit: false,
+      num: "",
     };
   },
   created: function () {
@@ -136,71 +127,67 @@ export default {
   methods: {
     showproduct() {
       this.$axios
-        .get("http://127.0.0.1:3000/product")
+        .get("http://127.0.0.1:3000/type")
         .then((res) => {
           if (res.data.length == 0) {
             this.show = false;
+            this.tableData = [];
+          } else {
+            this.tableData = res.data;
+            this.num = res.data.length;
+            this.total = res.data.length;
           }
-          this.tableData = res.data;
-          this.searchlist = res.data;
-          this.total = res.data.length;
         })
         .catch((error) => {
           window.console.log(error);
         });
+    },
+    addtype() {
+      this.dialogFormVisible_add = true;
+      var number = this.num + 1;
+      this.addform = { typeId: "LX" + number, typeName: "" };
     },
     add() {
-      this.$axios
-        .post("http://127.0.0.1:3000/product/add", {
-          id: this.form.id,
-          name: this.form.name,
-          type: this.form.type,
-          size: this.form.size,
-          prince: this.form.prince,
-          suplier: this.form.supplier,
-          remark: this.form.remark,
-        })
-        .then((req) => {
-          this.dialogFormVisible_add = false;
-          this.reload();
-          this.showproduct();
-          this.func1();
-        })
-        .catch((error) => {
-          window.console.log(error);
-        });
+      if (this.addform.typeName == "") {
+        this.$message({ message: "请输入商品类型名称", type: "warning" });
+      } else {
+        this.$axios
+          .post("http://127.0.0.1:3000/type/add", {
+            id: this.addform.typeId,
+            name: this.addform.typeName,
+          })
+          .then((res) => {
+            if (res.data == "添加成功") {
+              this.dialogFormVisible_add = false;
+              this.reload();
+              this.showproduct();
+              this.$message({ message: "添加成功", type: "success" });
+            }
+          })
+          .catch((error) => {
+            window.console.log(error);
+          });
+      }
     },
-    func1() {
-      this.$message({ message: "添加成功", type: "success" });
-    },
-    func2() {
-      this.$message({ message: "删除成功", type: "success" });
-    },
-    func3() {
-      this.$message({ message: "修改成功", type: "success" });
-    },
+
     handleEdit(row) {
       this.dialogFormVisible_update = true;
-      this.updateform.id = row.pro_id;
-      this.updateform.name = row.pro_name;
-      this.updateform.type = row.type;
-      this.updateform.size = row.size;
-      this.updateform.prince = row.pro_prince;
-      this.updateform.supplier = row.sup_name;
-      this.updateform.remark = row.pro_remark;
+      this.updateform = { typeId: row.typeId, typeName: row.typeName };
     },
     handleDelete(row) {
-      var id = row.pro_id;
+      var id = row.typeId;
       this.$confirm("确定删除吗？", "确认信息", {
         distinguishCancelAndClose: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
       }).then(() => {
         this.$axios
-          .post("http://127.0.0.1:3000/product/delete", { id: id })
+          .post("http://127.0.0.1:3000/type/delete", { id: id })
           .then((res) => {
-            this.func2();
-            this.showproduct();
+            if (res.data == "删除成功") {
+              this.$message({ message: "删除成功", type: "success" });
+              this.showproduct();
+            }
           })
           .catch((error) => {
             window.console.log(error);
@@ -210,11 +197,11 @@ export default {
     psearch() {
       this.proquit = true;
       this.$axios
-        .post("http://127.0.0.1:3000/product/select", {
+        .post("http://127.0.0.1:3000/type/select", {
           id: this.search,
         })
-        .then((req) => {
-          this.tableData = req.data;
+        .then((res) => {
+          this.tableData = res.data;
           this.show = false;
           this.search = "";
         })
@@ -228,20 +215,17 @@ export default {
     },
     update() {
       this.$axios
-        .post("http://127.0.0.1:3000/product/update", {
-          id: this.updateform.id,
-          name: this.updateform.name,
-          type: this.updateform.type,
-          size: this.updateform.size,
-          prince: this.updateform.prince,
-          supplier: this.updateform.supplier,
-          remark: this.updateform.remark,
+        .post("http://127.0.0.1:3000/type/update", {
+          id: this.updateform.typeId,
+          name: this.updateform.typeName,
         })
-        .then((req) => {
-          this.dialogFormVisible_update = false;
-          this.reload();
-          this.showproduct();
-          this.func3();
+        .then((res) => {
+          if (res.data == "更新成功") {
+            this.dialogFormVisible_update = false;
+            this.reload();
+            this.showproduct();
+            this.$message({ message: "修改成功", type: "success" });
+          }
         })
         .catch((error) => {
           window.console.log(error);

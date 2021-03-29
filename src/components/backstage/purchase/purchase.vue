@@ -198,7 +198,7 @@
           ></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer">
         <el-button @click="updateformvisible = false">取 消</el-button>
         <el-button type="primary" @click="goodsupdate()">确 定</el-button>
       </div>
@@ -265,7 +265,7 @@ export default {
       updateform: [],
       addform: [],
 
-      inputval: "RK0000001",
+      inputval: "",
     };
   },
   beforeCreate: function () {
@@ -283,6 +283,11 @@ export default {
             this.$store.commit("purchase/countnum", num + res.data.length);
           }
         }
+        var purid = "RK" + this.getdate();
+        for (var j = 0; j < 4; j++) {
+          purid += Math.round(Math.random() * 10);
+        }
+        this.inputval = purid;
       })
       .catch((error) => {
         window.console.log(error);
@@ -422,8 +427,37 @@ export default {
         this.$store.commit("purchase/tableData", []);
         this.$store.commit("purchase/datechange", "");
         this.$store.commit("purchase/playerchange", "");
-        this.inputval = "RK000000" + "2";
+        this.inputval = "RK" + this.getdate();
+        for (var j = 0; j < 4; j++) {
+          this.inputval += Math.round(Math.random() * 10);
+        }
       }
+    },
+    getdate() {
+      var myDate = new Date();
+      var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+      var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+      var myToday = myDate.getDate(); //获取当前日(1-31)
+      var myHour = myDate.getHours(); //获取当前小时数(0-23)
+      var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+      var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+      var time =
+        myYear +
+        this.fillZero(myMonth) +
+        this.fillZero(myToday) +
+        this.fillZero(myHour) +
+        this.fillZero(myMinute) +
+        this.fillZero(mySecond);
+      return time;
+    },
+    fillZero(val) {
+      var realNum;
+      if (val < 10) {
+        realNum = "0" + val;
+      } else {
+        realNum = val;
+      }
+      return realNum;
     },
     recovery() {
       alert(JSON.stringify(this.$store.state.purchase.num));
