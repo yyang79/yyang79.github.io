@@ -1,12 +1,8 @@
 <template>
   <div id="supplier">
     <div class="add">
-      <el-button type="primary" @click="dialogFormVisible_add = true"
-        >新建供应商</el-button
-      >
-      <el-button v-show="proquit" type="primary" @click="quit()"
-        >返回</el-button
-      >
+      <el-button @click="dialogFormVisible_add = true">新建供应商</el-button>
+      <el-button v-show="proquit" @click="quit()">返回</el-button>
       <el-dialog
         title="供应商添加"
         :visible.sync="dialogFormVisible_add"
@@ -14,7 +10,11 @@
       >
         <el-form :model="addform">
           <el-form-item label="供应商编号" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.id" autocomplete="off"></el-input>
+            <el-input
+              v-model="addform.id"
+              disabled
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
           <el-form-item label="供应商名称" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.name" autocomplete="off"></el-input>
@@ -23,7 +23,15 @@
             <el-input v-model="addform.manager" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="性别" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.sex" autocomplete="off"></el-input>
+            <el-select v-model="addform.sex" placeholder="请选择">
+              <el-option
+                v-for="item in sexlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="年龄" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.age" autocomplete="off"></el-input>
@@ -56,22 +64,32 @@
     <div style="text-align: center">
       <h3 style="color: red">供应商资料</h3>
     </div>
+    <el-divider></el-divider>
     <el-table
       ref="multipleTable"
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="margin: 0px 30px; width: 1050px"
+      :header-cell-style="{ background: '#f7f7f7' }"
+      style="margin: 20px auto; width: 1101px"
     >
-      <el-table-column prop="supId" label="供应商编号"> </el-table-column>
-      <el-table-column prop="supName" label="供应商名称"> </el-table-column>
-      <el-table-column prop="supManager" label="负责人"> </el-table-column>
-      <el-table-column prop="supSex" label="性别"> </el-table-column>
-      <el-table-column prop="supAge" label="年龄"> </el-table-column>
-      <el-table-column prop="supTel" label="电话"> </el-table-column>
-      <el-table-column prop="supAddress" label="地址"> </el-table-column>
-      <el-table-column prop="supRemark" label="备注"> </el-table-column>
-      <el-table-column label="操作" width="150">
+      <el-table-column prop="supId" label="供应商编号" width="150">
+      </el-table-column>
+      <el-table-column prop="supName" label="供应商名称" width="100">
+      </el-table-column>
+      <el-table-column prop="supManager" label="负责人" width="100">
+      </el-table-column>
+      <el-table-column prop="supSex" label="性别" width="100">
+      </el-table-column>
+      <el-table-column prop="supAge" label="年龄" width="100">
+      </el-table-column>
+      <el-table-column prop="supTel" label="电话" width="100">
+      </el-table-column>
+      <el-table-column prop="supAddress" label="地址" width="150">
+      </el-table-column>
+      <el-table-column prop="supRemark" label="备注" width="100">
+      </el-table-column>
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
@@ -100,7 +118,15 @@
           <el-input v-model="updateform.manager" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="性别" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.sex" autocomplete="off"></el-input>
+          <el-select v-model="updateform.sex" placeholder="请选择">
+            <el-option
+              v-for="item in sexlist"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="年龄" :label-width="formLabelWidth + 'px'">
           <el-input v-model="updateform.age" autocomplete="off"></el-input>
@@ -160,6 +186,10 @@ export default {
         address: "",
         remark: "",
       },
+      sexlist: [
+        { label: "男", value: "男" },
+        { label: "女", value: "女" },
+      ],
       dialogFormVisible_add: false,
       dialogFormVisible_update: false,
       formLabelWidth: 100,
@@ -184,6 +214,9 @@ export default {
           this.tableData = res.data;
           this.searchlist = res.data;
           this.total = res.data.length;
+          var goodid = "GYS_";
+          goodid += res.data.length + 1;
+          this.addform.id = goodid;
         })
         .catch((error) => {
           window.console.log(error);
@@ -273,8 +306,8 @@ export default {
           address: this.updateform.address,
           remark: this.updateform.remark,
         })
-        .then((req) => {
-          if (req.data == "修改成功") {
+        .then((res) => {
+          if (res.data == "更新成功") {
             this.dialogFormVisible_update = false;
             this.reload();
             this.showproduct();
@@ -289,14 +322,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #supplier {
+  margin: 0px auto;
   width: 100%;
+  height: 1000px;
 }
 .add {
   position: absolute;
   top: 10px;
-  left: 30px;
+  left: 80px;
 }
 .search {
   position: absolute;

@@ -6,15 +6,19 @@
       :data="orderlist"
       border
       tooltip-effect="dark"
-      style="width: 1000px; margin: 0px 30px"
+      :header-cell-style="{ background: '#f7f7f7' }"
+      style="width: 1010px; margin: 0px auto"
     >
-      <el-table-column prop="orderid" label="订单编号"> </el-table-column>
-      <el-table-column label="订单创建时间">
+      <el-table-column prop="orderid" label="订单编号" width="200">
+      </el-table-column>
+      <el-table-column label="订单创建时间" width="200">
         <template slot-scope="scope">{{ scope.row.date }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="创立建昵称"> </el-table-column>
-      <el-table-column prop="status" label="订单状态"> </el-table-column>
-      <el-table-column label="操作" width="200">
+      <el-table-column prop="name" label="创立建昵称" width="200">
+      </el-table-column>
+      <el-table-column prop="status" label="订单状态" width="200">
+      </el-table-column>
+      <el-table-column label="操作" width="210">
         <template slot-scope="scope">
           <el-button size="mini" @click="listdetail(scope.row)"
             >查看详情</el-button
@@ -35,16 +39,17 @@
         :data="detaillist"
         border
         tooltip-effect="dark"
-        style="width: 481px; margin: 0px 20px"
+        :header-cell-style="{ background: '#f7f7f7' }"
+        style="width: 602px; margin: 10px auto"
       >
-        <el-table-column prop="id" label="商品编号" width="120">
+        <el-table-column prop="id" label="商品编号" width="150">
         </el-table-column>
-        <el-table-column label="商品名称" width="120">
+        <el-table-column label="商品名称" width="150">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
-        <el-table-column prop="price" label="商品价格" width="120">
+        <el-table-column prop="price" label="商品价格" width="150">
         </el-table-column>
-        <el-table-column prop="num" label="商品数量" width="120">
+        <el-table-column prop="num" label="商品数量" width="150">
         </el-table-column>
       </el-table>
       <div slot="footer">
@@ -107,12 +112,12 @@ export default {
     },
     handleOrder(row) {
       this.$router.push({
-        path: `/orderdetails/${row.orderid}`,
+        path: `/order/details/${row.orderid}`,
       });
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 </style>

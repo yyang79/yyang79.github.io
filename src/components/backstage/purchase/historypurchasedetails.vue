@@ -10,23 +10,24 @@
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 700px; margin: 10px auto"
+      :header-cell-style="{ background: '#f7f7f7'}"
+      style="width: 1002px; margin: 50px auto"
     >
-      <el-table-column label="商品编号">
+      <el-table-column label="商品编号" width="200">
         <template slot-scope="scope">{{ scope.row.goodsId }}</template>
       </el-table-column>
-      <el-table-column label="商品名称">
+      <el-table-column label="商品名称" width="200">
         <template slot-scope="scope">{{ scope.row.goodsName }}</template>
       </el-table-column>
-      <el-table-column label="价格">
+      <el-table-column label="价格" width="200">
         <template slot-scope="scope">{{
           scope.row.goodsPrice
         }}</template></el-table-column
       >
-      <el-table-column label="数量">
+      <el-table-column label="数量" width="200">
         <template slot-scope="scope">{{ scope.row.purNum }}</template>
       </el-table-column>
-      <el-table-column label="数量" width="150">
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button size="mini" @click="lookover(scope.row)"
             >查看商品更多信息</el-button
@@ -140,7 +141,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.replace("/historypurchase");
+      this.$router.replace("/purchase/history");
     },
     lookover(row) {
       this.goodsallinfoVisible = true;

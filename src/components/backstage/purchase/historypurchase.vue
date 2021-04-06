@@ -6,21 +6,22 @@
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 700px;margin:10px auto"
+      :header-cell-style="{ background: '#f7f7f7' }"
+      style="width: 922px; margin: 10px auto"
     >
-      <el-table-column prop="name" label="入库编号">
+      <el-table-column prop="name" label="入库编号" width="200">
         <template slot-scope="scope">{{ scope.row.purId }}</template>
       </el-table-column>
-      <el-table-column label="入库时间" width="120">
-        <template slot-scope="scope">{{ scope.row.purName }}</template>
+      <el-table-column label="入库时间" width="200">
+        <template slot-scope="scope">{{ scope.row.purDate }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="入库操作人">
+      <el-table-column prop="name" label="入库操作人" width="200">
         <template slot-scope="scope">{{ scope.row.cusName }}</template>
       </el-table-column>
-      <el-table-column prop="address" label="入库状态">
+      <el-table-column prop="address" label="入库状态" width="200">
         <template slot-scope="scope">{{ scope.row.purStatus }}</template>
       </el-table-column>
-      <el-table-column label="操作" width="150">
+      <el-table-column label="操作" width="120">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)"
             >查看详情</el-button
@@ -52,12 +53,12 @@ export default {
   methods: {
     handleEdit(row) {
       this.$router.push({
-        path: `/historypurchasedetails/${row.purId}`,
+        path: `/purchase/history/details/${row.purId}`,
       });
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 </style>

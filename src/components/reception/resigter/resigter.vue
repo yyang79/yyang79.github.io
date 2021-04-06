@@ -14,23 +14,22 @@
         style="
           width: 100%;
           min-width: 1200px;
-          height: 100px;
+          height: 120px;
           background-color: #f3f3f3;
         "
       >
         <el-cow>
           <el-col :span="4" :offset="2"
             ><el-image
-              :src="backimage"
-              style="width: 200px; height: 80px; margin-top: 10px"
+              :src="logo"
+              style="width: 200px; height: 100px; margin-top: 10px"
             ></el-image
           ></el-col>
           <el-col :span="4" :offset="12"
-            ><el-image
-              :src="backimage"
-              style="width: 200px; height: 80px; margin-top: 10px"
-            ></el-image
-          ></el-col>
+            ><h3 style="margin-top: 40px">
+              <i class="el-icon-phone"></i>：000-0000-000
+            </h3></el-col
+          >
         </el-cow>
       </el-header>
       <el-main
@@ -40,7 +39,7 @@
         <div
           style="
             position: absolute;
-            top: 130px;
+            top: 140px;
             left: 70%;
             width: 300px;
             height: 400px;
@@ -116,8 +115,6 @@
           <router-link to="/">联系方式</router-link>
           <router-link to="/">花店入驻</router-link>
           <router-link to="/">友情链接</router-link>
-          <router-link to="/"></router-link>
-          <router-link to="/"></router-link>
         </div>
       </el-footer>
     </el-container>
@@ -154,10 +151,14 @@ export default {
       name: "",
       backimage: backimage,
       identifyCode: "",
+      logo: require("../../../assets/images/logo.png"),
     };
   },
 };
 </script>
 
 <style scoped>
+.el-footer div a{
+  margin: 10px;
+}
 </style>

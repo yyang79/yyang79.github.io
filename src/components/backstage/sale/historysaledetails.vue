@@ -4,26 +4,115 @@
       <el-page-header style="padding: 15px" @back="goBack" content="详情页面">
       </el-page-header>
     </div>
-    <h3 style="text-align: center; color: red">历史销售记录详情表</h3>
+    <h3 style="text-align: center; color: red">历史出库记录详情表</h3>
     <el-table
       ref="multipleTable"
-      :data="tableData2"
+      :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 100%"
-      height="450"
+      :header-cell-style="{ background: '#f7f7f7'}"
+      style="width: 1002px; margin: 50px auto"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="name" label="商品编号" width="120">
+      <el-table-column label="商品编号" width="200">
+        <template slot-scope="scope">{{ scope.row.goodsId }}</template>
       </el-table-column>
-      <el-table-column label="商品名称" width="120">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
+      <el-table-column label="商品名称" width="200">
+        <template slot-scope="scope">{{ scope.row.goodsName }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="价格" width="120"> </el-table-column>
-      <el-table-column prop="name" label="数量" width="120"> </el-table-column>
-      <el-table-column prop="name" label="备注" width="120"> </el-table-column>
+      <el-table-column label="价格" width="200">
+        <template slot-scope="scope">{{
+          scope.row.goodsPrice
+        }}</template></el-table-column
+      >
+      <el-table-column label="数量" width="200">
+        <template slot-scope="scope">{{ scope.row.saleNum }}</template>
+      </el-table-column>
+      <el-table-column label="操作" width="200">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="lookover(scope.row)"
+            >查看商品更多信息</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
-    {{ this.$route.params.id }}
+    <el-dialog
+      title="商品信息"
+      :visible.sync="goodsallinfoVisible"
+      :modal-append-to-body="false"
+    >
+      <el-form :model="goodsinfo" :label-position="right">
+        <el-form-item label="商品编号：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.goodsId"
+            autocomplete="off"
+          ></el-input
+        ></el-form-item>
+        <el-form-item label="商品名称：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.goodsName"
+            autocomplete="off"
+          ></el-input
+        ></el-form-item>
+        <el-form-item label="商品图片：" :label-width="formLabelWidth + 'px'">
+          <el-image
+            :src="require('../../../assets/images/love/7.jpg')"
+            style="width: 100px; height: 100px"
+            :preview-src-list="require('../../../assets/images/love/7.jpg')"
+          ></el-image>
+        </el-form-item>
+        <el-form-item label="商品材料：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.goodsMaster"
+            autocomplete="off"
+          ></el-input
+        ></el-form-item>
+        <el-form-item label="商品包装：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.goodsPackage"
+            autocomplete="off"
+          ></el-input
+        ></el-form-item>
+        <el-form-item label="商品花语：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.goodsLanguage"
+            autocomplete="off"
+          ></el-input
+        ></el-form-item>
+        <el-form-item label="商品价格：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.goodsPrice"
+            autocomplete="off"
+          ></el-input
+        ></el-form-item>
+        <el-form-item label="供应商：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.supName"
+            autocomplete="off"
+          ></el-input
+        ></el-form-item>
+        <el-form-item label="商品状态：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.goodsStatus"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="类型名称：" :label-width="formLabelWidth + 'px'">
+          <el-input
+            disabled
+            v-model="goodsinfo.typeName"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -32,32 +121,35 @@ export default {
   name: "orderdetails",
   data() {
     return {
-      tableData2: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
+      tableData: [],
+      goodsinfo: [],
+      formLabelWidth: 100,
+      goodsallinfoVisible: false,
     };
+  },
+  created: function () {
+    this.$axios
+      .post("http://127.0.0.1:3000/sale/history/detail", {
+        id: this.$route.params.id,
+      })
+      .then((res) => {
+        this.tableData = res.data;
+      })
+      .catch((error) => {
+        window.console.log(error);
+      });
   },
   methods: {
     goBack() {
-      this.$router.replace("/historysale");
+      this.$router.replace("/sale/history");
+    },
+    lookover(row) {
+      this.goodsallinfoVisible = true;
+      this.goodsinfo = row;
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 </style>

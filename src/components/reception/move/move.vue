@@ -1,7 +1,7 @@
 <template>
   <div id="move">
     <Moveheader />
-    <div>
+    <div class="movesearch">
       <Search />
     </div>
     <Movenav />
@@ -10,14 +10,18 @@
 
 <script>
 import Moveheader from "../index/header";
-import Search from "./head";
+import Search from "../index/main/head";
 import Movenav from "../move/movenav";
 export default {
+  inject: ["reload"],
   name: "move",
   components: {
     Moveheader,
     Search,
     Movenav,
+  },
+  created() {
+    this.$store.dispatch("index/allnavfalse");
   },
 };
 </script>
@@ -26,5 +30,7 @@ export default {
 #move {
   width: 100%;
 }
-
+.movesearch {
+  border-bottom: orangered 2px solid;
+}
 </style>

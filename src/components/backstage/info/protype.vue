@@ -1,8 +1,8 @@
 <template>
   <div id="type">
     <div class="add">
-      <el-button type="primary" @click="addtype">添加商品类型</el-button>
-      <el-button v-show="proquit" type="primary" @click="quit()"
+      <el-button @click="addtype">添加商品类型</el-button>
+      <el-button v-show="proquit" @click="quit()"
         >返回</el-button
       >
       <el-dialog
@@ -46,19 +46,20 @@
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 500px; margin: 20px auto"
+            :header-cell-style="{ background: '#f7f7f7'}"
+      style="width: 602px; margin: 40px auto"
     >
-      <el-table-column label="类型编号">
+      <el-table-column label="类型编号" width="200">
         <template slot-scope="scope">
           <span>{{ scope.row.typeId }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="pro_name" label="类型名称">
+      <el-table-column label="类型名称" width="200">
         <template slot-scope="scope">
           <span>{{ scope.row.typeName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="150">
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
@@ -235,7 +236,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #type {
   width: 100%;
 }

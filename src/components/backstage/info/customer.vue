@@ -19,12 +19,14 @@
     <div style="text-align: center">
       <h3 style="color: red">客户资料</h3>
     </div>
+        <el-divider></el-divider>
     <el-table
       ref="multipleTable"
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 961px; margin: 0px auto"
+      :header-cell-style="{ background: '#f7f7f7' }"
+      style="width: 1111px; margin: 30px auto"
     >
       <el-table-column label="客户编号">
         <template slot-scope="scope">
@@ -135,7 +137,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #customer {
   width: 100%;
 }

@@ -2,7 +2,14 @@
   <div id="header">
     <div class="header">
       <div class="head-left">
-        <span>嗨，欢迎来到渣渣辉花店！</span>
+        <span style="color: white;margin-right:30px">嗨，欢迎来到花无缺花店！</span>
+        <el-popover  trigger="hover">
+          <div><el-image style="width:150px;height:150px" :src="weixin"></el-image></div>
+
+          <el-button slot="reference" style="border: none; background: gray; color: white"
+            >官方微信</el-button
+          >
+        </el-popover>
       </div>
       <div class="head-right">
         <div
@@ -55,6 +62,11 @@
 <script>
 export default {
   inject: ["reload"],
+  data() {
+    return {
+      weixin: require("../../../assets/images/weixin.jpg"),
+    };
+  },
   methods: {
     goshopcar() {
       if (this.$store.state.login.loginback) {
@@ -100,8 +112,9 @@ a {
 
 .head-left {
   position: absolute;
-  top: 10px;
+  top: 0px;
   left: 0px;
+  width: 400px;
   height: 41.11px;
 }
 

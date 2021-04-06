@@ -7,23 +7,22 @@
     <h3 style="text-align: center; color: red">历史盘点记录详情表</h3>
     <el-table
       ref="multipleTable"
-      :data="tableData2"
+      :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 100%"
-      height="450"
+      :header-cell-style="{ background: '#f7f7f7' }"
+      style="width: 602px; margin: 50px auto"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="name" label="商品编号" width="120">
+      <el-table-column label="商品编号" width="200">
+        <template slot-scope="scope">{{ scope.row.goodsId }}</template>
       </el-table-column>
-      <el-table-column label="商品名称" width="120">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
+      <el-table-column label="商品名称" width="200">
+        <template slot-scope="scope">{{ scope.row.goodsName }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="价格" width="120"> </el-table-column>
-      <el-table-column prop="name" label="数量" width="120"> </el-table-column>
-      <el-table-column prop="name" label="备注" width="120"> </el-table-column>
+      <el-table-column label="实际数量" width="200">
+        <template slot-scope="scope">{{ scope.row.trueNum }}</template>
+      </el-table-column>
     </el-table>
-    {{ this.$route.params.id }}
   </div>
 </template>
 
@@ -32,32 +31,28 @@ export default {
   name: "orderdetails",
   data() {
     return {
-      tableData2: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
+      tableData: [],
     };
+  },
+  created() {
+    this.$axios
+      .post("http://127.0.0.1:3000/stockcheck/history/details", {
+        id: this.$route.params.id,
+      })
+      .then((res) => {
+        this.tableData = res.data;
+      })
+      .catch((error) => {
+        window.console.log(error);
+      });
   },
   methods: {
     goBack() {
-      this.$router.replace("/historystockcheck");
+      this.$router.replace("/stockcheck/history");
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 </style>

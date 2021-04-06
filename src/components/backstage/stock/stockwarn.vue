@@ -3,31 +3,7 @@
     <div style="text-align: center">
       <h3 style="color: red">库存数量警告</h3>
     </div>
-    <el-table
-      ref="multipleTable"
-      :data="tableData"
-      border
-      tooltip-effect="dark"
-      style="margin:20px auto;width:841px"
-  
-    >
-      <el-table-column prop="name" label="商品编号" width="120">
-      </el-table-column>
-      <el-table-column label="商品名称" width="120">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
-      </el-table-column>
-      <el-table-column prop="name" label="商品类型" width="120">
-      </el-table-column>
-      <el-table-column prop="name" label="商品规格" width="120">
-      </el-table-column>
-      <el-table-column prop="name" label="价格" width="120">
-      </el-table-column>
-      <el-table-column prop="name" label="供应商" width="120">
-      </el-table-column>
-      <el-table-column prop="name" label="当前库存数量" width="120">
-      </el-table-column>
-    </el-table>
-    <div>
+    <div style="position: absolute; top: 20px; left: 20px">
       <el-button type="primary" @click="dialogFormVisible = true"
         >设置商品库存警告值</el-button
       >
@@ -36,16 +12,19 @@
         :visible.sync="dialogFormVisible"
         :modal-append-to-body="false"
       >
-        <el-form :model="form">
+        <el-form :model="sizeForm">
           <el-form-item label="当前警戒值：" :label-width="formLabelWidth">
             <el-input
-              v-model="form.name"
+              v-model="sizeForm.num"
               :disabled="true"
               autocomplete="off"
             ></el-input>
           </el-form-item>
           <el-form-item label="警戒值设置：" :label-width="formLabelWidth">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
+            <el-input
+              v-model="sizeForm.updatenum"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer">
@@ -56,6 +35,50 @@
         </div>
       </el-dialog>
     </div>
+    <el-table
+      ref="multipleTable"
+      :data="tableData"
+      border
+      style="margin: 10px auto; width: 1101px"
+      tooltip-effect="dark"
+      :header-cell-style="{ background: '#f7f7f7' }"
+    >
+      <el-table-column
+        prop="goodsId"
+        label="商品编号"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="goodsName"
+        label="商品名称"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="goodsPrice"
+        label="商品价格"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="supName"
+        label="供应商"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="goodsStatus"
+        label="商品状态"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="typeName"
+        label="商品类型"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="stockNum"
+        label="当前库存数量"
+        width="150"
+      ></el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -64,64 +87,14 @@ export default {
   name: "stockwarn",
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
+      tableData: [],
       multipleSelection: [],
       currentPage4: "",
       total: 50,
       search: "",
       sizeForm: {
-        name: "",
+        num: "95",
+        updatenum: "",
       },
       dialogTableVisible: false,
       dialogFormVisible: false,
@@ -138,6 +111,16 @@ export default {
       formLabelWidth: "120px",
     };
   },
+  created() {
+    this.$axios
+      .post("http://127.0.0.1:3000/stockwarn", { num: this.sizeForm.num })
+      .then((res) => {
+        this.tableData = res.data;
+      })
+      .catch((error) => {
+        window.console.log(error);
+      });
+  },
   methods: {
     onSubmit() {
       alert("ksugck");
@@ -150,5 +133,4 @@ export default {
 #supplier {
   width: 100%;
 }
-
 </style>

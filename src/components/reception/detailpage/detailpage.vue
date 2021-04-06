@@ -1,10 +1,12 @@
 <template>
   <div id="detailpage">
-    <Detailheader />
-    <div class="Head">
+    <div class="detailheader">
+      <Detailheader />
+    </div>
+    <div class="detailsearch">
       <Search />
     </div>
-    <div class="detailbreadcrumb">
+    <div class="detailmain">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: '/move/Love' }"
@@ -87,10 +89,63 @@
           </div>
           <div class="info-container-right">
             <el-tabs v-model="activeName">
-              <el-tab-pane label="产品详情" name="first">用户管理</el-tab-pane>
-              <el-tab-pane label="用户评论（xxx）" name="second"
-                >配置管理</el-tab-pane
-              >
+              <el-tab-pane label="产品详情" name="first"
+                ><el-rate
+                  v-model="value"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  score-template="{value}"
+                >
+                </el-rate
+              ></el-tab-pane>
+              <el-tab-pane label="用户评论（xxx）" name="second">
+                <div
+                  v-for="item in items"
+                  :key="item.name"
+                  style="
+                    background: white;
+                    width: 920px;
+                    height: 200px;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <el-container>
+                    <el-header height="60px" style="background: #409EFF">
+                      <el-image
+                        :src="x"
+                        style="
+                          position: relative;
+                          top: 5px;
+                          left: 0px;
+                          width: 50px;
+                          height: 50px;
+                          border-radius: 50%;
+                        "
+                      ></el-image>
+                      <div style="position: relative; top: -50px; left: 60px">
+                        <span style="float: left">{{ item.name }}：</span>
+                        <el-rate
+                          v-model="item.val"
+                          style="float: left;margin：20px"
+                          disabled
+                          show-score
+                          text-color="#ff9900"
+                          score-template="{item.val}"
+                        >
+                        </el-rate>
+                      </div>
+                      <div style="position: relative; top: -25px; left: -180px">
+                        <span>购买商品名称、型号、数量-----</span>
+                        <span> 2021.03.28 12:38:49</span>
+                      </div>
+                    </el-header>
+                    <el-main>
+                      <span>hello，hello</span>
+                    </el-main>
+                  </el-container>
+                </div>
+              </el-tab-pane>
               <el-tab-pane label="常见问题" name="third">角色管理</el-tab-pane>
               <el-tab-pane label="购物保障" name="fourth">角色管理</el-tab-pane>
             </el-tabs>
@@ -154,13 +209,50 @@ export default {
     return {
       activeName: "first",
       num: 1,
+      value: 4.7,
+      items: [
+        {
+          name: "yyang",
+          val: 3,
+        },
+        {
+          name: "yyang",
+          val: 3,
+        },
+        {
+          name: "yyang",
+          val: 3,
+        },
+        {
+          name: "yyang",
+          val: 3,
+        },
+      ],
     };
   },
 };
 </script>
 
-<style>
-.detailbreadcrumb {
+<style scoped>
+#detailpage {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  min-width: 1200px;
+}
+.detailheader {
+  width: 100%;
+  height: 100%;
+  min-width: 1200px;
+}
+.detailsearch {
+  width: 100%;
+  height: 100%;
+  min-width: 1200px;
+}
+.detailmain {
   position: absolute;
   top: 270px;
   left: 50%;

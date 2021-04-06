@@ -1,8 +1,21 @@
 <template>
   <div id="login">
     <el-container>
-      <el-header height="100px">
-        <div style="width: 100%; height: 100px"></div>
+      <el-header height="160px">
+        <Loginheader />
+        <el-cow>
+          <el-col :span="4" :offset="2"
+            ><el-image
+              :src="logo"
+              style="width: 200px; height: 100px; margin-top: 10px"
+            ></el-image
+          ></el-col>
+          <el-col :span="4" :offset="12"
+            ><h3 style="margin-top: 40px">
+              <i class="el-icon-phone"></i>：000-0000-000
+            </h3></el-col
+          >
+        </el-cow>
       </el-header>
       <el-main
         height="500px"
@@ -74,9 +87,11 @@
 </template>
 
 <script>
+import Loginheader from "./reception/index/header";
 import Loginfooter from "./reception/index/footer";
 export default {
   components: {
+    Loginheader,
     Loginfooter,
   },
   data() {
@@ -85,6 +100,7 @@ export default {
       pad: "123",
       radio: "admin",
       loginbackimg: require("../assets/images/loginbackimg.jpg"),
+      logo:require('../assets/images/logo.png')
     };
   },
   methods: {

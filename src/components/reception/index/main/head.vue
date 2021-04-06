@@ -45,6 +45,7 @@
             width: 220px;
             font-size: 25px;
           "
+          icon="el-icon-s-unfold"
         >
           全部商品导航<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
@@ -248,7 +249,7 @@
 </template>
 
 <script>
-import logo from "../../../../assets/images/love/2.jpg";
+import logo from "../../../../assets/images/logo.png";
 export default {
   inject: ["reload"],
   data() {
@@ -296,12 +297,14 @@ export default {
   left: 20px;
   width: 200px;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid #f7f7f7;
+  border-radius: 10%;
 }
 
 .logo .el-image {
   width: 200px;
   height: 100px;
+  border-radius: 10%;
 }
 
 .search {
@@ -323,7 +326,7 @@ export default {
 }
 .nav-top {
   position: absolute;
-  top: 145px;
+  top: 140px;
   width: 1200px;
   height: 60px;
 }

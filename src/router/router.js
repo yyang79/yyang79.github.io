@@ -33,6 +33,7 @@ import backstage_salechart from '../components/backstage/chart/salechart'
 import backstage_stockchart from '../components/backstage/chart/stockchart'
 import backstage_purchasechart from '../components/backstage/chart/purchasechart'
 import backstage_user from '../components/backstage/system/user'
+import backstage_chat from '../components/backstage/system/chat'
 
 Vue.use(VueRouter)
 
@@ -106,11 +107,11 @@ const routes = [
             component: backstage_purchase,
         },
         {
-            path: "/historypurchase",
+            path: "/purchase/history",
             component: backstage_historypurchase,
         },
         {
-            path: "/historypurchasedetails/:id",
+            path: "/purchase/history/details/:id",
             component: backstage_historypurchasedetails,
             props: true
         },
@@ -123,16 +124,16 @@ const routes = [
             component: backstage_order,
         },
         {
-            path: "/orderdetails/:id",
+            path: "/order/details/:id",
             component: backstage_orderdetails,
             props: true
         },
         {
-            path: "/historysale",
+            path: "/sale/history",
             component: backstage_historysale,
         },
         {
-            path: "/historysaledetails/:id",
+            path: "/sale/history/details/:id",
             component: backstage_historysaledetails,
             props: true
         },
@@ -141,11 +142,11 @@ const routes = [
             component: backstage_stockcheck,
         },
         {
-            path: "/historystockcheck",
+            path: "/stockcheck/history",
             component: backstage_historystockcheck,
         },
         {
-            path: "/historystockcheckdetails/:id",
+            path: "/stockcheck/history/details/:id",
             component: backstage_historystockcheckdetails,
         },
         {
@@ -163,6 +164,10 @@ const routes = [
         {
             path: "/user",
             component: backstage_user,
+        },
+        {
+            path: "/chat",
+            component: backstage_chat,
         },]
     }
 ]

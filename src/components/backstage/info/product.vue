@@ -1,12 +1,8 @@
 <template>
   <div id="product">
     <div class="add">
-      <el-button type="primary" @click="dialogFormVisible_add = true"
-        >新建商品信息</el-button
-      >
-      <el-button v-show="proquit" type="primary" @click="quit()"
-        >返回</el-button
-      >
+      <el-button @click="dialogFormVisible_add = true">新建商品信息</el-button>
+      <el-button v-show="proquit" @click="quit()">返回</el-button>
       <el-dialog
         title="商品添加"
         :visible.sync="dialogFormVisible_add"
@@ -14,7 +10,7 @@
       >
         <el-form :model="addform">
           <el-form-item label="商品编号" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.id" autocomplete="off"></el-input>
+            <el-input v-model="addform.id" disabled autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.name" autocomplete="off"></el-input>
@@ -32,13 +28,37 @@
             <el-input v-model="addform.price" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="供应商" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.supplier" autocomplete="off"></el-input>
+            <el-select v-model="addform.supplier" placeholder="请选择">
+              <el-option
+                v-for="item in supplierlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="商品状态" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.status" autocomplete="off"></el-input>
+            <el-select v-model="addform.status" placeholder="请选择">
+              <el-option
+                v-for="item in statuslist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="商品类型" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.type" autocomplete="off"></el-input>
+            <el-select v-model="addform.type" placeholder="请选择">
+              <el-option
+                v-for="item in typelist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -59,21 +79,46 @@
     <div style="text-align: center">
       <h3 style="color: red">商品信息资料</h3>
     </div>
+    <el-divider></el-divider>
     <el-table
       ref="multipleTable"
       :data="tableData"
       border
-      style="margin: 10px 30px; width: 1050px"
+      style="margin: 10px auto; width: 1101px"
       tooltip-effect="dark"
-      height="380"
+      :header-cell-style="{ background: '#f7f7f7' }"
     >
-      <el-table-column prop="goodsId" label="商品编号"></el-table-column>
-      <el-table-column prop="goodsName" label="商品名称"></el-table-column>
-      <el-table-column prop="goodsPrice" label="商品价格"></el-table-column>
-      <el-table-column prop="supName" label="供应商"></el-table-column>
-      <el-table-column prop="goodsStatus" label="商品状态"></el-table-column>
-      <el-table-column prop="typeName" label="商品类型"></el-table-column>
-      <el-table-column label="操作" width="150">
+      <el-table-column
+        prop="goodsId"
+        label="商品编号"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="goodsName"
+        label="商品名称"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="goodsPrice"
+        label="商品价格"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="supName"
+        label="供应商"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="goodsStatus"
+        label="商品状态"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        prop="typeName"
+        label="商品类型"
+        width="150"
+      ></el-table-column>
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
@@ -111,13 +156,37 @@
           <el-input v-model="updateform.price" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="供应商" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.supplier" autocomplete="off"></el-input>
+          <el-select v-model="updateform.supplier" placeholder="请选择">
+            <el-option
+              v-for="item in supplierlist"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="商品状态" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.status" autocomplete="off"></el-input>
+          <el-select v-model="updateform.status" placeholder="请选择">
+            <el-option
+              v-for="item in statuslist"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="商品类型" :label-width="formLabelWidth + 'px'">
-          <el-input v-model="updateform.type" autocomplete="off"></el-input>
+          <el-select v-model="updateform.type" placeholder="请选择">
+            <el-option
+              v-for="item in typelist"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -132,6 +201,9 @@
         :page-size="100"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
+        :current-change="pagechange"
+        :prev-click="prev"
+        :next-click="next"
       >
       </el-pagination>
     </div>
@@ -167,6 +239,10 @@ export default {
         status: "",
         type: "",
       },
+      statuslist: [
+        { label: "在售", value: "在售" },
+        { label: "停售", value: "停售" },
+      ],
       dialogFormVisible_add: false,
       dialogFormVisible_update: false,
       formLabelWidth: 100,
@@ -175,10 +251,32 @@ export default {
       search: "",
       show: true,
       proquit: false,
+      supplierlist: [],
+      typelist: [],
     };
   },
   created: function () {
     this.showproduct();
+    this.$axios
+      .get("http://127.0.0.1:3000/type")
+      .then((res) => {
+        var list = [];
+        for (let i = 0; i < res.data.length; i++) {
+          list.push({
+            value: res.data[i].typeName,
+            label: res.data[i].typeName,
+          });
+        }
+        var hash = {};
+        list = list.reduce(function (item, next) {
+          hash[next.value] ? "" : (hash[next.value] = true && item.push(next));
+          return item;
+        }, []);
+        this.typelist = list;
+      })
+      .catch((error) => {
+        window.console.log(error);
+      });
   },
   methods: {
     showproduct() {
@@ -191,6 +289,24 @@ export default {
           this.tableData = res.data;
           this.searchlist = res.data;
           this.total = res.data.length;
+          var list = [];
+          for (let i = 0; i < res.data.length; i++) {
+            list.push({
+              value: res.data[i].supName,
+              label: res.data[i].supName,
+            });
+          }
+          var hash = {};
+          list = list.reduce(function (item, next) {
+            hash[next.value]
+              ? ""
+              : (hash[next.value] = true && item.push(next));
+            return item;
+          }, []);
+          this.supplierlist = list;
+          var goodid = "SP_";
+          goodid += res.data.length + 1;
+          this.addform.id = goodid;
         })
         .catch((error) => {
           window.console.log(error);
@@ -243,6 +359,7 @@ export default {
         this.$axios
           .post("http://127.0.0.1:3000/goods/delete", { id: id })
           .then((res) => {
+            alert(res.data);
             if (res.data == "删除成功") {
               this.$message({ message: "删除成功", type: "success" });
               this.showproduct();
@@ -297,6 +414,9 @@ export default {
           window.console.log(error);
         });
     },
+    pagechange() {},
+    prev() {},
+    next() {},
   },
 };
 </script>
@@ -308,7 +428,7 @@ export default {
 .add {
   position: absolute;
   top: 10px;
-  left: 30px;
+  left: 80px;
 }
 .search {
   position: absolute;

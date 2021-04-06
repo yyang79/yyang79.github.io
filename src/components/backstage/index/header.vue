@@ -1,14 +1,20 @@
 <template>
   <div id="header">
     <div class="logn">
-      <span style="font-size: 30px; position: absolute; top: 20px"
-        >xxx鲜花后台管理系统</span
+      <span style="font-size: 30px; position: absolute; top: 20px; color: white"
+        >花无缺后台管理系统</span
       >
     </div>
     <div class="menu">
-      <el-menu class="el-menu-demo" mode="horizontal">
-        <el-submenu index="2">
-          <template slot="title">administrators</template>
+      <!--       <div style="width:250px;height:40px;background-color:red"><span>2017年12月13日03时16分45秒</span></div> -->
+      <el-menu
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+        mode="horizontal"
+      >
+        <el-submenu>
+          <template slot="title">您好,admin</template>
           <el-menu-item index="2-1" @click="databackup()"
             >数据备份</el-menu-item
           >
@@ -25,10 +31,12 @@
 </template>
 
 <script>
+
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+    };
   },
   methods: {
     databackup: function () {},
@@ -51,21 +59,20 @@ export default {
   width: 100%;
   min-width: 1000px;
   height: 80px;
-  background-image: linear-gradient(#545c64, #9198e5);
+  background-color: #438eb9;
   border-bottom: 0.2px solid #e7e7e7;
 }
 .logn {
   position: absolute;
   top: 0px;
   left: 30px;
-  width: 300px;
+  width: 400px;
   height: 80px;
 }
 .menu {
   position: absolute;
   top: 10px;
-  right: 50px;
-  width: 200px;
+  right: 150px;
   height: 60px;
 }
 </style>

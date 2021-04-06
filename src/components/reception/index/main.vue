@@ -41,7 +41,7 @@ export default {
 
 <style>
 .Head {
-  height: 204px;
+  height: 200px;
   width: 100%;
   min-width: 1200px;
   border-bottom: 2px solid orangered;

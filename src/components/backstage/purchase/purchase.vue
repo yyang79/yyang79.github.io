@@ -79,15 +79,15 @@
       </div>
     </el-dialog>
     <div class="formtop">
-      <div style="float: left; margin: 10px 30px 0px 50px">
+      <div style="float: left; margin: 10px">
         <span>入库编号：</span>
         <el-input
-          v-model="inputval"
+          v-model="inid"
           :disabled="true"
           style="width: 200px"
         ></el-input>
       </div>
-      <div style="float: left; margin: 10px 30px 10px 0px">
+      <div style="float: left; margin: 10px">
         <span>入库时间：</span>
         <el-date-picker
           v-model="date"
@@ -98,7 +98,7 @@
         >
         </el-date-picker>
       </div>
-      <div style="float: left; margin: 10px 30px 10px 0px">
+      <div style="float: left; margin: 10px">
         <span>入库操作人：</span>
         <el-select
           v-model="this.$store.state.purchase.player"
@@ -114,41 +114,46 @@
           </el-option>
         </el-select>
       </div>
+      <div style="float: left; margin: 10px">
+        <span>总金额：</span>
+        <el-input v-model="totalmoney" disabled style="width: 150px">
+        </el-input>
+      </div>
     </div>
     <el-table
       ref="multipleTable"
       :data="this.$store.state.purchase.tableData"
       border
       tooltip-effect="dark"
-      style="margin: 20px; width: 1050px"
-      height="450"
+      :header-cell-style="{ background: '#f7f7f7' }"
+      style="margin: 20px auto; width: 1202px"
     >
-      <el-table-column label="商品编号">
+      <el-table-column label="商品编号" width="200">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.goodsId }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="商品名称">
+      <el-table-column label="商品名称" width="200">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.goodsName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="商品价格">
+      <el-table-column label="商品价格" width="200">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.goodsPrice }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="供应商">
+      <el-table-column label="供应商" width="200">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.supName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="数量">
+      <el-table-column label="数量" width="200">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.goodsNum }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="150">
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
@@ -265,7 +270,8 @@ export default {
       updateform: [],
       addform: [],
 
-      inputval: "",
+      inid: "",
+      totalmoney: 0,
     };
   },
   beforeCreate: function () {
@@ -287,7 +293,7 @@ export default {
         for (var j = 0; j < 4; j++) {
           purid += Math.round(Math.random() * 10);
         }
-        this.inputval = purid;
+        this.inid = purid;
       })
       .catch((error) => {
         window.console.log(error);
@@ -332,6 +338,11 @@ export default {
             }
           }
           this.$store.commit("purchase/goodslistsort");
+          var money = 0;
+          for (var j = 0; j < tableData.length; j++) {
+            money += tableData[j].goodsPrice * tableData[j].goodsNum;
+          }
+          this.totalmoney = money;
         })
         .catch((error) => {
           window.console.log(error);
@@ -355,9 +366,16 @@ export default {
           goodsId: list.goodsId,
           goodsName: list.goodsName,
           goodsPrice: list.goodsPrice,
+          num: list.stockNum,
           supName: list.supName,
           goodsNum: goodsnum,
         });
+        var tableData = this.$store.state.purchase.tableData;
+        var money = 0;
+        for (var j = 0; j < tableData.length; j++) {
+          money += tableData[j].goodsPrice * tableData[j].goodsNum;
+        }
+        this.totalmoney = money;
         var goodslist = this.$store.state.purchase.goodslist;
         for (var i = 0; i < goodslist.length; i++) {
           if (goodslist[i].value == list.goodsId) {
@@ -381,6 +399,11 @@ export default {
       this.$store.commit("purchase/tableDatachange", tableData);
       this.updateformvisible = false;
       this.$message({ message: "修改成功", type: "success" });
+      var money = 0;
+      for (var j = 0; j < tableData.length; j++) {
+        money += tableData[j].goodsPrice * tableData[j].goodsNum;
+      }
+      this.totalmoney = money;
     },
 
     submit() {
@@ -396,6 +419,7 @@ export default {
         for (var i = 0; i < tableData.length; i++) {
           list.push({
             goodsId: tableData[i].goodsId,
+            goodsNum: parseInt(tableData[i].num) + parseInt(tableData[i].goodsNum),
             num: tableData[i].goodsNum,
           });
           goodslist.push({
@@ -408,29 +432,33 @@ export default {
 
         this.$axios
           .post("http://127.0.0.1:3000/purchase/submit", {
-            id: this.inputval,
+            id: this.inid,
             date: this.date,
             player: player,
             goodslist: list,
+            totalmoney: this.totalmoney,
           })
           .then((res) => {
-            if (res.data == "提交成功") {
+            if (res.data == "添加成功") {
               this.$message({ message: "提交成功", type: "success" });
+              this.$store.commit("purchase/goods", "");
+              this.$store.commit("purchase/goodsnum", "");
+              this.$store.commit("purchase/addform", []);
+              this.$store.commit("purchase/tableData", []);
+              this.$store.commit("purchase/datechange", "");
+              this.$store.commit("purchase/playerchange", "");
+              this.totalmoney = 0;
+              this.inputval = "RK" + this.getdate();
+              for (var j = 0; j < 4; j++) {
+                this.inid += Math.round(Math.random() * 10);
+              }
+            } else {
+              this.$message({ message: "提交失败", type: "warning" });
             }
           })
           .catch((error) => {
             window.console.log(error);
           });
-        this.$store.commit("purchase/goods", "");
-        this.$store.commit("purchase/goodsnum", "");
-        this.$store.commit("purchase/addform", []);
-        this.$store.commit("purchase/tableData", []);
-        this.$store.commit("purchase/datechange", "");
-        this.$store.commit("purchase/playerchange", "");
-        this.inputval = "RK" + this.getdate();
-        for (var j = 0; j < 4; j++) {
-          this.inputval += Math.round(Math.random() * 10);
-        }
       }
     },
     getdate() {
@@ -460,15 +488,22 @@ export default {
       return realNum;
     },
     recovery() {
-      alert(JSON.stringify(this.$store.state.purchase.num));
+      alert(JSON.stringify(this.$store.state.purchase.addform.stockNum));
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+#purchase {
+  margin: 20px;
+  height: auto;
+  width: 100%-20px;
+  min-width: 1240px;
+}
 .formtop {
   width: 100%;
   min-width: 1200px;
+  margin: 10px auto;
 }
 </style>

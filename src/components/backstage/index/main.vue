@@ -1,20 +1,14 @@
 <template>
   <div id="main">
     <div class="nav">
+      <div style="height: 40px; left: 200px; border-bottom: 1px solid #dcdfe6">
+        <p style="text-align: center; margin: 0px; padding: 10px 0px">
+          功能导航
+        </p>
+      </div>
       <el-col :span="24">
-        <template>
-          <h3 style="text-align: center; color: #eee">功能导航</h3>
-        </template>
-        <hr />
         <div class="nav-menu">
-          <el-menu
-            :unique-opened="true"
-            :router="true"
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b"
-            style="border: none"
-          >
+          <el-menu :unique-opened="true" :router="true" style="border: none">
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-suitcase"></i>
@@ -34,7 +28,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/purchase">采购入库</el-menu-item>
-                <el-menu-item index="/historypurchase"
+                <el-menu-item index="/purchase/history"
                   >历史入库记录查询</el-menu-item
                 >
               </el-menu-item-group>
@@ -47,7 +41,7 @@
               <el-menu-item-group>
                 <el-menu-item index="/sale">销售出库</el-menu-item>
                 <el-menu-item index="/order">订单管理</el-menu-item>
-                <el-menu-item index="/historysale">历史销售管理</el-menu-item>
+                <el-menu-item index="/sale/history">历史销售管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="4">
@@ -57,7 +51,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/stockcheck">库存盘点</el-menu-item>
-                <el-menu-item index="/historystockcheck">盘点汇总</el-menu-item>
+                <el-menu-item index="/stockcheck/history">盘点汇总</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="5">
@@ -78,6 +72,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/user">用户管理</el-menu-item>
+                <el-menu-item index="/chat">消息管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -85,13 +80,29 @@
       </el-col>
     </div>
     <div class="quick_nav">
-      <li><router-link to="/backstage">首页</router-link></li>
-      <li><router-link to="/purchase">采购入库</router-link></li>
-      <li><router-link to="/sale">销售出库</router-link></li>
-      <li><router-link to="/order">订单管理</router-link></li>
-      <li><router-link to="/stockcheck">库存盘点</router-link></li>
-      <li><router-link to="/purchasechart">采购报表</router-link></li>
-      <li><router-link to="/user">用户管理</router-link></li>
+      <li>
+        <router-link to="/backstage"
+          ><i class="el-icon-s-home"></i> 首页</router-link
+        >
+      </li>
+      <li>
+        <router-link to="/purchase">采购入库</router-link>
+      </li>
+      <li>
+        <router-link to="/sale">销售出库</router-link>
+      </li>
+      <li>
+        <router-link to="/order">订单管理</router-link>
+      </li>
+      <li>
+        <router-link to="/stockcheck">库存盘点</router-link>
+      </li>
+            <li>
+        <router-link to="/salechart">销售图表</router-link>
+      </li>
+      <li>
+        <router-link to="/chat">消息管理</router-link>
+      </li>
     </div>
     <div class="show">
       <router-view></router-view>
@@ -118,12 +129,12 @@ export default {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 230px;
+  width: 200px;
   bottom: 0px;
-  background-color: #545c64;
+  background-color: white;
 }
 .nav-menu {
-  height: 460px;
+  height: 500px;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -139,12 +150,13 @@ export default {
   position: absolute;
   top: 0px;
   height: 40px;
-  left: 230px;
+  left: 200px;
   right: 0px;
-  background-color: gray;
+  background-color: white;
+  border-left: 1px solid #dcdfe6;
+  border-bottom: 1px solid #dcdfe6;
 }
 .quick_nav li {
-  text-align: center;
   float: left;
   width: 100px;
   height: 30px;
@@ -155,21 +167,21 @@ export default {
   position: absolute;
   top: 0px;
   text-decoration: none;
-  color: white;
-  padding: 10px 20px;
+  color: black;
+  padding: 10px 10px;
 }
 
 .quick_nav li :hover {
-  background-color: red;
+  background-color: #e3e3e3;
 }
 
 .show {
   position: absolute;
   top: 40px;
   bottom: 0px;
-  left: 230px;
+  left: 200px;
   right: 0px;
-  border: 0.1px solid #e7e7e7;
+  border-left: 1px solid #dcdfe6;
   overflow-y: scroll;
 }
 </style>
