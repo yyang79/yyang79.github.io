@@ -32,7 +32,7 @@
       <el-input
         prefix-icon="el-icon-search"
         v-on:keyup.enter.native="psearch()"
-        placeholder="请输入类型编号"
+        placeholder="请输入类型关键词"
         v-model="search"
         clearable
       ></el-input>

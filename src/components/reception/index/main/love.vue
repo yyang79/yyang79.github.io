@@ -13,31 +13,42 @@
         </router-link>
       </div>
       <div class="show-flower">
-        <router-link :to="{ path: '/detailpage', query: { search: 's' } }">
-          <div
-            v-for="flower in this.$store.state.index.lovelist"
-            :key="flower.src"
-          >
+        <div
+          v-for="flower in this.$store.state.index.lovelist"
+          :key="flower.src"
+        >
+          <router-link :to="{ path: '/detailpage', query: { goodsName: flower.goodsName }}">
             <el-image :src="flower.src"></el-image>
             <span
-              style="font-size: 20px; position: relative; top: 10px; left: 10px"
-              >{{ flower.name }}</span
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 150px;
+                height: 24px;
+                display: block;
+                position: relative;
+                top: 10px;
+                left: 10px;
+              "
+              >{{ flower.goodsName }}</span
             ><br />
             <span
               style="
                 color: red;
-                font-size: 25px;
+                font-size: 20px;
                 position: relative;
-                top: 20px;
+                top: 0px;
                 left: 10px;
               "
-              >{{ flower.price }}</span
+              >￥{{ flower.goodsPrice }}.00</span
             >
-            <small style="position: relative; top: 25px; right: -40px"
+            <small style="position: relative; top: 10px; left: 30px"
               >已售{{ flower.sallnum }}</small
             >
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -51,10 +62,27 @@ export default {
       src: lf1,
     };
   },
+  created() {
+    this.$axios
+      .get("http://127.0.0.1:3000/love")
+      .then((res) => {
+        var list = [];
+        for (let i = 0; i < 8; i++) {
+          list.push(res.data[i]);
+        }
+        this.$store.dispatch("index/lovelist", list);
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
+  },
 };
 </script>
 
-<style>
+<style scoped>
+a {
+  text-decoration: none;
+}
 .love {
   position: relative;
   top: 0px;
@@ -81,7 +109,7 @@ export default {
   height: 650px;
 }
 
-.show-flower a div {
+.show-flower div {
   width: 200px;
   margin: 10px;
   height: 290px;
@@ -89,18 +117,18 @@ export default {
   background-color: white;
   float: left;
 }
+.love-top a {
+  float: right;
+}
 
-.show-flower a div .el-image {
+.show-flower div a .el-image {
   margin: 0px;
   padding: 0px;
   width: 200px;
   height: 200px;
   border: none;
 }
-.love-top a {
-  float: right;
-}
-.show-flower a > div:hover {
-  box-shadow: 0 0 10px 5px gray;
+.show-flower > div:hover {
+  box-shadow: 0 0 10px 2px gray;
 }
 </style>

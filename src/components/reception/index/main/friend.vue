@@ -1,9 +1,7 @@
 <template>
   <div class="friend">
     <div class="friend-top">
-      <span>
-        &nbsp;&nbsp;&nbsp;友情鲜花&nbsp;|
-      </span>
+      <span> &nbsp;&nbsp;&nbsp;友情鲜花&nbsp;| </span>
       <router-link :to="{ path: '/move/', query: { keyword: 'Friend' } }"
         >查看更多 >></router-link
       >
@@ -11,35 +9,46 @@
     <div class="show-main">
       <div class="show-image">
         <router-link :to="{ path: '/move/', query: { keyword: 'Friend' } }">
-        <el-image style="width: 232px; height: 650px" :src="src"></el-image>
+          <el-image style="width: 232px; height: 650px" :src="src"></el-image>
         </router-link>
       </div>
       <div class="show-flower">
-        <router-link :to="{ path: '/detailpage', query: { search: 's' } }">
-          <div
-            v-for="flower in this.$store.state.index.friendlist"
-            :key="flower.src"
-          >
+        <div
+          v-for="flower in this.$store.state.index.friendlist"
+          :key="flower.src"
+        >
+          <router-link :to="{ path: '/detailpage', query: { goodsName: flower.goodsName } }">
             <el-image :src="flower.src"></el-image>
             <span
-              style="font-size: 20px; position: relative; top: 10px; left: 10px"
-              >{{ flower.name }}</span
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 150px;
+                height: 24px;
+                display: block;
+                position: relative;
+                top: 10px;
+                left: 10px;
+              "
+              >{{ flower.goodsName }}</span
             ><br />
             <span
               style="
                 color: red;
-                font-size: 25px;
+                font-size: 20px;
                 position: relative;
-                top: 20px;
+                top: 0px;
                 left: 10px;
               "
-              >{{ flower.price }}</span
+              >￥{{ flower.goodsPrice }}.00</span
             >
-            <small style="position: relative; top: 25px; right: -40px"
+            <small style="position: relative; top: 10px; left: 30px"
               >已售{{ flower.sallnum }}</small
             >
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -53,10 +62,24 @@ export default {
       src: lf1,
     };
   },
+  created() {
+    this.$axios
+      .get("http://127.0.0.1:3000/friend")
+      .then((res) => {
+        var list = [];
+        for (let i = 8; i < 16; i++) {
+          list.push(res.data[i]);
+        }
+        this.$store.dispatch("index/friendlist", list);
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .friend {
   position: relative;
   top: 0px;
@@ -67,7 +90,7 @@ export default {
   background-color: #f3f3f3;
 }
 
-.friend-top a{
+.friend-top a {
   float: right;
 }
 
@@ -86,8 +109,10 @@ export default {
   width: 968px;
   height: 650px;
 }
-
-.show-flower a div {
+a {
+  text-decoration: none;
+}
+.show-flower div {
   width: 200px;
   margin: 10px;
   height: 290px;
@@ -96,12 +121,14 @@ export default {
   float: left;
 }
 
-.show-flower a div .el-image {
+.show-flower div a .el-image {
   margin: 0px;
   padding: 0px;
   width: 200px;
   height: 200px;
   border: none;
 }
-
+.show-flower > div:hover {
+  box-shadow: 0 0 10px 2px gray;
+}
 </style>

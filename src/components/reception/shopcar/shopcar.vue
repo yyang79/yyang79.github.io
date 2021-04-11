@@ -210,12 +210,14 @@
     <div class="car-recommend">
       <Recommend />
     </div>
+    <Chat/>
   </div>
 </template>
 
 <script>
 import Shopcarhead from "../index/header";
 import Recommend from "./recommend";
+import Chat from "../chat/chat"
 import flower1 from "../../../assets/images/love/2.jpg";
 import flower2 from "../../../assets/images/love/3.jpg";
 import flower3 from "../../../assets/images/love/4.jpg";
@@ -230,6 +232,7 @@ export default {
   components: {
     Recommend,
     Shopcarhead,
+    Chat
   },
   data() {
     return {

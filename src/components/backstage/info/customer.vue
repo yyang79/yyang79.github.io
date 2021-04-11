@@ -26,44 +26,39 @@
       border
       tooltip-effect="dark"
       :header-cell-style="{ background: '#f7f7f7' }"
-      style="width: 1111px; margin: 30px auto"
+      style="width: 801px; margin: 30px auto"
     >
-      <el-table-column label="客户编号">
-        <template slot-scope="scope">
-          <span> {{ scope.row.cusId }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="客户昵称">
+      <el-table-column label="客户昵称" width="100">
         <template slot-scope="scope">
           <span> {{ scope.row.userName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="真实姓名">
+      <el-table-column label="真实姓名" width="100">
         <template slot-scope="scope">
           <span> {{ scope.row.custrueName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="性别">
+      <el-table-column label="性别" width="50">
         <template slot-scope="scope">
           <span> {{ scope.row.cusSex }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="年龄">
+      <el-table-column label="年龄" width="50">
         <template slot-scope="scope">
           <span> {{ scope.row.cusAge }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="联系电话">
+      <el-table-column label="联系电话" width="150">
         <template slot-scope="scope">
           <span> {{ scope.row.cusTel }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="邮箱">
+      <el-table-column label="邮箱" width="150">
         <template slot-scope="scope">
           <span> {{ scope.row.cusEmail }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="地址">
+      <el-table-column label="地址" width="200">
         <template slot-scope="scope">
           <span> {{ scope.row.cusAddress }}</span>
         </template>

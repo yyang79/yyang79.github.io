@@ -1,41 +1,9 @@
 <template>
   <div id="supplier">
-    <div class="add">
-      <el-button type="primary" @click="dialogFormVisible = true"
-        >添加用户</el-button
-      >
-      <el-dialog
-        title="用户添加"
-        :visible.sync="dialogFormVisible"
-        :modal-append-to-body="false"
-      >
-        <el-form :model="form">
-          <el-form-item label="用户名" :label-width="formLabelWidth">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" :label-width="formLabelWidth">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="用户类型" :label-width="formLabelWidth">
-            <el-input
-              :disabled="true"
-              v-model="form.name"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogFormVisible = false"
-            >确 定</el-button
-          >
-        </div>
-      </el-dialog>
-    </div>
     <div class="search">
       <el-input
         prefix-icon="el-icon-search"
-        @keyup.enter="search()"
+        v-on:keyup.enter.native="psearch()"
         placeholder="请输入查询信息"
         v-model="search"
         clearable
@@ -49,19 +17,22 @@
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 100%"
-      height="430"
-      @selection-change="handleSelectionChange"
+      style="width: 641px; margin: 0px auto"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="name" label="用户编号" width="120">
+      <el-table-column label="用户编号" width="100">
+        <template slot-scope="scope">{{ scope.row.userId }}</template>
       </el-table-column>
       <el-table-column label="用户名" width="120">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
+        <template slot-scope="scope">{{ scope.row.userName }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="密码" width="120"> </el-table-column>
-      <el-table-column prop="name" label="用户类型" width="120"> </el-table-column>
-      <el-table-column prop="address" label="地址" width="250">
+      <el-table-column label="密码" width="120">
+        <template slot-scope="scope">{{ scope.row.userPad }}</template>
+      </el-table-column>
+      <el-table-column label="联系电话" width="150">
+        <template slot-scope="scope">{{ scope.row.cusTel }}</template>
+      </el-table-column>
+      <el-table-column label="邮箱" width="150">
+        <template slot-scope="scope">{{ scope.row.cusEmail }}</template>
       </el-table-column>
     </el-table>
   </div>
@@ -71,103 +42,31 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
-      multipleSelection: [],
-      currentPage4: "",
-      total: 50,
+      tableData: [],
       search: "",
-      sizeForm: {
-        name: "",
-      },
-      dialogTableVisible: false,
-      dialogFormVisible: false,
-      form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
-      },
-      formLabelWidth: "120px",
     };
   },
+  created() {
+    this.$axios
+      .get("http://127.0.0.1:3000/user")
+      .then((res) => {
+        this.tableData = res.data;
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
+  },
   methods: {
-    onSubmit() {
-      alert("ksugck");
+    psearch() {
+      this.$axios
+        .post("http://127.0.0.1:3000/user/select", { search: this.search })
+        .then((res) => {
+          this.tableData = res.data;
+          this.search = "";
+        })
+        .catch((err) => {
+          window.console.log(err);
+        });
     },
   },
 };

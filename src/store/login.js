@@ -3,6 +3,7 @@
 const state = {
     loginbefore: true,
     loginback: false,
+    username:''
 }
 
 
@@ -19,12 +20,12 @@ const actions = {
 
 const mutations = {
     loginbeforestatus(state) {
-        state.loginbefore = !state.loginbefore,
-            state.loginback = !state.loginback
+        state.loginbefore = !state.loginbefore;
+            state.loginback = !state.loginback;
     },
     loginbackstatus(state) {
-        state.loginbefore = !state.loginbefore,
-            state.loginback = !state.loginback
+        state.loginbefore = !state.loginbefore;
+            state.loginback = !state.loginback;
     }
 }
 

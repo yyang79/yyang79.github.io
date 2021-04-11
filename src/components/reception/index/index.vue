@@ -6,6 +6,7 @@
     <Head />
     <Main />
     <Footer />
+    <Chat />
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 import Head from "./header";
 import Main from "./main";
 import Footer from "./footer";
+import Chat from "../chat/chat"
 export default {
   name: "index",
   components: {
     Head,
     Main,
     Footer,
+    Chat
   },
   created() {
     this.$store.dispatch("index/allnavtrue");
@@ -41,6 +44,7 @@ body {
   padding: 0px;
 }
 a{
+  text-decoration: none;
   color:black
 }
 </style>

@@ -7,7 +7,7 @@
       border
       tooltip-effect="dark"
       :header-cell-style="{ background: '#f7f7f7' }"
-      style="width: 922px; margin: 10px auto"
+      style="width: 722px; margin: 10px auto"
     >
       <el-table-column prop="name" label="盘点编号" width="200">
         <template slot-scope="scope">{{ scope.row.stoId }}</template>

@@ -10,81 +10,168 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: '/move/Love' }"
-          >鲜花</el-breadcrumb-item
+          ><span>{{
+            this.$store.state.detailpage.goodstype
+          }}</span></el-breadcrumb-item
         >
-        <el-breadcrumb-item>商品名称</el-breadcrumb-item>
+        <el-breadcrumb-item
+          ><span>{{
+            this.$store.state.detailpage.name
+          }}</span></el-breadcrumb-item
+        >
       </el-breadcrumb>
       <div class="flowerdetail">
-        <div class="detailimg">
-          <el-image
-            :src="this.$store.state.index.newlist[0].src"
-            style="width: 360px; height: 360px; margin: 20px"
-          ></el-image>
-        </div>
-        <div class="detaildescribe">
-          <h2 style="margin-left: 20px">产品名称</h2>
-          <el-divider></el-divider>
-          <el-col><span>材料：</span><span>xxxxxxxx</span></el-col>
-          <el-col><span>包装：</span><span>xxxxxxxx</span></el-col>
-          <el-col><span>附送：</span><span>xxxxxxxx</span></el-col>
-          <el-col><span>配送：</span><span>xxxxxxxx</span></el-col>
-          <el-col><span>优惠券：</span><span>暂无优惠券</span></el-col>
-          <el-col
-            ><div
-              style="width: 760px; height: 100px; background-color: #f3f3f3"
-            >
-              <el-row :gutter="20">
-                <el-col :span="8" style="margin-top: 15px"
-                  ><span>市场价：</span
-                  ><big style="text-decoration: line-through"
-                    >￥9999.99</big
-                  ></el-col
-                ></el-row
+        <el-form :model="goodsinfo">
+          <el-form-item>
+            <div class="detailimg">
+              <el-image
+                :src="this.$store.state.index.newlist[0].src"
+                style="width: 360px; height: 360px; margin: 20px"
+              ></el-image>
+              <el-image
+                :src="this.$store.state.index.newlist[0].src"
+                style="
+                  width: 80px;
+                  height: 80px;
+                  margin-left: 20px;
+                  border: 1px solid red;
+                "
+              ></el-image>
+              <el-image
+                :src="this.$store.state.index.newlist[0].src"
+                style="
+                  width: 80px;
+                  height: 80px;
+                  margin-left: 20px;
+                  border: 1px solid white;
+                "
+              ></el-image>
+              <el-image
+                :src="this.$store.state.index.newlist[0].src"
+                style="
+                  width: 80px;
+                  height: 80px;
+                  margin-left: 20px;
+                  border: 1px solid white;
+                "
+              ></el-image>
+            </div>
+            <div class="detaildescribe">
+              <h3 style="margin-left: 20px">{{ goodsinfo[0].goodsName }}</h3>
+              <el-divider style="margin: 10px 0px"></el-divider>
+              <el-col
+                ><span>材料：</span
+                ><span>{{ goodsinfo[0].goodsMaster }}</span></el-col
               >
-              <el-row :gutter="20">
-                <el-col :span="15"
-                  ><span>店铺价：</span
-                  ><big style="color: red">￥9999.99</big></el-col
+              <el-col
+                ><span>包装：</span
+                ><span>{{ goodsinfo[0].goodsPackage }}</span></el-col
+              >
+              <el-col
+                ><span>花语：</span
+                ><span>{{ goodsinfo[0].goodsLanguage }}</span></el-col
+              >
+              <el-col
+                ><span>配送说明：</span
+                ><span>全国（小城市请提前1天预订）</span></el-col
+              >
+              <el-col><span>优惠券：</span><span>暂无优惠券</span></el-col>
+              <el-col
+                ><div
+                  style="width: 760px; height: 100px; background-color: #f3f3f3"
                 >
-                <el-col :span="7"
-                  ><small>销量XXX笔 </small>&nbsp;&nbsp;&nbsp;<small>
-                    库存剩余XXX件</small
-                  ></el-col
+                  <el-row :gutter="20">
+                    <el-col :span="8" style="margin-top: 15px"
+                      ><span>市场价：</span
+                      ><big style="text-decoration: line-through"
+                        >￥{{ goodsinfo[0].goodsPrice + 100 }}.00</big
+                      ></el-col
+                    ></el-row
+                  >
+                  <el-row :gutter="20">
+                    <el-col :span="15"
+                      ><span>店铺价：</span
+                      ><big style="color: red"
+                        >￥{{ goodsinfo[0].goodsPrice }}.00</big
+                      ></el-col
+                    >
+                    <el-col :span="7"
+                      ><small>销量XXX笔 </small>&nbsp;&nbsp;&nbsp;<small>
+                        库存剩余XXX件</small
+                      ></el-col
+                    >
+                  </el-row>
+                </div></el-col
+              >
+              <div style="position: absolute; top: 430px; left: 20px">
+                <span>数量：</span>
+                <el-input-number
+                  v-model="num"
+                  :min="1"
+                  :max="10"
+                  label="描述文字"
+                ></el-input-number>
+                <el-button style="position: absolute; top: 0px; left: 450px"
+                  >加入购物车</el-button
                 >
-              </el-row>
-            </div></el-col
-          >
-          <div style="position: absolute; top: 430px; left: 20px">
-            <span>数量：</span>
-            <el-input-number
-              v-model="num"
-              :min="1"
-              :max="10"
-              label="描述文字"
-            ></el-input-number>
-            <el-button style="position: absolute; top: 0px; left: 450px"
-              >加入购物车</el-button
-            >
-            <el-button
-              type="primary"
-              style="position: absolute; top: 0px; left: 600px"
-              >立即购买</el-button
-            >
-          </div>
-        </div>
+                <el-button
+                  type="primary"
+                  style="position: absolute; top: 0px; left: 600px"
+                  >立即购买</el-button
+                >
+              </div>
+            </div>
+          </el-form-item>
+        </el-form>
+
         <div class="info-container">
           <div class="info-container-left">
             <h2 style="text-align: center; color: red">热卖推荐</h2>
-            <el-divider></el-divider>
             <div
-              v-for="flower in this.$store.state.index.newlist"
+              id="list"
+              v-for="flower in this.$store.state.index.cakelist"
               :key="flower.src"
+              style="float: left; margin: 10px; width: 220px; height: 290px"
             >
               <router-link
-                :to="{ path: '/detailpage', query: { search: 's' } }"
+                :to="{
+                  path: '/detailpage',
+                  query: { goodsName: flower.goodsName },
+                }"
               >
-                <el-image style="margin: 10px" :src="flower.src"></el-image>
-              </router-link>
+                <el-image
+                  style="width: 200px; height: 200px; margin: 0px 10px"
+                  :src="flower.src"
+                ></el-image>
+                <span
+                  style="
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    -o-text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 150px;
+                    height: 24px;
+                    display: block;
+                    position: relative;
+                    top: 10px;
+                    left: 10px;
+                  "
+                  >{{ flower.goodsName }}</span
+                ><br />
+                <span
+                  style="
+                    color: red;
+                    font-size: 20px;
+                    position: relative;
+                    top: 0px;
+                    left: 10px;
+                  "
+                  >￥{{ flower.goodsPrice }}.00</span
+                >
+                <small style="position: relative; top: 10px; left: 30px"
+                  >已售{{ flower.sallnum }}</small
+                ></router-link
+              >
             </div>
           </div>
           <div class="info-container-right">
@@ -111,7 +198,7 @@
                   "
                 >
                   <el-container>
-                    <el-header height="60px" style="background: #409EFF">
+                    <el-header height="60px" style="background: #409eff">
                       <el-image
                         :src="x"
                         style="
@@ -156,34 +243,68 @@
             position: absolute;
             top: 1900px;
             width: 100%;
-            height: 600px;
             background-color: #f3f3f3;
           "
         >
           <h2 style="text-align: center">猜你喜欢</h2>
-          <router-link :to="{ path: '/detailpage', query: { search: 's' } }">
-            <div
-              style="float: left"
-              v-for="flower in this.$store.state.index.friendlist"
-              :key="flower.src"
+          <div
+            id="list"
+            v-for="flower in this.$store.state.index.cakelist"
+            :key="flower.src"
+            style="float: left; margin: 10px; width: 220px; height: 290px"
+          >
+            <router-link
+              :to="{
+                path: '/detailpage',
+                query: { goodsName: flower.goodsName },
+              }"
             >
               <el-image
-                style="margin: 10px; width: 220px; height: 220px"
+                style="width: 200px; height: 200px; margin: 0px 10px"
                 :src="flower.src"
               ></el-image>
-            </div>
-          </router-link>
+              <span
+                style="
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  -o-text-overflow: ellipsis;
+                  white-space: nowrap;
+                  width: 150px;
+                  height: 24px;
+                  display: block;
+                  position: relative;
+                  top: 10px;
+                  left: 10px;
+                "
+                >{{ flower.goodsName }}</span
+              ><br />
+              <span
+                style="
+                  color: red;
+                  font-size: 20px;
+                  position: relative;
+                  top: 0px;
+                  left: 10px;
+                "
+                >￥{{ flower.goodsPrice }}.00</span
+              >
+              <small style="position: relative; top: 10px; left: 30px"
+                >已售{{ flower.sallnum }}</small
+              ></router-link
+            >
+          </div>
         </div>
         <div
           style="
             position: absolute;
-            top: 2520px;
+            top: 2700px;
             width: 100%;
             height: 300px;
             background-color: #f3f3f3;
           "
         >
           <Detailfooter />
+          <Chat />
         </div>
       </div>
     </div>
@@ -194,6 +315,7 @@
 import Detailheader from "../index/header";
 import Search from "../index/main/head";
 import Detailfooter from "../index/footer";
+import Chat from "../chat/chat";
 
 export default {
   name: "detailpage",
@@ -201,12 +323,11 @@ export default {
     Detailheader,
     Search,
     Detailfooter,
-  },
-  created() {
-    this.$store.dispatch("index/allnavfalse");
+    Chat,
   },
   data() {
     return {
+      goodsinfo: [],
       activeName: "first",
       num: 1,
       value: 4.7,
@@ -229,6 +350,29 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    this.$store.dispatch("index/allnavfalse");
+    this.$axios
+      .get("http://127.0.0.1:3000/cake")
+      .then((res) => {
+        this.$store.dispatch("index/cakelist", res.data);
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
+    this.$axios
+      .post("http://127.0.0.1:3000/detailpage", {
+        goodsName: this.$route.query.goodsName,
+      })
+      .then((res) => {
+        this.goodsinfo = res.data;
+        this.$store.dispatch("detailpage/goodstype", res.data[0].typeName);
+        this.$store.dispatch("detailpage/name", res.data[0].goodsName);
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
   },
 };
 </script>
@@ -297,6 +441,7 @@ export default {
   top: 0px;
   width: 240px;
   height: 100%;
+  overflow: hidden;
   background-color: #f3f3f3;
 }
 .info-container-right {
@@ -306,5 +451,11 @@ export default {
   width: 940px;
   height: 100%;
   background-color: #f3f3f3;
+}
+.detaildescribe .el-col {
+  margin: 0;
+}
+#list:hover {
+  box-shadow: 0 0 10px 2px red;
 }
 </style>

@@ -10,7 +10,11 @@
       >
         <el-form :model="addform">
           <el-form-item label="商品编号" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.id" disabled autocomplete="off"></el-input>
+            <el-input
+              v-model="addform.id"
+              disabled
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
           <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.name" autocomplete="off"></el-input>
@@ -71,7 +75,7 @@
       <el-input
         prefix-icon="el-icon-search"
         v-on:keyup.enter.native="psearch()"
-        placeholder="请输入商品编号"
+        placeholder="请输入商品关键词"
         v-model="search"
         clearable
       ></el-input>
@@ -84,24 +88,52 @@
       ref="multipleTable"
       :data="tableData"
       border
-      style="margin: 10px auto; width: 1101px"
+      style="margin: 10px auto; width: 951px"
       tooltip-effect="dark"
       :header-cell-style="{ background: '#f7f7f7' }"
     >
       <el-table-column
         prop="goodsId"
         label="商品编号"
-        width="150"
+        width="100"
       ></el-table-column>
-      <el-table-column
-        prop="goodsName"
-        label="商品名称"
-        width="150"
-      ></el-table-column>
+      <el-table-column label="商品名称" width="200">
+        <template slot-scope="scope">
+          <el-popover placement="right" width="400" trigger="hover">
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">材料：</span></el-col
+              >
+              <el-col :span="18">{{ scope.row.goodsMaster }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">包装：</span></el-col
+              >
+              <el-col :span="18">{{ scope.row.goodsPackage }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">花语：</span></el-col
+              >
+              <el-col :span="18">{{ scope.row.goodsLanguage }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">图片：</span></el-col
+              >
+              <el-col :span="18"><el-image style="width:100px;height:100px;" :src="p"></el-image></el-col>
+            </el-row>
+            <el-button size="mini" type="primary" slot="reference">{{
+              scope.row.goodsName
+            }}</el-button>
+          </el-popover>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="goodsPrice"
         label="商品价格"
-        width="150"
+        width="100"
       ></el-table-column>
       <el-table-column
         prop="supName"
@@ -111,12 +143,12 @@
       <el-table-column
         prop="goodsStatus"
         label="商品状态"
-        width="150"
+        width="100"
       ></el-table-column>
       <el-table-column
         prop="typeName"
         label="商品类型"
-        width="150"
+        width="100"
       ></el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">

@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <div class="nav">
-      <div style="height: 40px; left: 200px; border-bottom: 1px solid #dcdfe6">
+      <div style="height: 40px; left: 200px; border-bottom: 1px solid #ccc">
         <p style="text-align: center; margin: 0px; padding: 10px 0px">
           功能导航
         </p>
@@ -51,7 +51,9 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/stockcheck">库存盘点</el-menu-item>
-                <el-menu-item index="/stockcheck/history">盘点汇总</el-menu-item>
+                <el-menu-item index="/stockcheck/history"
+                  >盘点汇总</el-menu-item
+                >
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="5">
@@ -72,7 +74,6 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/user">用户管理</el-menu-item>
-                <el-menu-item index="/chat">消息管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -97,11 +98,11 @@
       <li>
         <router-link to="/stockcheck">库存盘点</router-link>
       </li>
-            <li>
+      <li>
         <router-link to="/salechart">销售图表</router-link>
       </li>
       <li>
-        <router-link to="/chat">消息管理</router-link>
+        <a href="javascript:void(0)" @click="chat()">消息管理</a>
       </li>
     </div>
     <div class="show">
@@ -116,7 +117,11 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    chat() {
+      this.$store.dispatch("backstage_index/showchat");
+    },
+  },
 };
 </script>
 
@@ -153,8 +158,8 @@ export default {
   left: 200px;
   right: 0px;
   background-color: white;
-  border-left: 1px solid #dcdfe6;
-  border-bottom: 1px solid #dcdfe6;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 .quick_nav li {
   float: left;
@@ -181,7 +186,7 @@ export default {
   bottom: 0px;
   left: 200px;
   right: 0px;
-  border-left: 1px solid #dcdfe6;
+  border-left: 1px solid #ccc;
   overflow-y: scroll;
 }
 </style>

@@ -5,6 +5,7 @@
       <Search />
     </div>
     <Movenav />
+    <Chat/>
   </div>
 </template>
 
@@ -12,6 +13,7 @@
 import Moveheader from "../index/header";
 import Search from "../index/main/head";
 import Movenav from "../move/movenav";
+import Chat from "../chat/chat"
 export default {
   inject: ["reload"],
   name: "move",
@@ -19,6 +21,7 @@ export default {
     Moveheader,
     Search,
     Movenav,
+    Chat
   },
   created() {
     this.$store.dispatch("index/allnavfalse");

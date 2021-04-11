@@ -33,7 +33,6 @@ import backstage_salechart from '../components/backstage/chart/salechart'
 import backstage_stockchart from '../components/backstage/chart/stockchart'
 import backstage_purchasechart from '../components/backstage/chart/purchasechart'
 import backstage_user from '../components/backstage/system/user'
-import backstage_chat from '../components/backstage/system/chat'
 
 Vue.use(VueRouter)
 
@@ -164,10 +163,6 @@ const routes = [
         {
             path: "/user",
             component: backstage_user,
-        },
-        {
-            path: "/chat",
-            component: backstage_chat,
         },]
     }
 ]

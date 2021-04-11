@@ -56,7 +56,7 @@
       <el-input
         prefix-icon="el-icon-search"
         v-on:keyup.enter.native="psearch()"
-        placeholder="请输入供应商编号"
+        placeholder="请输入供应商关键词"
         v-model="search"
         clearable
       ></el-input>
@@ -71,23 +71,44 @@
       border
       tooltip-effect="dark"
       :header-cell-style="{ background: '#f7f7f7' }"
-      style="margin: 20px auto; width: 1101px"
+      style="margin: 20px auto; width: 701px"
     >
-      <el-table-column prop="supId" label="供应商编号" width="150">
+      <el-table-column prop="supId" label="供应商编号" width="100">
       </el-table-column>
-      <el-table-column prop="supName" label="供应商名称" width="100">
+      <el-table-column prop="supName" label="供应商名称" width="150">
       </el-table-column>
-      <el-table-column prop="supManager" label="负责人" width="100">
+      <el-table-column label="负责人" width="100">
+        <template slot-scope="scope">
+          <el-popover placement="right" width="400" trigger="hover">
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">性别：</span></el-col
+              >
+              <el-col :span="18">{{ scope.row.supSex }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">年龄：</span></el-col
+              >
+              <el-col :span="18">{{ scope.row.supAge }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">联系电话：</span></el-col
+              >
+              <el-col :span="18">{{ scope.row.supTel }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="6"
+                ><span style="float: right">联系地址：</span></el-col
+              >
+              <el-col :span="18">{{ scope.row.supAddress }}</el-col>
+            </el-row>
+            <el-button size="mini" type="primary" slot="reference">{{ scope.row.supManager }}</el-button>
+          </el-popover>
+        </template>
       </el-table-column>
-      <el-table-column prop="supSex" label="性别" width="100">
-      </el-table-column>
-      <el-table-column prop="supAge" label="年龄" width="100">
-      </el-table-column>
-      <el-table-column prop="supTel" label="电话" width="100">
-      </el-table-column>
-      <el-table-column prop="supAddress" label="地址" width="150">
-      </el-table-column>
-      <el-table-column prop="supRemark" label="备注" width="100">
+      <el-table-column prop="supRemark" label="备注" width="150">
       </el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">

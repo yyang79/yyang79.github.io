@@ -31,12 +31,10 @@
 </template>
 
 <script>
-
 export default {
   name: "app",
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     databackup: function () {},

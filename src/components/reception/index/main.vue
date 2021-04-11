@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .Head {
   height: 200px;
   width: 100%;

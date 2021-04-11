@@ -1,111 +1,155 @@
 <template>
-  <div id="chat">
+  <div id="chatpage">
     <el-container
-      style="
-        height: 460px;
-        width: 920px;
-        border: 1px solid #e3e3e3;
-        border-radius: 3px;
-        margin: 12.5px auto;
-      "
+      style="height: 460px; width: 800px; border-radius: 5px; margin: 0px auto"
     >
       <el-header
         style="
           height: 60px;
           border-bottom: 1px solid #e3e3e3;
-          background: #438eb9;
+          background: #ff8566;
         "
-        ><div style="text-align: center"><h4>当前聊天用户名</h4></div>
+        ><div style="text-align: center">
+          <h4>{{ this.$store.state.backstage_index.user }}</h4>
+          <a
+            id="close"
+            style="
+              position: relative;
+              top: -60px;
+              left: 370px;
+              padding: 5px 7px;
+            "
+            href="javascript:void(0)"
+            @click="chatmin"
+          >
+            <i class="el-icon-minus"></i>
+          </a>
+          <a
+            id="close"
+            style="
+              position: relative;
+              top: -60px;
+              left: 370px;
+              padding: 5px 7px;
+            "
+            href="javascript:void(0)"
+            @click="chatplaceall"
+          >
+            <i class="el-icon-close"></i>
+          </a>
+        </div>
       </el-header>
       <el-container style="height: 400px">
         <el-aside
           id="el-aside"
-          width="150px"
+          :width="aside + 'px'"
           style="border-right: 1px solid #e3e3e3"
         >
           <div
-            v-for="user in users"
+            v-for="user in this.$store.state.backstage_index.users"
             :key="user.name"
-            style="height: 40px; width: 100%"
+            :class="
+              user.name == $store.state.backstage_index.user
+                ? 'nowuser'
+                : 'otheruser'
+            "
           >
-            <span style="margin: 10px">{{ user.name }}</span>
-            <i
-              style="float: right; margin: 10px"
-              class="el-icon-circle-close"
-            ></i>
+            <div
+              style="width: 100%; height: 100%"
+              @click="chooseuser(user.name)"
+            >
+              <span
+                style="
+                  position: relative;
+                  top: 10px;
+                  left: 10px;
+                  max-width: 90px;
+                "
+                >{{ user.name }}</span
+              >
+            </div>
+            <div
+              style="
+                z-index: 12;
+                width: 21px;
+                height: 21px;
+                position: relative;
+                top: -30px;
+                left: 95px;
+              "
+              @click="deletechat(user.name)"
+            >
+              <a href="javascript:void(0)">
+                <i class="el-icon-circle-close"></i
+              ></a>
+            </div>
           </div>
         </el-aside>
         <el-main style="padding: 0px">
-          <el-container style="height: 400px; margin: 0px">
-            <el-aside width="618px">
-              <el-container width="600px" height="400px">
-                <el-main id="chatlist" style="height: 270px; margin: 0px; padding: 0px">
-                  <div class="chatlist" style="width: 100%; height: 100%">
-                    <div
-                      v-for="chat in chats"
-                      :key="chat.sendName"
-                      :class="chat.sendName == 'user' ? 'ltalk' : 'rtalk'"
-                    >
-                      <el-image
-                        :src="s"
-                        style="height: 40px; width: 40px; border-radius: 50%"
-                      ></el-image>
-                      <span
-                        id="chat"
-                        style="
-                          border: 1px solid #e3e3e3;
-                          padding: 10px;
-                          margin: 0px 10px;
-                          border-radius: 10px;
-                          max-width: 220px;
-                          display: block;
-                          overflow-wrap: break-word;
-                        "
-                        >{{ chat.sendContent }}</span
-                      >
-                    </div>
-                  </div>
-                </el-main>
-                <el-footer
-                  height="129px"
-                  style="
-                    margin: 0px;
-                    padding: 0px;
-                    border-top: 1px solid #e3e3e3;
-                  "
+          <el-container width="600px" height="400px">
+            <el-main
+              id="chatlist"
+              style="height: 270px; margin: 0px; padding: 0px"
+            >
+              <div class="chatlist" style="width: 100%; height: 100%">
+                <div
+                  v-for="chat in chats"
+                  :key="chat.sendName"
+                  :class="chat.sendName == 'user' ? 'ltalk' : 'rtalk'"
                 >
-                  <div class="toollist" style="height: 29px; width: 100%">
-                    <i class="el-icon-circle-close"></i
-                    ><i class="el-icon-picture"></i
-                    ><i class="el-icon-message-solid"></i
-                    ><i class="el-icon-more"></i>
-                  </div>
-                  <div class="inputDeep" style="height: 65px; width: 100%">
-                    <el-input
-                      type="textarea"
-                      :rows="2"
-                      :resize="none"
-                      style="margin: 0px; border: 0"
-                      v-model="textarea"
-                      focus
-                    >
-                    </el-input>
-                  </div>
-                  <div style="height: 35px; width: 100%">
-                    <el-button
-                      @click="send"
-                      size="mini"
-                      style="float: right; margin: 0px 10px"
-                      >发送</el-button
-                    >
-                    <el-button size="mini" style="float: right">关闭</el-button>
-                  </div>
-                </el-footer>
-              </el-container>
-            </el-aside>
-            <el-main style="width: 150px; border-left: 1px solid #e3e3e3">
-              <div style="text-align: center"><span>VIP用户列表</span></div>
+                  <el-image
+                    :src="s"
+                    style="height: 40px; width: 40px; border-radius: 50%"
+                  ></el-image>
+                  <span
+                    id="chat"
+                    style="
+                      border: 1px solid #e3e3e3;
+                      padding: 10px;
+                      margin: 0px 10px;
+                      border-radius: 10px;
+                      max-width: 220px;
+                      display: block;
+                      overflow-wrap: break-word;
+                    "
+                    >{{ chat.sendContent }}</span
+                  >
+                </div>
+              </div>
             </el-main>
+            <el-footer
+              height="129px"
+              style="margin: 0px; padding: 0px; border-top: 1px solid #e3e3e3"
+            >
+              <div class="toollist" style="height: 29px; width: 100%">
+                <i class="el-icon-circle-close"></i
+                ><i class="el-icon-picture"></i
+                ><i class="el-icon-message-solid"></i
+                ><i class="el-icon-more"></i>
+              </div>
+              <div class="inputDeep" style="height: 65px; width: 100%">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  :resize="none"
+                  style="margin: 0px; border: 0"
+                  v-model="sendmessage"
+                  focus
+                >
+                </el-input>
+              </div>
+              <div style="height: 35px; width: 100%">
+                <el-button
+                  @click="send"
+                  size="mini"
+                  style="float: right; margin: 0px 10px"
+                  >发送</el-button
+                >
+                <el-button size="mini" @click="closenow" style="float: right"
+                  >关闭</el-button
+                >
+              </div>
+            </el-footer>
           </el-container>
         </el-main>
       </el-container>
@@ -114,40 +158,33 @@
 </template>
 
 <script>
+import Utils from "../../../assets/util/util";
 export default {
   inject: ["reload"],
   data() {
     return {
-      users: [
-        { name: "user1" },
-        { name: "user2" },
-        { name: "user3" },
-        { name: "user4" },
-      ],
-      textarea: "",
+      sendmessage: "",
       chats: [],
+      aside: 0,
       s: require("../../../assets/images/logo.png"),
     };
   },
-  beforeCreate() {
-    this.$axios
-      .get("http://127.0.0.1:3000/chat")
-      .then((res) => {
-        for (let i = 0; i < res.data.length; i++) {
-          this.chats = res.data;
-          //   if (res.data[i].sendName == "admin") {
-
-          //   } else {
-          //   }
-        }
-      })
-      .catch((error) => {
-        window.console.log(error);
-      });
-  },
-
   mounted() {
+    if (this.$store.state.backstage_index.users.length < 2) {
+      this.aside = 0;
+    } else {
+      this.aside = 120;
+    }
     this.scrollToBottom();
+    var that = this;
+    Utils.$on("backchataxios", function (val) {
+      window.console.log(val);
+      alert("调用成功");
+      that.backchataxios();
+    });
+  },
+  created() {
+    this.backchataxios();
   },
 
   //每次页面渲染完之后滚动条在最底部
@@ -156,27 +193,69 @@ export default {
   },
 
   methods: {
+    backchataxios() {
+      this.$axios
+        .post("http://127.0.0.1:3000/chat/user", {
+          user: this.$store.state.backstage_index.user,
+        })
+        .then((res) => {
+          for (let i = 0; i < res.data.length; i++) {
+            this.chats = res.data;
+          }
+          if (this.$store.state.backstage_index.users.length < 2) {
+            this.aside = 0;
+          } else {
+            this.aside = 120;
+          }
+        })
+        .catch((error) => {
+          window.console.log(error);
+        });
+    },
     send() {
       var time = this.getdate();
       this.$axios
         .post("http://127.0.0.1:3000/chat/send", {
           sendName: "admin",
-          receiverName: "user",
+          receiverName: this.$store.state.backstage_index.user,
           sendTime: time,
-          sendContent: this.textarea,
+          sendContent: this.sendmessage,
         })
         .then(() => {})
         .catch((error) => {
           window.console.log(error);
         });
-      this.textarea = "";
-      this.reload();
+      this.sendmessage = "";
+      this.backchataxios();
+      Utils.$emit("recpchataxios", "调用成功");
     },
     scrollToBottom() {
       this.$nextTick(() => {
         var container = this.$el.querySelector("#chatlist");
         container.scrollTop = container.scrollHeight;
       });
+    },
+    chatplace() {
+      this.$store.dispatch("backstage_index/hidechatplace");
+    },
+    chatplaceall() {
+      this.$store.dispatch("backstage_index/chatplaceall");
+      this.$store.dispatch("backstage_index/hidechatplace");
+    },
+    chatmin() {
+      this.$store.dispatch("backstage_index/chatmin");
+    },
+    deletechat(val) {
+      this.$store.dispatch("backstage_index/deletechat", val);
+      this.backchataxios();
+    },
+    closenow() {
+      this.$store.dispatch("backstage_index/closenow");
+      this.backchataxios();
+    },
+    chooseuser(val) {
+      this.$store.dispatch("backstage_index/chooseuser", val);
+      this.backchataxios();
     },
     getdate() {
       var myDate = new Date();
@@ -214,6 +293,9 @@ export default {
 </script>
 
 <style scoped>
+#chatpage {
+  box-shadow: 0 0 10px 1px #888888;
+}
 el-container,
 el-header,
 el-main,
@@ -261,5 +343,17 @@ el-footer {
 }
 .rtalk span {
   float: right;
+}
+#close:hover {
+  background: red;
+}
+.nowuser {
+  background: #e3e3e3;
+  height: 40px;
+  width: 100%;
+}
+.otheruser {
+  height: 40px;
+  width: 100%;
 }
 </style>
