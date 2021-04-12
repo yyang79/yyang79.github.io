@@ -7,7 +7,7 @@
           <div><el-image style="width:150px;height:150px" :src="weixin"></el-image></div>
 
           <el-button slot="reference" style="border: none; background: gray; color: white"
-            >官方微信</el-button
+            ><i class=""></i>官方微信</el-button
           >
         </el-popover>
       </div>
@@ -51,7 +51,7 @@
             href="#"
             @click="goshopcar()"
             style="background-color: red; padding: 10px"
-            >购物车(0)</a
+            >购物车({{this.$store.state.shopcar.tableData.length}})</a
           >
         </div>
       </div>

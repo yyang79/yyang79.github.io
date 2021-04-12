@@ -15,10 +15,10 @@
       <div class="show-flower">
         <div
           v-for="flower in this.$store.state.index.basketlist"
-          :key="flower.src"
+          :key="flower.goodsUrl"
         >
           <router-link :to="{ path: '/detailpage', query: { goodsName: flower.goodsName } }">
-            <el-image :src="flower.src"></el-image>
+            <el-image :src="flower.goodsUrl"></el-image>
             <span
               style="
                 overflow: hidden;
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import lf1 from "../../../../assets/images/basket/1.jpg";
+import lf1 from "../../../../assets/images/basket.jpg";
 export default {
   data() {
     return {
@@ -68,6 +68,7 @@ export default {
       .then((res) => {
         var list = [];
         for (let i = 0; i < 8; i++) {
+          res.data[i].goodsUrl = require("../../../../../../stytemdata/assets/images/"+res.data[i].goodsUrl+"");
           list.push(res.data[i]);
         }
         this.$store.dispatch("index/basketlist", list);

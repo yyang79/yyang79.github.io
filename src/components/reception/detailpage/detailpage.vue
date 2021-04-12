@@ -25,11 +25,11 @@
           <el-form-item>
             <div class="detailimg">
               <el-image
-                :src="this.$store.state.index.newlist[0].src"
+                :src="goodsinfo[0].goodsUrl"
                 style="width: 360px; height: 360px; margin: 20px"
               ></el-image>
               <el-image
-                :src="this.$store.state.index.newlist[0].src"
+                :src="goodsinfo[0].goodsUrl"
                 style="
                   width: 80px;
                   height: 80px;
@@ -38,7 +38,7 @@
                 "
               ></el-image>
               <el-image
-                :src="this.$store.state.index.newlist[0].src"
+                :src="goodsinfo[0].goodsUrl"
                 style="
                   width: 80px;
                   height: 80px;
@@ -47,7 +47,7 @@
                 "
               ></el-image>
               <el-image
-                :src="this.$store.state.index.newlist[0].src"
+                :src="goodsinfo[0].goodsUrl"
                 style="
                   width: 80px;
                   height: 80px;
@@ -111,11 +111,28 @@
                   :max="10"
                   label="描述文字"
                 ></el-input-number>
-                <el-button style="position: absolute; top: 0px; left: 450px"
+                <el-button
+                  @click="
+                    addtoshopcar(
+                      goodsinfo[0].goodsId,
+                      goodsinfo[0].goodsUrl,
+                      goodsinfo[0].goodsName,
+                      goodsinfo[0].goodsPrice
+                    )
+                  "
+                  style="position: absolute; top: 0px; left: 450px"
                   >加入购物车</el-button
                 >
                 <el-button
                   type="primary"
+                  @click="
+                    buy(
+                      goodsinfo[0].goodsId,
+                      goodsinfo[0].goodsUrl,
+                      goodsinfo[0].goodsName,
+                      goodsinfo[0].goodsPrice
+                    )
+                  "
                   style="position: absolute; top: 0px; left: 600px"
                   >立即购买</el-button
                 >
@@ -130,7 +147,7 @@
             <div
               id="list"
               v-for="flower in this.$store.state.index.cakelist"
-              :key="flower.src"
+              :key="flower.goodsUrl"
               style="float: left; margin: 10px; width: 220px; height: 290px"
             >
               <router-link
@@ -141,7 +158,7 @@
               >
                 <el-image
                   style="width: 200px; height: 200px; margin: 0px 10px"
-                  :src="flower.src"
+                  :src="flower.goodsUrl"
                 ></el-image>
                 <span
                   style="
@@ -249,19 +266,19 @@
           <h2 style="text-align: center">猜你喜欢</h2>
           <div
             id="list"
-            v-for="flower in this.$store.state.index.cakelist"
-            :key="flower.src"
+            v-for="flowera in this.$store.state.index.cakelist"
+            :key="flowera.goodsUrl"
             style="float: left; margin: 10px; width: 220px; height: 290px"
           >
             <router-link
               :to="{
                 path: '/detailpage',
-                query: { goodsName: flower.goodsName },
+                query: { goodsName: flowera.goodsName },
               }"
             >
               <el-image
                 style="width: 200px; height: 200px; margin: 0px 10px"
-                :src="flower.src"
+                :src="flowera.goodsUrl"
               ></el-image>
               <span
                 style="
@@ -276,7 +293,7 @@
                   top: 10px;
                   left: 10px;
                 "
-                >{{ flower.goodsName }}</span
+                >{{ flowera.goodsName }}</span
               ><br />
               <span
                 style="
@@ -286,10 +303,10 @@
                   top: 0px;
                   left: 10px;
                 "
-                >￥{{ flower.goodsPrice }}.00</span
+                >￥{{ flowera.goodsPrice }}.00</span
               >
               <small style="position: relative; top: 10px; left: 30px"
-                >已售{{ flower.sallnum }}</small
+                >已售{{ flowera.sallnum }}</small
               ></router-link
             >
           </div>
@@ -356,7 +373,16 @@ export default {
     this.$axios
       .get("http://127.0.0.1:3000/cake")
       .then((res) => {
-        this.$store.dispatch("index/cakelist", res.data);
+        var list = [];
+        for (let i = 0; i < 8; i++) {
+          res.data[
+            i
+          ].goodsUrl = require("../../../../../stytemdata/assets/images/" +
+            res.data[i].goodsUrl +
+            "");
+          list.push(res.data[i]);
+        }
+        this.$store.dispatch("index/cakelist", list);
       })
       .catch((err) => {
         window.console.log(err);
@@ -366,6 +392,9 @@ export default {
         goodsName: this.$route.query.goodsName,
       })
       .then((res) => {
+        res.data[0].goodsUrl = require("../../../../../stytemdata/assets/images/" +
+          res.data[0].goodsUrl +
+          "");
         this.goodsinfo = res.data;
         this.$store.dispatch("detailpage/goodstype", res.data[0].typeName);
         this.$store.dispatch("detailpage/name", res.data[0].goodsName);
@@ -373,6 +402,30 @@ export default {
       .catch((err) => {
         window.console.log(err);
       });
+  },
+  methods: {
+    addtoshopcar(id,url, name, price) {
+      var value = {
+        id: id,
+        url: url,
+        name: name,
+        price: price,
+        num: this.num,
+      };
+      this.$store.dispatch("shopcar/tableData", value);
+      this.$message({ message: "加入购物车成功", type: "success" });
+    },
+    buy(id,url, name, price) {
+      var value = {
+        id: id,
+        url: url,
+        name: name,
+        price: price,
+        num: this.num,
+      };
+      this.$store.dispatch("shopcar/tableData", value);
+      this.$router.replace("/shopcar");
+    },
   },
 };
 </script>

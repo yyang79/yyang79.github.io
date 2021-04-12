@@ -38,11 +38,7 @@
       <img width="100%" :src="dialogImageUrl" alt="" />
     </el-dialog>
     <el-button @click="submitimg">上传图片</el-button>
-    <el-image
-      :src="
-        require('C:/Users/yyang/Desktop/Flower System/stytemdata/assets/images/logo.png')
-      "
-    ></el-image>
+    <el-image :src="testurl"></el-image>
   </div>
 </template>
 
@@ -53,7 +49,21 @@ export default {
       dialogImageUrl: "",
       dialogVisible: false,
       disabled: false,
+      testurl: "",
     };
+  },
+  created() {
+    this.$axios
+      .get("http://127.0.0.1:3000/getimg")
+      .then((res) => {
+        var i = res.data[0].url;
+        alert(i);
+        this.testurl = require("../../../../../stytemdata/assets/images/" + i +"");
+        alert(JSON.stringify(this.testurl));
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
   },
   methods: {
     submitimg() {

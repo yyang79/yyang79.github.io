@@ -57,9 +57,9 @@
         ></el-form-item>
         <el-form-item label="商品图片：" :label-width="formLabelWidth + 'px'">
           <el-image
-            :src="require('../../../assets/images/love/7.jpg')"
+            :src="require('../../../assets/images/love.jpg')"
             style="width: 100px; height: 100px"
-            :preview-src-list="require('../../../assets/images/love/7.jpg')"
+            :preview-src-list="require('../../../assets/images/love.jpg')"
           ></el-image>
         </el-form-item>
         <el-form-item label="商品材料：" :label-width="formLabelWidth + 'px'">
@@ -129,7 +129,7 @@ export default {
   },
   created: function () {
     this.$axios
-      .post("http://127.0.0.1:3000/sale/history/detail", {
+      .post("http://127.0.0.1:3000/order/history", {
         id: this.$route.params.id,
       })
       .then((res) => {

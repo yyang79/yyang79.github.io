@@ -57,9 +57,9 @@
         ></el-form-item>
         <el-form-item label="商品图片：" :label-width="formLabelWidth + 'px'">
           <el-image
-            :src="require('../../../assets/images/love/7.jpg')"
+            :src="require('../../../assets/images/love.jpg')"
             style="width: 100px; height: 100px"
-            :preview-src-list="require('../../../assets/images/love/7.jpg')"
+            :preview-src-list="require('../../../assets/images/love.jpg')"
           ></el-image>
         </el-form-item>
         <el-form-item label="商品材料：" :label-width="formLabelWidth + 'px'">

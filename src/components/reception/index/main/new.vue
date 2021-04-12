@@ -9,7 +9,7 @@
       <div
         style="padding: 0px"
         v-for="flower in this.$store.state.index.plantlist"
-        :key="flower.src"
+        :key="flower.goodsUrl"
       >
         <router-link
           style="width: 200px; height: 290px"
@@ -18,7 +18,7 @@
             query: { goodsName: flower.goodsName },
           }"
         >
-          <el-image :src="flower.src"></el-image>
+          <el-image :src="flower.goodsUrl"></el-image>
           <span
             style="
               overflow: hidden;
@@ -105,6 +105,7 @@ export default {
 }
 
 .new .show-main div a .el-image {
+  margin: 0px 10px;
   width: 200px;
   height: 200px;
 }

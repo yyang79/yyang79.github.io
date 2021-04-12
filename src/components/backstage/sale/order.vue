@@ -7,7 +7,7 @@
       border
       tooltip-effect="dark"
       :header-cell-style="{ background: '#f7f7f7' }"
-      style="width: 1010px; margin: 0px auto"
+      style="width: 1011px; margin: 0px auto"
     >
       <el-table-column prop="orderid" label="订单编号" width="200">
       </el-table-column>
@@ -64,47 +64,20 @@ export default {
   name: "historypurchase",
   data() {
     return {
-      orderlist: [
-        {
-          orderid: 1,
-          date: "2016-05-05",
-          name: "yyang",
-          status: "未处理",
-        },
-        {
-          orderid: 2,
-          date: "2016-06-03",
-          name: "yyang",
-          status: "未处理",
-        },
-        {
-          orderid: 3,
-          date: "2016-07-09",
-          name: "yyang",
-          status: "未处理",
-        },
-        {
-          orderid: 4,
-          date: "2016-12-03",
-          name: "yyang",
-          status: "未处理",
-        },
-        {
-          orderid: 5,
-          date: "2018-02-03",
-          name: "yyang",
-          status: "未处理",
-        },
-      ],
-      detaillist: [
-        { id: 1, name: "商品一", price: "￥99.00", num: 100 },
-        { id: 2, name: "商品二", price: "￥179.00", num: 100 },
-        { id: 3, name: "商品三", price: "￥259.00", num: 100 },
-        { id: 4, name: "商品四", price: "￥939.00", num: 100 },
-        { id: 5, name: "商品五", price: "￥59.00", num: 100 },
-      ],
+      orderlist: [],
+      detaillist: [],
       detailpagevisible: false,
     };
+  },
+  created: function () {
+    this.$axios
+      .get("http://127.0.0.1:3000/order")
+      .then((res) => {
+        this.tableData = res.data;
+      })
+      .catch((error) => {
+        window.console.log(error);
+      });
   },
   methods: {
     listdetail() {

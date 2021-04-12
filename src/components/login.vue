@@ -96,9 +96,9 @@ export default {
   },
   data() {
     return {
-      user: "admin",
+      user: "user",
       pad: "123",
-      radio: "admin",
+      radio: "user",
       loginbackimg: require("../assets/images/loginbackimg.jpg"),
       logo:require('../assets/images/logo.png')
     };

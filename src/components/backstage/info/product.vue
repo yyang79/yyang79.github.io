@@ -19,6 +19,9 @@
           <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.name" autocomplete="off"></el-input>
           </el-form-item>
+          <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
+            <el-input v-model="addform.name" autocomplete="off"></el-input>
+          </el-form-item>
           <el-form-item label="商品材料" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.master" autocomplete="off"></el-input>
           </el-form-item>
@@ -122,7 +125,12 @@
               <el-col :span="6"
                 ><span style="float: right">图片：</span></el-col
               >
-              <el-col :span="18"><el-image style="width:100px;height:100px;" :src="p"></el-image></el-col>
+              <el-col :span="18"
+                ><el-image
+                  style="width: 100px; height: 100px"
+                  :src="scope.row.goodsUrl"
+                ></el-image
+              ></el-col>
             </el-row>
             <el-button size="mini" type="primary" slot="reference">{{
               scope.row.goodsName
@@ -252,6 +260,7 @@ export default {
       addform: {
         id: "",
         name: "",
+        url:'',
         master: "",
         package: "",
         price: "",

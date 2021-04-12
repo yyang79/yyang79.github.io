@@ -15,20 +15,22 @@
     </div>
     <el-divider></el-divider>
     <div class="recommend-show">
-      <router-link :to="{ path: '/detailpage', query: { search: 's' } }">
-        <div
-          v-for="flower in this.$store.state.shopcar.flowers"
-          :key="flower.name"
+      <div
+        v-for="flower in this.$store.state.shopcar.flowers"
+        :key="flower.goodsName"
+      >
+        <router-link
+          :to="{ path: '/detailpage', query: { goodsName: flower.goodsName } }"
         >
-          <el-image :src="flower.src"></el-image>
-          <br>
-          <span>{{ flower.name }}</span
+          <el-image :src="flower.goodsUrl"></el-image>
+          <br />
+          <span>{{ flower.goodsName }}</span
           ><br />
-          <b>{{ flower.prince }}</b
+          <b>￥{{ flower.goodsPrice }}.00</b
           ><br />
           <small>已售{{ flower.sale }}件</small>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +41,23 @@ export default {
   data() {
     return {};
   },
+  created() {
+    this.$axios
+      .get("http://127.0.0.1:3000/commend")
+      .then((res) => {
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[
+            i
+          ].goodsUrl = require("../../../../../stytemdata/assets/images/" +
+            res.data[i].goodsUrl +
+            "");
+        }
+        this.$store.dispatch("shopcar/getflower", res.data);
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
+  },
 };
 </script>
 
@@ -46,17 +65,17 @@ export default {
 .recommend-show {
   width: 100%;
 }
-.recommend-show a > div {
+.recommend-show > div {
   width: 200px;
   height: 280px;
   float: left;
   margin: 10px 18px;
   border: 1px solid gray;
 }
-.recommend-show a > div:hover{
+.recommend-show > div:hover {
   box-shadow: 0 0 10px 5px gray;
 }
-.recommend-show a > div .el-image {
+.recommend-show > div .el-image {
   height: 200px;
   width: 200px;
 }
