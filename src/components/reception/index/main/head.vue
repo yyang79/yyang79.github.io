@@ -65,11 +65,6 @@
                   <router-link to="">生日鲜花</router-link>
                   <router-link to="">节日鲜花</router-link>
                   <router-link to="">礼品</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
                 </div>
                 <el-button slot="reference">热门分类</el-button>
               </el-popover>
@@ -93,10 +88,6 @@
                   <router-link to="">求婚</router-link>
                   <router-link to="">纪念</router-link>
                   <router-link to="">开业花篮</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
                 </div>
                 <el-button slot="reference">按用途分类</el-button>
               </el-popover>
@@ -115,10 +106,6 @@
                   <router-link to="">老师</router-link>
                   <router-link to="">朋友</router-link>
                   <router-link to="">长辈</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
                 </div>
                 <el-button slot="reference">按对象分类</el-button>
               </el-popover>
@@ -166,10 +153,6 @@
                   <router-link to="">108朵</router-link>
                   <router-link to="">365朵</router-link>
                   <router-link to="">999朵</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
                 </div>
                 <el-button slot="reference">按朵数分类</el-button>
               </el-popover>
@@ -189,9 +172,6 @@
                   <router-link to="">中秋节</router-link>
                   <router-link to="">清明节</router-link>
                   <router-link to="">国庆节</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
-                  <router-link to="">x</router-link>
                 </div>
                 <el-button slot="reference">按节日分类</el-button>
               </el-popover>
@@ -228,13 +208,13 @@
         <router-link :to="{ path: '/move', query: { keyword: 'Friend' } }"
           >友情系列</router-link
         >
-        <router-link :to="{ path: '/move', query: { keyword: 'Basket' } }"
+        <router-link :to="{ path: '/move', query: { keyword: 'Box' } }"
           >礼盒系列</router-link
         >
         <router-link :to="{ path: '/move', query: { keyword: 'Cake' } }"
           >蛋糕系列</router-link
         >
-        <router-link :to="{ path: '/move', query: { keyword: 'Box' } }"
+        <router-link :to="{ path: '/move', query: { keyword: 'Basket' } }"
           >花篮系列</router-link
         >
         <router-link :to="{ path: '/move', query: { keyword: 'Plant' } }"
@@ -314,6 +294,15 @@ export default {
   height: 100px;
   left: 50%;
   margin-left: -200px;
+}
+
+.search span{
+  font-size:10px;
+}
+
+.search a{
+  font-size:10px;
+  margin:0px 10px;
 }
 
 .tel {

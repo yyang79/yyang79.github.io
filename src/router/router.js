@@ -7,7 +7,9 @@ import reception_resigter from '../components/reception/resigter/resigter'
 import reception_forget from '../components/reception/forget/forget'
 import reception_index from '../components/reception/index/index'
 import reception_personal from '../components/reception/personal/personal'
-import reception_myorder from '../components/reception/myorder/myorder'
+import reception_order from '../components/reception/personal/order'
+import reception_personalinfo from '../components/reception/personal/personalinfo'
+import reception_refundsale from '../components/reception/personal/refundsale'
 import reception_shopcar from '../components/reception/shopcar/shopcar'
 import reception_move from '../components/reception/move/move'
 import reception_detailpage from '../components/reception/detailpage/detailpage'
@@ -72,11 +74,24 @@ const routes = [
     },
     {
         path: "/personal",
-        component: reception_personal
-    },
-    {
-        path: "/myorder",
-        component: reception_myorder
+        component: reception_personal,
+        children: [{
+            path: "/",
+            component: reception_personalinfo,
+        },
+        {
+            path: "/myorder",
+            component: reception_order
+        },
+        {
+            path: "/refundsale",
+            component: reception_refundsale
+        },
+        {
+            path: "/personalinfo",
+            component: reception_personalinfo
+        }
+        ]
     },
     {
         path: "/backstage",
@@ -170,6 +185,12 @@ const routes = [
 const router = new VueRouter({
     mode: "hash",
     routes,
+    scrollBehavior() {
+        return {
+            x: 0,
+            y: 0
+        }
+    }
 })
 
 export default router;

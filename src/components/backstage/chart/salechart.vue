@@ -1,8 +1,14 @@
 <template>
-  <div
-    id="dev-month"
-    :style="{ width: '100%', height: '100%', fontSize: '25px' }"
-  ></div>
+  <div>
+    <div class="purlist">
+      <li><i class="el-icon-shopping-cart-1"></i><span>交易金额<br><b>￥25358.72</b></span></li>
+      <li><i class="el-icon-shopping-cart-1"></i><span>订单数量<br><b>632</b></span></li>
+      <li><i class="el-icon-shopping-cart-1"></i><span>交易成功<br><b>583</b></span></li>
+      <li><i class="el-icon-shopping-cart-1"></i><span>交易失败<br><b>49</b></span></li>
+      <li><i class="el-icon-shopping-cart-1"></i><span>退款金额<br><b>4634.84</b></span></li>
+    </div>
+    <div id="dev-month" :style="{ width: '1000px', height: '500px' }"></div>
+  </div>
 </template>
 
 <script>
@@ -30,11 +36,17 @@ export default {
           let myChart = this.echarts.init(document.getElementById("dev-month"));
           // 绘制图表
           myChart.setOption({
-            title: { text: "库存报表" },
-            grid: {containLabel: true},
+            title: {},
+            grid: { containLabel: true },
             tooltip: {},
-            xAxis: { type: "value", boundaryGap: [0, 0.01] },
-            yAxis: { type: "category", data: xdata },
+            xAxis: {
+              type: "category",
+              data: xdata,
+              axisLabel: {
+                rotate: 30,
+              },
+            },
+            yAxis: { type: "value", boundaryGap: [0, 0.01] },
             series: [
               {
                 name: "库存量",
@@ -53,8 +65,32 @@ export default {
 </script>
 
 <style scoped>
-#dev-month {
-  width: 100%;
-  height: 100%;
+.purlist {
+  height: 100px;
+}
+.purlist li {
+  float: left;
+  margin: 20px;
+  padding: 20px;
+  list-style: none;
+  background: #6ccac9;
+}
+.purlist i {
+font-size: 40px;
+}
+.purlist li span {
+font-size: 20px;
+margin-left: 10px;
+position: relative;
+top: -20px;
+left: 0px;
+}
+.purlist span b {
+  padding: 0px;
+  margin: 0px;
+font-size: 10px;
+position: absolute;
+top: 30px;
+left: 0px;
 }
 </style>

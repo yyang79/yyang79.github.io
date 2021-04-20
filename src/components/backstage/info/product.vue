@@ -19,8 +19,33 @@
           <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.name" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="商品名称" :label-width="formLabelWidth + 'px'">
-            <el-input v-model="addform.name" autocomplete="off"></el-input>
+          <el-form-item label="商品图片" :label-width="formLabelWidth + 'px'">
+            <el-upload
+              action="http://127.0.0.1:3000/upload"
+              ref="upload"
+              :limit="1"
+              :on-change="hangdleupload"
+              :auto-upload="false"
+              list-type="picture-card"
+            >
+              <i slot="default" class="el-icon-plus"></i>
+              <div slot="file" slot-scope="{ file }">
+                <img
+                  class="el-upload-list__item-thumbnail"
+                  :src="file.url"
+                  alt=""
+                />
+                <span class="el-upload-list__item-actions">
+                  <span
+                    v-if="!disabled"
+                    class="el-upload-list__item-delete"
+                    @click="handleRemove(file)"
+                  >
+                    <i class="el-icon-delete"></i>
+                  </span>
+                </span>
+              </div>
+            </el-upload>
           </el-form-item>
           <el-form-item label="商品材料" :label-width="formLabelWidth + 'px'">
             <el-input v-model="addform.master" autocomplete="off"></el-input>
@@ -89,7 +114,7 @@
     <el-divider></el-divider>
     <el-table
       ref="multipleTable"
-      :data="tableData"
+      :data="goodslists"
       border
       style="margin: 10px auto; width: 951px"
       tooltip-effect="dark"
@@ -241,9 +266,8 @@
         :page-size="100"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
-        :current-change="pagechange"
-        :prev-click="prev"
-        :next-click="next"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
       >
       </el-pagination>
     </div>
@@ -256,11 +280,12 @@ export default {
   data() {
     return {
       tableData: [],
+      goodslist: [],
       multipleSelection: [],
       addform: {
         id: "",
         name: "",
-        url:'',
+        url: "",
         master: "",
         package: "",
         price: "",
@@ -289,17 +314,20 @@ export default {
       formLabelWidth: 100,
       currentPage: 1,
       total: 0,
+      pagesize: 10,
+      goodslists: [],
       search: "",
       show: true,
       proquit: false,
       supplierlist: [],
       typelist: [],
+      url:''
     };
   },
   created: function () {
     this.showproduct();
     this.$axios
-      .get("http://127.0.0.1:3000/type")
+      .get("/type")
       .then((res) => {
         var list = [];
         for (let i = 0; i < res.data.length; i++) {
@@ -320,9 +348,13 @@ export default {
       });
   },
   methods: {
+    hangdleupload(file) {
+      this.url = file.name;
+      alert(this.url)
+    },
     showproduct() {
       this.$axios
-        .get("http://127.0.0.1:3000/goods")
+        .get("/goods")
         .then((res) => {
           if (res.data.length == 0) {
             this.show = false;
@@ -332,6 +364,12 @@ export default {
           this.total = res.data.length;
           var list = [];
           for (let i = 0; i < res.data.length; i++) {
+            res.data[
+              i
+            ].goodsUrl = require("../../../../../stytemdata/assets/images/" +
+              res.data[i].goodsUrl +
+              "");
+
             list.push({
               value: res.data[i].supName,
               label: res.data[i].supName,
@@ -348,6 +386,7 @@ export default {
           var goodid = "SP_";
           goodid += res.data.length + 1;
           this.addform.id = goodid;
+          this.fenye();
         })
         .catch((error) => {
           window.console.log(error);
@@ -358,6 +397,7 @@ export default {
         .post("http://127.0.0.1:3000/goods/add", {
           id: this.addform.id,
           name: this.addform.name,
+          url:this.url,
           master: this.addform.master,
           package: this.addform.package,
           price: this.addform.price,
@@ -377,6 +417,7 @@ export default {
         .catch((error) => {
           window.console.log(error);
         });
+      this.$refs.upload.submit();
     },
     handleEdit(row) {
       this.dialogFormVisible_update = true;
@@ -419,6 +460,7 @@ export default {
         })
         .then((req) => {
           this.tableData = req.data;
+          this.fenye();
           this.show = false;
           this.search = "";
         })
@@ -455,9 +497,20 @@ export default {
           window.console.log(error);
         });
     },
-    pagechange() {},
-    prev() {},
-    next() {},
+    fenye() {
+      this.goodslists = this.tableData.slice(
+        (this.currentPage - 1) * this.pagesize,
+        this.currentPage * this.pagesize
+      );
+    },
+    handleSizeChange(val) {
+      this.pagesize = val;
+      this.fenye();
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      this.fenye();
+    },
   },
 };
 </script>

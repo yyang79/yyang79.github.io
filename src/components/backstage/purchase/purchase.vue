@@ -407,6 +407,7 @@ export default {
     },
 
     submit() {
+  
       var player = this.$store.state.purchase.player;
       var goodslist = this.$store.state.purchase.goodslist;
       if (this.date == "" || this.date == null) {
@@ -419,7 +420,8 @@ export default {
         for (var i = 0; i < tableData.length; i++) {
           list.push({
             goodsId: tableData[i].goodsId,
-            goodsNum: parseInt(tableData[i].num) + parseInt(tableData[i].goodsNum),
+            goodsNum:
+              parseInt(tableData[i].num) + parseInt(tableData[i].goodsNum),
             num: tableData[i].goodsNum,
           });
           goodslist.push({
@@ -431,7 +433,7 @@ export default {
         this.$store.commit("purchase/goodslistsort");
 
         this.$axios
-          .post("http://127.0.0.1:3000/purchase/submit", {
+          .post("/purchase/submit", {
             id: this.inid,
             date: this.date,
             player: player,

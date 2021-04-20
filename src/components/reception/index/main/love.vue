@@ -96,7 +96,7 @@ a {
   width: 1200px;
   margin-left: -600px;
   height: 730px;
-  background-color: #f3f3f3;
+  background-color: #e9ecf0;
 }
 
 .show-image {

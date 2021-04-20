@@ -23,32 +23,16 @@
         >在线咨询</a
       >
     </div>
-    <el-backtop target=".page-component__scroll .el-scrollbar__wrap">
-      <div
-        style="
-           {
-            height: 100%;
-            width: 100%;
-            background-color: #f2f5f6;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
-            text-align: center;
-            line-height: 40px;
-            color: #1989fa;
-          }
-        "
-      >
-        UP
-      </div>
-    </el-backtop>
     <div
       v-show="this.$store.state.index.chat"
+      v-drag
       style="
         position: fixed;
         top: 20%;
-        right: 0px;
+        right: 10px;
         background: white;
+        box-shadow:0 0 10px 3px gray;
         width: 400px;
-        height: 400px;
         z-index: 10;
       "
     >
@@ -113,7 +97,6 @@
             <el-input
               type="textarea"
               :rows="2"
-              :resize="none"
               style="margin: 0px; border: 0"
               v-model="textarea"
               focus
@@ -154,19 +137,45 @@ export default {
       s: require("../../../assets/images/logo.png"),
     };
   },
+  directives: {
+    drag(el) {
+      el.onmousedown = function (e) {
+        var disx = e.pageX - el.offsetLeft;
+        let disY = e.pageY - el.offsetTop;
+        document.onmousemove = function (e) {
+          if (e.pageX - disx <= 0) {
+            el.style.left = 0 + "px";
+          }
+          if (e.pageX - disx >= 0) {
+            el.style.left = e.pageX - disx + "px";
+          }
+          if (e.pageY - disY <= 0) {
+            el.style.top = 0 + "px";
+          }
+          if (e.pageY - disY >= 0) {
+            el.style.top = e.pageY - disY + "px";
+          }
+        };
+        document.onmouseup = function () {
+          document.onmousemove = document.onmouseup = null;
+        };
+      };
+    },
+  },
   created() {
     this.recpchataxios();
   },
   mounted() {
     this.scrollToBottom();
-    var that = this;
-    Utils.$on("recpchataxios", function (val) {
-      window.console.log(val);
-      alert("调用成功");
+    const that = this;
+    Utils.$on("reception", function () {
+      alert("前台调用成功");
       that.recpchataxios();
     });
   },
-
+  destroyed() {
+    Utils.$off("backstage");
+  },
   //每次页面渲染完之后滚动条在最底部
   updated: function () {
     this.scrollToBottom();
@@ -185,7 +194,7 @@ export default {
         });
     },
     send() {
-      var flog = true;
+      /* var flog = true;
       var list = [];
       var newlists = this.$store.state.backstage_index.newlists;
       if (newlists.length == 0) {
@@ -216,8 +225,9 @@ export default {
           window.console.log(error);
         });
       this.textarea = "";
-      this.recpchataxios();
-      Utils.$emit("backchataxios", "调用成功");
+      this.recpchataxios(); */
+      this.$message("发送成功")
+      Utils.$emit("backstage");
     },
     scrollToBottom() {
       this.$nextTick(() => {

@@ -15,13 +15,7 @@
           ></el-image
         ></el-col>
         <el-col :span="4" :offset="12"
-          ><div
-            style="
-              width: 200px;
-              height: 50px;
-              margin-top: 50px;
-            "
-          >
+          ><div style="width: 200px; height: 50px; margin-top: 50px">
             <i class="el-icon-phone"></i>
             <b> TEL:000-0000-000</b>
           </div></el-col
@@ -50,7 +44,7 @@
           <el-table
             :data="this.$store.state.shopcar.tableData"
             @selection-change="handleSelectionChange"
-            :header-cell-style="{ background: '#f7f7f7'}"
+            :header-cell-style="{ background: '#f7f7f7' }"
             style="width: 100%; border: 1px solid #f3f3f3"
           >
             <el-table-column type="selection" width="50"> </el-table-column>
@@ -166,10 +160,20 @@
       <el-dialog title="确定订单" :visible.sync="orderVisible">
         <div style="width: 100%; height: 80px; border: 1px solid #e3e3e3">
           <el-cow>
-            <el-col><span>yyang </span><span> 18368390274</span></el-col>
+            <el-col
+              ><span>{{ this.$store.state.login.userform.custrueName }}</span>
+              <span style="margin-left: 10px">{{
+                this.$store.state.login.userform.cusTel
+              }}</span></el-col
+            >
           </el-cow>
           <el-cow>
-            <el-col><span>收货地址：贵州省贵阳市花溪区贵州大学</span></el-col>
+            <el-col
+              ><span>{{
+                this.$store.state.login.userform.cusAddress +
+                this.$store.state.login.userform.cusdetAddress
+              }}</span></el-col
+            >
           </el-cow>
           <el-cow>
             <el-col><span>收货不便时，可选择暂存服务</span></el-col>
@@ -317,29 +321,70 @@ export default {
       }
     },
     submitorder() {
-      // var goodslist = [];
-      // for (let i = 0; i < this.lists.length; i++) {
-      //   goodslist.push({ id: this.lists[i].id });
-      // }
-      // this.$axios
-      //   .post("http://127.0.0.1:3000/order", {
-      //     id: "DD" + this.getdate(),
-      //     name: "user",
-      //     time: this.getdate(),
-      //     price: this.totalprince,
-      //     status: "代发货",
-      //     remark: this.remark,
-      //     goodslist: goodslist,
-      //   })
-      //   .then((res) => {
-      //     window.console.log(res.data);
-      //   })
-      //   .catch((err) => {
-      //     window.console.log(err);
-      //   });
-      orderVisible = false;
+      var data = this.$store.state.login.userform;
+      var goodslist = [];
+      for (let i = 0; i < this.lists.length; i++) {
+        goodslist.push({ id: this.lists[i].id, num: this.lists[i].num });
+      }
+      this.$axios
+        .post("http://127.0.0.1:3000/setorder", {
+          id: "DD" + this.gettime(),
+          name: data.custrueName,
+          time: this.getdate(),
+          price: this.totalprince,
+          status: "待发货",
+          remark: this.remark,
+          goodslist: goodslist,
+        })
+        .then((res) => {
+          this.$message.success("购买成功");
+          for (var j = 0; j < this.lists.length; j++) {
+            for (
+              var k = 0;
+              k < this.$store.state.shopcar.tableData.length;
+              k++
+            ) {
+              if (
+                this.$store.state.shopcar.tableData[k].name ==
+                this.lists[j].name
+              ) {
+                this.$store.dispatch("shopcar/delbuy", k);
+              }
+            }
+          }
+          this.orderVisible = false;
+          if (this.$store.state.shopcar.tableData.length == 0) {
+            this.shoplist = false;
+            this.shopnone = true;
+          }
+        })
+        .catch((err) => {
+          window.console.log(err);
+        });
     },
     getdate() {
+      var myDate = new Date();
+      var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+      var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+      var myToday = myDate.getDate(); //获取当前日(1-31)
+      var myHour = myDate.getHours(); //获取当前小时数(0-23)
+      var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+      var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+      var time =
+        myYear +
+        "-" +
+        this.fillZero(myMonth) +
+        "-" +
+        this.fillZero(myToday) +
+        " " +
+        this.fillZero(myHour) +
+        ":" +
+        this.fillZero(myMinute) +
+        ":" +
+        this.fillZero(mySecond);
+      return time;
+    },
+    gettime() {
       var myDate = new Date();
       var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
       var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)

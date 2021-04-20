@@ -1,6 +1,6 @@
 <template>
   <div id="footer">
-    <div style="float:left"><small>本系统全部解释权归yyang所有!!</small></div>
+    <div style="float:left"><small>本系统全部解释权归InYang所有!!</small></div>
     <div style="float:right"><small>地址：贵州省贵阳市花溪区贵州大学北校区</small></div>
   </div>
 </template>

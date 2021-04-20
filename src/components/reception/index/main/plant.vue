@@ -95,7 +95,7 @@ export default {
   width: 1200px;
   margin-left: -600px;
   height: 690px;
-  background-color: #f3f3f3;
+  background-color: #e9ecf0;
 }
 .plant-top a {
   float: right;

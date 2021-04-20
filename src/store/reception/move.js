@@ -2,9 +2,8 @@
 const state = {
     flowers: [],
     movesearch: '',
-    haveflower: false,
     emptyflower: false,
-    moveto: false,
+    havef: false,
 }
 
 const getters = {
@@ -18,14 +17,11 @@ const actions = {
     searchchange({ commit }, val) {
         commit('searchchange', val)
     },
-    havef({ commit }) {
-        commit('havef')
-    },
     emptyf({ commit }) {
         commit('emptyf')
     },
-    moveto({ commit }, val) {
-        commit('moveto', val)
+    havef({ commit }, val) {
+        commit('havef', val)
     }
 }
 
@@ -38,14 +34,13 @@ const mutations = {
     searchchange(state, val) {
         state.movesearch = val;
     },
-    havef(state) {
-        state.haveflower = true
-    },
     emptyf(state) {
+        state.flowers = []
         state.emptyflower = true
     },
-    moveto(state, val) {
-        state.moveto = true
+    havef(state, val) {
+        state.haveflower = true
+        state.emptyflower = false
         state.flowers = val
     },
 }

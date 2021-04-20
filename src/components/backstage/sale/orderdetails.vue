@@ -17,14 +17,14 @@
       :header-cell-style="{ background: '#f7f7f7' }"
       style="width: 802px; margin: 10px auto"
     >
-      <el-table-column prop="id" label="商品编号" width="200">
+      <el-table-column prop="goodsId" label="商品编号" width="200">
       </el-table-column>
       <el-table-column label="商品名称" width="200">
-        <template slot-scope="scope">{{ scope.row.name }}</template>
+        <template slot-scope="scope">{{ scope.row.goodsName }}</template>
       </el-table-column>
-      <el-table-column prop="price" label="商品价格" width="200">
+      <el-table-column prop="goodsPrice" label="商品价格" width="200">
       </el-table-column>
-      <el-table-column prop="num" label="商品数量" width="200">
+      <el-table-column prop="orderNum" label="商品数量" width="200">
       </el-table-column>
     </el-table>
     <el-dialog
@@ -61,7 +61,6 @@
       <el-button type="primary" @click="ordervisible = true"
         >立即配送</el-button
       >
-      {{ this.$route.params.id }}
     </div>
   </div>
 </template>
@@ -71,16 +70,20 @@ export default {
   name: "orderdetails",
   data() {
     return {
-      detaillist: [
-        { id: 1, name: "商品一", price: "￥99.00", num: 100 },
-        { id: 2, name: "商品二", price: "￥179.00", num: 100 },
-        { id: 3, name: "商品三", price: "￥259.00", num: 100 },
-        { id: 4, name: "商品四", price: "￥939.00", num: 100 },
-        { id: 5, name: "商品五", price: "￥59.00", num: 100 },
-      ],
+      detaillist: [],
       delivery: true,
       ordervisible: false,
     };
+  },
+  created() {
+    this.$axios
+      .post("/order/detail", { id: this.$route.params.id })
+      .then((res) => {
+        this.detaillist = res.data;
+      })
+      .catch((err) => {
+        window.console.log(err);
+      });
   },
   methods: {
     goBack() {

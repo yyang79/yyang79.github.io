@@ -15,15 +15,11 @@
       >
         <el-submenu>
           <template slot="title">您好,admin</template>
-          <el-menu-item index="2-1" @click="databackup()"
-            >数据备份</el-menu-item
-          >
-          <el-menu-item index="2-2" @click="datarecovery()"
-            >数据恢复</el-menu-item
-          >
-          <el-menu-item index="2-3" @click="personal()">个人中心</el-menu-item>
-          <el-menu-item index="2-4" @click="logout()">注销登录</el-menu-item>
-          <el-menu-item index="2-5" @click="quit()">退出系统</el-menu-item>
+          <el-menu-item index="1">数据备份</el-menu-item>
+          <el-menu-item index="2">数据恢复</el-menu-item>
+          <el-menu-item index="3">个人中心</el-menu-item>
+          <el-menu-item @click="quitlogin">注销登录</el-menu-item>
+          <el-menu-item @click="signout">退出系统</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
@@ -37,14 +33,13 @@ export default {
     return {};
   },
   methods: {
-    databackup: function () {},
-    datarecovery: function () {},
-    personal: function () {},
-    logout: function () {
-      this.$router.replace("/login");
+    quitlogin() {
+      this.$router.push("/login");
+      this.$message.success("注销登录成功")
     },
-    quit: function () {
-      this.$router.replace("/index");
+    signout() {
+      this.$router.push("/index");
+       this.$message.success("退出系统成功")
     },
   },
 };

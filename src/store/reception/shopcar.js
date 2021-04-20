@@ -12,6 +12,9 @@ const actions = {
     },
     delgoods({commit},value){
         commit("delgoods",value)
+    },
+    delbuy({ commit }, value){
+        commit("delbuy",value)
     }
 }
 
@@ -39,6 +42,9 @@ const mutations = {
     },
     delgoods(state,value){
         state.tableData.splice(value, 1);
+    },
+    delbuy(state,value){
+        state.tableData.splice(value,1)
     }
 }
 

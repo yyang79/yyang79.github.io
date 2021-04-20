@@ -7,8 +7,11 @@ import router from './router/router'
 
 import axios from 'axios'
 Vue.prototype.$axios = axios;
+axios.defaults.baseURL = "http://127.0.0.1:3000/" 
 import * as echarts from 'echarts'
 Vue.prototype.echarts = echarts;
+import vRegion from 'v-region'
+Vue.use(vRegion)
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

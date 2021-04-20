@@ -131,7 +131,6 @@
                 <el-input
                   type="textarea"
                   :rows="2"
-                  :resize="none"
                   style="margin: 0px; border: 0"
                   v-model="sendmessage"
                   focus
@@ -176,12 +175,14 @@ export default {
       this.aside = 120;
     }
     this.scrollToBottom();
-    var that = this;
-    Utils.$on("backchataxios", function (val) {
-      window.console.log(val);
-      alert("调用成功");
+    const that = this;
+    Utils.$on("backstage", function () {
+      alert("后台调用成功");
       that.backchataxios();
     });
+  },
+  destroyed() {
+    Utils.$off("reception");
   },
   created() {
     this.backchataxios();
@@ -213,7 +214,7 @@ export default {
         });
     },
     send() {
-      var time = this.getdate();
+      /* var time = this.getdate();
       this.$axios
         .post("http://127.0.0.1:3000/chat/send", {
           sendName: "admin",
@@ -226,8 +227,9 @@ export default {
           window.console.log(error);
         });
       this.sendmessage = "";
-      this.backchataxios();
-      Utils.$emit("recpchataxios", "调用成功");
+      this.backchataxios(); */
+      this.$message("发送成功");
+      Utils.$emit("reception");
     },
     scrollToBottom() {
       this.$nextTick(() => {

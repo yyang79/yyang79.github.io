@@ -1,61 +1,95 @@
 <template>
   <div id="historypurchase">
     <h3 style="text-align: center; color: red">订单列表</h3>
-    <el-table
-      ref="multipleTable"
-      :data="orderlist"
-      border
-      tooltip-effect="dark"
-      :header-cell-style="{ background: '#f7f7f7' }"
-      style="width: 1011px; margin: 0px auto"
-    >
-      <el-table-column prop="orderid" label="订单编号" width="200">
-      </el-table-column>
-      <el-table-column label="订单创建时间" width="200">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
-      </el-table-column>
-      <el-table-column prop="name" label="创立建昵称" width="200">
-      </el-table-column>
-      <el-table-column prop="status" label="订单状态" width="200">
-      </el-table-column>
-      <el-table-column label="操作" width="210">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="listdetail(scope.row)"
-            >查看详情</el-button
-          >
-          <el-button size="mini" @click="handleOrder(scope.row)"
-            >订单处理</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-dialog
-      title="订单商品列表"
-      :visible.sync="detailpagevisible"
-      :modal-append-to-body="false"
-    >
-      <el-table
-        ref="multipleTable"
-        :data="detaillist"
-        border
-        tooltip-effect="dark"
-        :header-cell-style="{ background: '#f7f7f7' }"
-        style="width: 602px; margin: 10px auto"
+    <el-tabs style="padding:0px 20px" v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane :label="dcl" name="first"
+        ><el-table
+          ref="multipleTable"
+          :data="orderlist1"
+          border
+          tooltip-effect="dark"
+          :header-cell-style="{ background: '#f7f7f7' }"
+          style="width: 1011px; margin: 0px auto"
+        >
+          <el-table-column prop="orderId" label="订单编号" width="200">
+          </el-table-column>
+          <el-table-column label="订单创建时间" width="200">
+            <template slot-scope="scope">{{ scope.row.orderDate }}</template>
+          </el-table-column>
+          <el-table-column prop="userName" label="创立建昵称" width="140">
+          </el-table-column>
+          <el-table-column prop="orderDtatus" label="订单状态" width="150">
+          </el-table-column>
+          <el-table-column prop="orderRemark" label="备注" width="200">
+          </el-table-column>
+          <el-table-column label="操作" width="120">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleOrder(scope.row)"
+                >订单处理</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table></el-tab-pane
       >
-        <el-table-column prop="id" label="商品编号" width="150">
-        </el-table-column>
-        <el-table-column label="商品名称" width="150">
-          <template slot-scope="scope">{{ scope.row.name }}</template>
-        </el-table-column>
-        <el-table-column prop="price" label="商品价格" width="150">
-        </el-table-column>
-        <el-table-column prop="num" label="商品数量" width="150">
-        </el-table-column>
-      </el-table>
-      <div slot="footer">
-        <el-button @click="detailpagevisible = false">确定</el-button>
-      </div>
-    </el-dialog>
+      <el-tab-pane :label="ycl" name="second">
+        <el-table
+          ref="multipleTable"
+          :data="orderlist2"
+          border
+          tooltip-effect="dark"
+          :header-cell-style="{ background: '#f7f7f7' }"
+          style="width: 1011px; margin: 0px auto"
+        >
+          <el-table-column prop="orderId" label="订单编号" width="200">
+          </el-table-column>
+          <el-table-column label="订单创建时间" width="200">
+            <template slot-scope="scope">{{ scope.row.orderDate }}</template>
+          </el-table-column>
+          <el-table-column prop="userName" label="创立建昵称" width="140">
+          </el-table-column>
+          <el-table-column prop="orderDtatus" label="订单状态" width="150">
+          </el-table-column>
+          <el-table-column prop="orderRemark" label="备注" width="200">
+          </el-table-column>
+          <el-table-column label="操作" width="120">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleOrder(scope.row)"
+                >查看详情</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table></el-tab-pane
+      >
+      <el-tab-pane :label="ywc" name="third">
+        <el-table
+          ref="multipleTable"
+          :data="orderlist3"
+          border
+          tooltip-effect="dark"
+          :header-cell-style="{ background: '#f7f7f7' }"
+          style="width: 1011px; margin: 0px auto"
+        >
+          <el-table-column prop="orderId" label="订单编号" width="200">
+          </el-table-column>
+          <el-table-column label="订单创建时间" width="200">
+            <template slot-scope="scope">{{ scope.row.orderDate }}</template>
+          </el-table-column>
+          <el-table-column prop="userName" label="创立建昵称" width="140">
+          </el-table-column>
+          <el-table-column prop="orderDtatus" label="订单状态" width="150">
+          </el-table-column>
+          <el-table-column prop="orderRemark" label="备注" width="200">
+          </el-table-column>
+          <el-table-column label="操作" width="120">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleOrder(scope.row)"
+                >查看详情</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table></el-tab-pane
+      >
+    </el-tabs>
   </div>
 </template>
 
@@ -64,28 +98,44 @@ export default {
   name: "historypurchase",
   data() {
     return {
-      orderlist: [],
-      detaillist: [],
-      detailpagevisible: false,
+      orderlist1: [],
+      orderlist2: [],
+      orderlist3: [],
+      activeName:"first",
+      dcl:'',
+      ycl:'',
+      ywc:'',
     };
   },
   created: function () {
     this.$axios
-      .get("http://127.0.0.1:3000/order")
+      .get("/order")
       .then((res) => {
-        this.tableData = res.data;
+        for(let i=0;i<res.data.length;i++){
+          switch(res.data[i].orderDtatus){
+            case "待发货" :
+                 this.orderlist1.push((res.data[i]));
+                 break;
+            case "待收货" :
+                 this.orderlist2.push((res.data[i]));
+                 break;
+            case "已收货" :
+                this.orderlist3.push((res.data[i]));
+                break;
+          }
+        }
+        this.dcl = "待处理("+this.orderlist1.length+")";
+        this.ycl = "已处理("+this.orderlist2.length+")";
+        this.ywc = "已完成("+this.orderlist3.length+")";
       })
       .catch((error) => {
         window.console.log(error);
       });
   },
   methods: {
-    listdetail() {
-      this.detailpagevisible = true;
-    },
     handleOrder(row) {
       this.$router.push({
-        path: `/order/details/${row.orderid}`,
+        path: `/order/details/${row.orderId}`,
       });
     },
   },

@@ -3,7 +3,8 @@
 const state = {
     loginbefore: true,
     loginback: false,
-    username:''
+    username:'',
+    userform:[],
 }
 
 
@@ -14,6 +15,9 @@ const actions = {
     },
     loginbackstatus({ commit }) {
         commit('loginbackstatus')
+    },
+    userform({commit},value){
+        commit("userform",value)
     }
 }
 
@@ -26,6 +30,9 @@ const mutations = {
     loginbackstatus(state) {
         state.loginbefore = !state.loginbefore;
             state.loginback = !state.loginback;
+    },
+    userform(state,value){
+        state.userform = value
     }
 }
 
