@@ -419,8 +419,6 @@ export default {
         for (var i = 0; i < tableData.length; i++) {
           list.push({
             goodsId: tableData[i].goodsId,
-            goodsNum:
-              parseInt(tableData[i].num) - parseInt(tableData[i].goodsNum),
             num: tableData[i].goodsNum,
           });
           goodslist.push({

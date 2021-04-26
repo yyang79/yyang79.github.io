@@ -3,16 +3,17 @@ import VueRouter from 'vue-router'
 
 import login from '../components/login'
 //前台
-import reception_resigter from '../components/reception/resigter/resigter'
-import reception_forget from '../components/reception/forget/forget'
+import reception_resigter from '../components/reception/resigter/index'
+import reception_forget from '../components/reception/forget/index'
 import reception_index from '../components/reception/index/index'
-import reception_personal from '../components/reception/personal/personal'
+import reception_personal from '../components/reception/personal/index'
 import reception_order from '../components/reception/personal/order'
 import reception_personalinfo from '../components/reception/personal/personalinfo'
 import reception_refundsale from '../components/reception/personal/refundsale'
-import reception_shopcar from '../components/reception/shopcar/shopcar'
-import reception_move from '../components/reception/move/move'
-import reception_detailpage from '../components/reception/detailpage/detailpage'
+import reception_shopcar from '../components/reception/shopcar/index'
+import reception_move from '../components/reception/move/index'
+import reception_detailpage from '../components/reception/detailpage/index'
+import recpption_commend from '../components/reception/commend/index'
 //后台
 import backstage_index from '../components/backstage/index/index'
 import backstage_customer from '../components/backstage/info/customer'
@@ -24,6 +25,7 @@ import backstage_historypurchase from '../components/backstage/purchase/historyp
 import backstage_historypurchasedetails from '../components/backstage/purchase/historypurchasedetails'
 import backstage_sale from '../components/backstage/sale/sale'
 import backstage_order from '../components/backstage/sale/order'
+import backstage_orderhistory from '../components/backstage/sale/historyorder'
 import backstage_orderdetails from '../components/backstage/sale/orderdetails'
 import backstage_historysale from '../components/backstage/sale/historysale'
 import backstage_historysaledetails from '../components/backstage/sale/historysaledetails'
@@ -67,6 +69,10 @@ const routes = [
     {
         path: "/detailpage",
         component: reception_detailpage
+    },
+    {
+        path: "/commend",
+        component: recpption_commend
     },
     {
         path: "/index",
@@ -136,6 +142,10 @@ const routes = [
         {
             path: "/order",
             component: backstage_order,
+        },
+        {
+            path: "/order/history",
+            component: backstage_orderhistory,
         },
         {
             path: "/order/details/:id",

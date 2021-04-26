@@ -53,7 +53,7 @@ export default {
   methods: {
     handleEdit(row) {
       this.$router.push({
-        path: `/purchase/history/details/${row.purId}`,
+        path: `/purchase/history/details/${row.saleId}`,
       });
     },
   },

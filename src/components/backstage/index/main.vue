@@ -42,6 +42,7 @@
                 <el-menu-item index="/sale">销售出库</el-menu-item>
                 <el-menu-item index="/order">订单管理</el-menu-item>
                 <el-menu-item index="/sale/history">历史销售管理</el-menu-item>
+                <el-menu-item index="/order/history">历史订单管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="4">
@@ -73,7 +74,7 @@
                 <span>系统管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/user">用户管理</el-menu-item>
+                <el-menu-item index="/user">用户登陆管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -103,6 +104,9 @@
       </li>
       <li>
         <a href="javascript:void(0)" @click="chat()">消息管理</a>
+      </li>
+        <li>
+        <router-link to="/salechart">留言管理</router-link>
       </li>
     </div>
     <div class="show">

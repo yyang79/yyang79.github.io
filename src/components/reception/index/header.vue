@@ -19,6 +19,7 @@
             ><i class=""></i>官方微信</el-button
           >
         </el-popover>
+        <router-link to="/commend">留言板</router-link>
       </div>
       <div class="head-right">
         <div

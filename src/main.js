@@ -12,6 +12,8 @@ import * as echarts from 'echarts'
 Vue.prototype.echarts = echarts;
 import vRegion from 'v-region'
 Vue.use(vRegion)
+import { vueBaberrage } from 'vue-baberrage'
+Vue.use(vueBaberrage)
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

@@ -138,19 +138,19 @@
             <h2 style="text-align: center; color: red">热卖推荐</h2>
             <div
               id="list"
-              v-for="flower in this.$store.state.index.cakelist"
-              :key="flower.goodsUrl"
+              v-for="recommend in recommends"
+              :key="recommend[0].goodsUrl"
               style="float: left; margin: 10px; width: 220px; height: 290px"
             >
               <router-link
                 :to="{
                   path: '/detailpage',
-                  query: { goodsName: flower.goodsName },
+                  query: { goodsName: recommend[0].goodsName },
                 }"
               >
                 <el-image
                   style="width: 200px; height: 200px; margin: 0px 10px"
-                  :src="flower.goodsUrl"
+                  :src="recommend[0].goodsUrl"
                 ></el-image>
                 <span
                   style="
@@ -165,7 +165,7 @@
                     top: 10px;
                     left: 10px;
                   "
-                  >{{ flower.goodsName }}</span
+                  >{{ recommend[0].goodsName }}</span
                 ><br />
                 <span
                   style="
@@ -175,10 +175,10 @@
                     top: 0px;
                     left: 10px;
                   "
-                  >￥{{ flower.goodsPrice }}.00</span
+                  >￥{{ recommend[0].goodsPrice }}.00</span
                 >
                 <small style="position: relative; top: 10px; left: 30px"
-                  >已售{{ flower.sallnum }}</small
+                  >已售{{ recommend[0].sallnum }}</small
                 ></router-link
               >
             </div>
@@ -255,11 +255,11 @@
     </div>
     <div style="width: 100%; height: 720px; background-color: #e9ecf0">
       <div style="width: 1200px; height: 100%; margin: 0px auto">
-        <h2 style="text-align: center;padding:0px">猜你喜欢</h2>
+        <h2 style="text-align: center; padding: 0px">猜你喜欢</h2>
         <div
           id="list"
-          v-for="flowera in this.$store.state.index.cakelist"
-          :key="flowera.goodsUrl"
+          v-for="recommend in recommends"
+          :key="recommend[0].goodsUrl"
           style="
             float: left;
             background: white;
@@ -271,12 +271,12 @@
           <router-link
             :to="{
               path: '/detailpage',
-              query: { goodsName: flowera.goodsName },
+              query: { goodsName: recommend[0].goodsName },
             }"
           >
             <el-image
               style="width: 200px; height: 200px; margin: 10px"
-              :src="flowera.goodsUrl"
+              :src="recommend[0].goodsUrl"
             ></el-image>
             <span
               style="
@@ -291,7 +291,7 @@
                 top: 10px;
                 left: 10px;
               "
-              >{{ flowera.goodsName }}</span
+              >{{ recommend[0].goodsName }}</span
             ><br />
             <span
               style="
@@ -301,10 +301,10 @@
                 top: 0px;
                 left: 10px;
               "
-              >￥{{ flowera.goodsPrice }}.00</span
+              >￥{{ recommend[0].goodsPrice }}.00</span
             >
             <small style="position: relative; top: 10px; left: 30px"
-              >已售{{ flowera.sallnum }}</small
+              >已售{{ recommend[0].sallnum }}</small
             ></router-link
           >
         </div>
@@ -365,23 +365,23 @@ export default {
       comNum: "",
       value: 4.7,
       items: [],
+      recommends: [],
     };
   },
   created() {
     this.$store.dispatch("index/allnavfalse");
     this.$axios
-      .get("http://127.0.0.1:3000/cake")
+      .get("/recommend/test")
       .then((res) => {
-        var list = [];
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < res.data.length; i++) {
           res.data[
             i
-          ].goodsUrl = require("../../../../../stytemdata/assets/images/" +
-            res.data[i].goodsUrl +
+          ][0].goodsUrl = require("../../../../../stytemdata/assets/images/" +
+            res.data[i][0].goodsUrl +
             "");
-          list.push(res.data[i]);
         }
-        this.$store.dispatch("index/cakelist", list);
+        this.recommends = res.data;
+        alert(JSON.stringify(this.recommends[0]))
       })
       .catch((err) => {
         window.console.log(err);

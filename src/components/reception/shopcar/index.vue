@@ -285,7 +285,7 @@ export default {
       checklist: [],
       orderVisible: false,
       lists: [],
-      remark: "",
+      remark: "这是一条测试备注",
     };
   },
   created() {
@@ -327,9 +327,9 @@ export default {
         goodslist.push({ id: this.lists[i].id, num: this.lists[i].num });
       }
       this.$axios
-        .post("http://127.0.0.1:3000/setorder", {
+        .post("/setorder", {
           id: "DD" + this.gettime(),
-          name: data.custrueName,
+          name: data.userName,
           time: this.getdate(),
           price: this.totalprince,
           status: "待发货",

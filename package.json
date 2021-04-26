@@ -14,8 +14,10 @@
     "element-ui": "^2.15.0",
     "v-region": "^2.2.2",
     "vue": "^2.6.10",
+    "vue-baberrage": "^3.2.4",
     "vue-router": "^3.4.9",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "webpack": "^4.46.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.4",

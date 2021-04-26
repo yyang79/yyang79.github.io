@@ -27,21 +27,21 @@
           <el-form-item label="年龄:">
             <el-input
               ref="age"
-              v-model="userinfo.cusAge"
+              v-model.number="userinfo.cusAge"
               :disabled="status"
             ></el-input>
           </el-form-item>
           <el-form-item label="电话:">
             <el-input
               ref="tel"
-              v-model="userinfo.cusTel"
+              v-model.number="userinfo.cusTel"
               :disabled="status"
             ></el-input>
           </el-form-item>
           <el-form-item label="QQ:">
             <el-input
               ref="qq"
-              v-model="userinfo.cusQQ"
+              v-model.number="userinfo.cusQQ"
               :disabled="status"
             ></el-input>
           </el-form-item>
@@ -173,13 +173,19 @@ export default {
       this.status = false;
     },
     modify() {
-      this.button1 = !this.button1;
-      this.button2 = !this.button2;
-      this.status = true;
-      this.$message({ message: "修改成功！！！", type: "success" });
+      this.$axios
+        .post("/personal/infomodify", { info: this.userinfo })
+        .then(() => {
+          this.button1 = !this.button1;
+          this.button2 = !this.button2;
+          this.status = true;
+          this.$message({ message: "修改成功！！！", type: "success" });
+        })
+        .catch((err) => {
+          window.console.log(err);
+        });
     },
     selectLogs(e) {
-      alert(JSON.stringify(e));
       this.address.address =
         e.province.value + e.city.value + e.area.value + e.town.value;
     },
@@ -195,9 +201,25 @@ export default {
     },
     modifypad() {
       if (this.pad.oldpad == this.userinfo.userPad) {
-        alert("修改成功");
+        if (this.pad.newpad == this.pad.oldpad) {
+          this.$message.warning("原密码不能与新密码相同");
+        } else {
+          this.$axios
+            .post("/personal/padmodify", {
+              name: this.userinfo.userName,
+              pad: this.pad.newpad,
+            })
+            .then(() => {
+              this.$message.success("密码修改成功!!");
+              alert("密码已经修改，请重新登录!!");
+              this.$router.push("/login");
+            })
+            .catch((err) => {
+              window.console.log(err);
+            });
+        }
       } else {
-        alert("原密码输入错误");
+        this.$message.warning("原密码输入错误");
       }
 
       /*     if (this.pad.oldpad == this.userinfo.userPad) {

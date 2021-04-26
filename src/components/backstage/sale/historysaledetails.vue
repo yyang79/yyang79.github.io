@@ -129,7 +129,7 @@ export default {
   },
   created: function () {
     this.$axios
-      .post("http://127.0.0.1:3000/order/history", {
+      .post("/sale/history/detail", {
         id: this.$route.params.id,
       })
       .then((res) => {
