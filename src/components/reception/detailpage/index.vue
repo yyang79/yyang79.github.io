@@ -381,7 +381,6 @@ export default {
             "");
         }
         this.recommends = res.data;
-        alert(JSON.stringify(this.recommends[0]))
       })
       .catch((err) => {
         window.console.log(err);

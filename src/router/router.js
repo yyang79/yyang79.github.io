@@ -14,6 +14,7 @@ import reception_shopcar from '../components/reception/shopcar/index'
 import reception_move from '../components/reception/move/index'
 import reception_detailpage from '../components/reception/detailpage/index'
 import recpption_commend from '../components/reception/commend/index'
+import reception_similar from "../components/reception/similar/index"
 //后台
 import backstage_index from '../components/backstage/index/index'
 import backstage_customer from '../components/backstage/info/customer'
@@ -74,6 +75,11 @@ const routes = [
         path: "/commend",
         component: recpption_commend
     },
+    {
+        path: "/similar",
+        component: reception_similar
+    },
+
     {
         path: "/index",
         component: reception_index

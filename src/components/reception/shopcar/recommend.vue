@@ -20,15 +20,17 @@
         :key="flower.goodsName"
       >
         <router-link
-          :to="{ path: '/detailpage', query: { goodsName: flower.goodsName } }"
+          :to="{
+            path: '/detailpage',
+            query: { goodsName: flower[0].goodsName },
+          }"
         >
-          <el-image :src="flower.goodsUrl"></el-image>
+          <el-image :src="flower[0].goodsUrl"></el-image>
           <br />
-          <span>{{ flower.goodsName }}</span
+          <span>{{ flower[0].goodsName }}</span
           ><br />
-          <b>￥{{ flower.goodsPrice }}.00</b
-          ><br />
-          <small>已售{{ flower.sale }}件</small>
+          <b>￥{{ flower[0].goodsPrice }}.00</b><br />
+          <small>已售{{ flower[0].sale }}件</small>
         </router-link>
       </div>
     </div>
@@ -43,16 +45,18 @@ export default {
   },
   created() {
     this.$axios
-      .get("http://127.0.0.1:3000/commend")
+      .get("/recommend/test")
       .then((res) => {
         for (let i = 0; i < res.data.length; i++) {
           res.data[
             i
-          ].goodsUrl = require("../../../../../stytemdata/assets/images/" +
-            res.data[i].goodsUrl +
+          ][0].goodsUrl = require("../../../../../stytemdata/assets/images/" +
+            res.data[i][0].goodsUrl +
             "");
         }
+        alert(JSON.stringify(res.data));
         this.$store.dispatch("shopcar/getflower", res.data);
+        alert("kufcs");
       })
       .catch((err) => {
         window.console.log(err);

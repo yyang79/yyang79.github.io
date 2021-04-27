@@ -336,7 +336,7 @@ export default {
           remark: this.remark,
           goodslist: goodslist,
         })
-        .then((res) => {
+        .then(() => {
           this.$message.success("购买成功");
           for (var j = 0; j < this.lists.length; j++) {
             for (

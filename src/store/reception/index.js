@@ -8,7 +8,8 @@ const state = {
     basketlist: [],
     cakelist: [],
     boxlist: [],
-    plantlist: []
+    plantlist: [],
+    searchimglist: [],
 }
 
 const actions = {
@@ -47,6 +48,9 @@ const actions = {
     },
     newlist({ commit }, value) {
         commit("newlist", value)
+    },
+    setimglist({ commit }, value) {
+        commit("setimglist", value)
     }
 }
 
@@ -88,6 +92,9 @@ const mutations = {
     },
     newlist(state, value) {
         state.newlist = value
+    },
+    setimglist(state, value) {
+        state.searchimglist = value
     },
 }
 

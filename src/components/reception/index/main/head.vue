@@ -9,7 +9,18 @@
         placeholder="请输入商品关键词"
         v-model="search"
         style="margin-bottom: 10px; width: 300px"
-      ></el-input>
+      >
+      </el-input>
+      <el-upload
+        style="position: absolute; top: 1px; left: 250px"
+        action="http://127.0.0.1:3000/search/img"
+        :on-success="uploadsuccess"
+        :limit="1"
+      >
+        <el-button size="small" style="border: 0"
+          ><i class="el-icon-camera" style="font-size: 19px"></i
+        ></el-button>
+      </el-upload>
       <el-button
         style="margin-bottom: 10px"
         type="primary"
@@ -202,6 +213,9 @@
         </div>
       </div>
       <div class="nav-top-a">
+        <router-link to="/index"
+          ><i class="el-icon-s-home"></i
+        > 主页</router-link>
         <router-link :to="{ path: '/move', query: { keyword: 'Love' } }"
           >爱情系列</router-link
         >
@@ -220,9 +234,6 @@
         <router-link :to="{ path: '/move', query: { keyword: 'Plant' } }"
           >绿植系列</router-link
         >
-        <router-link :to="{ path: '/move', query: { keyword: 'New' } }"
-          >新品上架</router-link
-        >
       </div>
     </div>
   </div>
@@ -237,18 +248,22 @@ export default {
       logo: logo,
       search: "",
       show: true,
-      gridData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
     };
   },
   methods: {
     navstatuschange() {
       this.$store.dispatch("index/navstatuschange");
+    },
+    uploadsuccess(response, file, fileList) {
+      for (let i = 0; i < response.length; i++) {
+        response[
+          i
+        ][0].goodsUrl = require("../../../../../../stytemdata/assets/images/" +
+          response[i][0].goodsUrl +
+          "");
+      }
+      this.$store.dispatch("index/setimglist", response);
+      this.$router.push("/similar");
     },
     searchf(data) {
       this.$router.replace({
@@ -296,13 +311,13 @@ export default {
   margin-left: -200px;
 }
 
-.search span{
-  font-size:10px;
+.search span {
+  font-size: 10px;
 }
 
-.search a{
-  font-size:10px;
-  margin:0px 10px;
+.search a {
+  font-size: 10px;
+  margin: 0px 10px;
 }
 
 .tel {
