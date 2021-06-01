@@ -11,7 +11,7 @@
       <el-input
         prefix-icon="el-icon-search"
         v-on:keyup.enter.native="psearch()"
-        placeholder="请输入供应商编号"
+        placeholder="请输入客户编号"
         v-model="search"
         clearable
       ></el-input>
@@ -19,7 +19,7 @@
     <div style="text-align: center">
       <h3 style="color: red">客户资料</h3>
     </div>
-        <el-divider></el-divider>
+    <el-divider></el-divider>
     <el-table
       ref="multipleTable"
       :data="tableData"
@@ -28,7 +28,7 @@
       :header-cell-style="{ background: '#f7f7f7' }"
       style="width: 801px; margin: 30px auto"
     >
-      <el-table-column label="客户昵称" width="100">
+      <el-table-column label="用户名" width="100">
         <template slot-scope="scope">
           <span> {{ scope.row.userName }}</span>
         </template>

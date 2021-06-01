@@ -5,6 +5,7 @@ const state = {
     loginback: false,
     username:'',
     userform:[],
+    backinfo:[]
 }
 
 
@@ -18,6 +19,9 @@ const actions = {
     },
     userform({commit},value){
         commit("userform",value)
+    },
+    setbackinfo({commit},value){
+        commit("setbackinfo",value)
     }
 }
 
@@ -33,6 +37,9 @@ const mutations = {
     },
     userform(state,value){
         state.userform = value
+    },
+    setbackinfo(state,value){
+        state.backinfo = value
     }
 }
 

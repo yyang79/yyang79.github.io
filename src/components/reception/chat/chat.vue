@@ -121,7 +121,6 @@
 </template>
 
 <script>
-import Utils from "../../../assets/util/util";
 export default {
   inject: ["reload"],
   data() {
@@ -167,14 +166,6 @@ export default {
   },
   mounted() {
     this.scrollToBottom();
-    const that = this;
-    Utils.$on("reception", function () {
-      alert("前台调用成功");
-      that.recpchataxios();
-    });
-  },
-  destroyed() {
-    Utils.$off("backstage");
   },
   //每次页面渲染完之后滚动条在最底部
   updated: function () {
@@ -185,16 +176,14 @@ export default {
       this.$axios
         .get("http://127.0.0.1:3000/chat")
         .then((res) => {
-          for (let i = 0; i < res.data.length; i++) {
             this.chats = res.data;
-          }
         })
         .catch((error) => {
           window.console.log(error);
         });
     },
     send() {
-      /* var flog = true;
+     var flog = true;
       var list = [];
       var newlists = this.$store.state.backstage_index.newlists;
       if (newlists.length == 0) {
@@ -225,9 +214,7 @@ export default {
           window.console.log(error);
         });
       this.textarea = "";
-      this.recpchataxios(); */
-      this.$message("发送成功")
-      Utils.$emit("backstage");
+      this.recpchataxios(); 
     },
     scrollToBottom() {
       this.$nextTick(() => {

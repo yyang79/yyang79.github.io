@@ -59,14 +59,6 @@
               </div>
             </el-form-item>
             <el-form-item>
-              <el-radio style="margin-left: 30px" v-model="radio" label="admin"
-                >管理员</el-radio
-              >
-              <el-radio v-model="radio" label="user"
-                >普通用户</el-radio
-              ></el-form-item
-            >
-            <el-form-item>
               <el-button
                 style="width: 320px; margin: 10px"
                 @click="login()"
@@ -124,61 +116,40 @@ export default {
     login() {
       if (this.code != this.identifyCode) {
         this.$message.error("验证码不正确");
-         this.coderefresh();
+        this.coderefresh();
       } else {
-        if (this.radio == "admin") {
-          this.$axios
-            .post("/login", {
-              user: this.user,
-              pad: this.pad,
-              type: this.radio,
-            })
-            .then((res) => {
-              if (res.data == "验证通过") {
-                this.$message({ message: "登录成功！！！", type: "success" });
-                this.$router.replace("/backstage");
-              } else {
-                this.$message.error("用户名或密码不正确！！！");
-              }
-            })
-            .catch((error) => {
-              this.$message.error("NetWork err!!!");
-              window.console.log(error);
-            });
-        } else if (this.radio == "user") {
-          this.$axios
-            .post("/login", {
-              user: this.user,
-              pad: this.pad,
-              type: this.radio,
-            })
-            .then((res) => {
-              if (res.data[1].message == "验证通过") {
-                this.$message({ message: "登录成功！！！", type: "success" });
-                this.$store.dispatch("login/userform", res.data[0]);
-                this.$store.dispatch("login/loginbackstatus");
-                this.$router.replace("/index");
-              } else {
-                this.$message.error("用户名或密码不正确！！！");
-              }
-            })
-            .catch((error) => {
-              this.$message.error("NetWork err!!!");
-              window.console.log(error);
-            });
-        }
+        this.$axios
+          .post("/login", {
+            user: this.user,
+            pad: this.pad,
+            type: this.radio,
+          })
+          .then((res) => {
+            if (res.data[1].message == "验证通过") {
+              this.$message({ message: "登录成功！！！", type: "success" });
+              this.$store.dispatch("login/userform", res.data[0]);
+              this.$store.dispatch("login/loginbackstatus");
+              this.$router.replace("/index");
+            } else {
+              this.$message.error("用户名或密码不正确！！！");
+            }
+          })
+          .catch((error) => {
+            this.$message.error("NetWork err!!!");
+            window.console.log(error);
+          });
       }
     },
-    coderefresh() {
-      this.identifyCode = "";
-      this.makeCode(this.identifyCode, 4);
-    },
-    makeCode(o, l) {
-      for (let i = 0; i < l; i++) {
-        var val = this.$refs.mychild.randomNum(0, 9);
-        this.identifyCode = this.identifyCode + val;
-      }
-    },
+  },
+  coderefresh() {
+    this.identifyCode = "";
+    this.makeCode(this.identifyCode, 4);
+  },
+  makeCode(o, l) {
+    for (let i = 0; i < l; i++) {
+      var val = this.$refs.mychild.randomNum(0, 9);
+      this.identifyCode = this.identifyCode + val;
+    }
   },
 };
 </script>
@@ -201,6 +172,7 @@ export default {
   background-color: #f3f3f3;
   border: 1px solid #f3f3f3;
   border-radius: 10px;
+  opacity: 0.8;
 }
 .el-form-item {
   margin: 0px;

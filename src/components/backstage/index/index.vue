@@ -165,13 +165,20 @@ export default {
   },
   created() {
     this.$axios
-      .get("http://127.0.0.1:3000/user")
+      .get("/chat/user")
       .then((res) => {
         this.$store.dispatch("backstage_index/lists", res.data);
       })
       .catch((err) => {
         window.console.log(err);
       });
+    if (
+      this.$store.state.login.backinfo.type == undefined ||
+      this.$store.state.login.backinfo.type == ""
+    ) {
+      this.$router.push("/back/login");
+      this.$message.warning("请重新登录")
+    }
   },
   directives: {
     drag(el) {

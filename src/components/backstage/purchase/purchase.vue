@@ -100,19 +100,8 @@
       </div>
       <div style="float: left; margin: 10px">
         <span>入库操作人：</span>
-        <el-select
-          v-model="this.$store.state.purchase.player"
-          placeholder="请选择"
-          @change="playerselectchange"
-        >
-          <el-option
-            v-for="item in this.$store.state.purchase.playerlist"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
+        <el-input v-model="this.$store.state.login.backinfo.user" disabled style="width: 150px">
+        </el-input>
       </div>
       <div style="float: left; margin: 10px">
         <span>总金额：</span>
@@ -407,7 +396,6 @@ export default {
     },
 
     submit() {
-  
       var player = this.$store.state.purchase.player;
       var goodslist = this.$store.state.purchase.goodslist;
       if (this.date == "" || this.date == null) {
@@ -436,7 +424,7 @@ export default {
           .post("/purchase/submit", {
             id: this.inid,
             date: this.date,
-            player: player,
+            player:this.$store.state.login.backinfo.user,
             goodslist: list,
             totalmoney: this.totalmoney,
           })

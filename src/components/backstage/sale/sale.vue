@@ -100,19 +100,7 @@
       </div>
       <div style="float: left; margin: 10px">
         <span>出库操作人：</span>
-        <el-select
-          v-model="this.$store.state.sale.player"
-          placeholder="请选择"
-          @change="playerselectchange"
-        >
-          <el-option
-            v-for="item in this.$store.state.sale.playerlist"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
+        <el-input v-model="this.$store.state.login.backinfo.user" disabled style="width: 150px"></el-input>
       </div>
       <div style="float: left; margin: 10px">
         <span>总金额：</span>
@@ -265,11 +253,9 @@ export default {
       dialogTableVisible: false,
       dialogFormVisible: false,
       updateformvisible: false,
-
       tableData: [],
       updateform: [],
       addform: [],
-
       outid: "",
       totalmoney: 0,
     };
@@ -432,7 +418,7 @@ export default {
           .post("http://127.0.0.1:3000/sale/submit", {
             id: this.outid,
             date: this.date,
-            player: player,
+            player: this.$store.state.login.backinfo.user,
             goodslist: list,
             totalmoney: this.totalmoney,
           })

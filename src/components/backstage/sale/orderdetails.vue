@@ -65,7 +65,7 @@ export default {
       outinfo: {
         outid: this.getoutid(),
         outtime: "",
-        outplayer: "张三",
+        outplayer: this.$store.state.login.backinfo.user,
         totalprice: 0,
       },
       detaillist: [],

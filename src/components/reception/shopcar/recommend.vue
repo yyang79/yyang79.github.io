@@ -54,9 +54,7 @@ export default {
             res.data[i][0].goodsUrl +
             "");
         }
-        alert(JSON.stringify(res.data));
         this.$store.dispatch("shopcar/getflower", res.data);
-        alert("kufcs");
       })
       .catch((err) => {
         window.console.log(err);

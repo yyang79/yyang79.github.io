@@ -23,15 +23,7 @@
       </div>
       <div style="float: left; margin: 10px 30px 10px 0px">
         <span>盘点操作人：</span>
-        <el-select v-model="player" placeholder="请选择">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
+        <el-input v-model="player" disabled style="width: 200px"></el-input>
       </div>
     </div>
     <el-table
@@ -156,22 +148,8 @@ export default {
       updatevisible: false,
       updateform: [],
       formLabelWidth: "120px",
-      options: [
-        {
-          value: "player-1",
-          label: "player-1",
-        },
-        {
-          value: "player-2",
-          label: "player-2",
-        },
-        {
-          value: "player-3",
-          label: "player-3",
-        },
-      ],
       time: "",
-      player: "",
+      player: this.$store.state.login.backinfo.user,
       pdid: "",
     };
   },

@@ -206,6 +206,29 @@
         </div>
         <div slot="footer" class="dialog-footer">
           <el-button @click="orderVisible = false">取 消</el-button>
+          <el-button type="primary" @click="gopay">去支付</el-button>
+        </div>
+      </el-dialog>
+      <el-dialog title="订单支付" :visible.sync="orderpayVisible">
+        <el-tabs v-model="activeName" stretch="true">
+          <el-tab-pane label="微信支付" name="first">
+            <div style="width: 300px; height: 300px; margin: 0px auto">
+              <el-image
+                :src="wechatpay"
+                style="width: 300px; height: 300px"
+              ></el-image>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="支付宝支付" name="second">
+            <div style="width: 300px; height: 300px; margin: 0px auto">
+              <el-image
+                :src="alipay"
+                style="width: 300px; height: 300px"
+              ></el-image>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+        <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="submitorder">确 定</el-button>
         </div>
       </el-dialog>
@@ -278,12 +301,16 @@ export default {
   },
   data() {
     return {
+      alipay: require("../../../assets/images/alipay.jpg"),
+      wechatpay: require("../../../assets/images/wechatpay.jpg"),
+      activeName: "first",
       shoplist: false,
       shopnone: false,
       shopempty: flower1,
       totalprince: "0",
       checklist: [],
       orderVisible: false,
+      orderpayVisible: false,
       lists: [],
       remark: "这是一条测试备注",
     };
@@ -313,12 +340,20 @@ export default {
       }
     },
     settle() {
-      if (this.checklist.length == 0) {
-        this.$message({ message: "请勾选购买商品", type: "warning" });
+      if (this.$store.state.login.loginback) {
+        if (this.checklist.length == 0) {
+          this.$message({ message: "请勾选购买商品", type: "warning" });
+        } else {
+          this.lists = this.checklist;
+          this.orderVisible = true;
+        }
       } else {
-        this.lists = this.checklist;
-        this.orderVisible = true;
+        this.$message.warning("当前未登录，请先登录后再尝试！！");
       }
+    },
+    gopay() {
+      this.orderVisible = false;
+      this.orderpayVisible = true;
     },
     submitorder() {
       var data = this.$store.state.login.userform;
@@ -352,7 +387,7 @@ export default {
               }
             }
           }
-          this.orderVisible = false;
+          this.orderpayVisible = false;
           if (this.$store.state.shopcar.tableData.length == 0) {
             this.shoplist = false;
             this.shopnone = true;

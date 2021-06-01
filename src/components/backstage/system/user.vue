@@ -4,7 +4,7 @@
       <el-input
         prefix-icon="el-icon-search"
         v-on:keyup.enter.native="psearch()"
-        placeholder="请输入查询信息"
+        placeholder="请输入用户名"
         v-model="search"
         clearable
       ></el-input>
@@ -17,7 +17,7 @@
       :data="tableData"
       border
       tooltip-effect="dark"
-      style="width: 641px; margin: 0px auto"
+      style="width: 681px; margin: 0px auto"
     >
       <el-table-column label="用户编号" width="100">
         <template slot-scope="scope">{{ scope.row.userId }}</template>
@@ -28,11 +28,34 @@
       <el-table-column label="密码" width="120">
         <template slot-scope="scope">{{ scope.row.userPad }}</template>
       </el-table-column>
-      <el-table-column label="联系电话" width="150">
-        <template slot-scope="scope">{{ scope.row.cusTel }}</template>
+      <el-table-column label="用户类型" width="120">
+        <template slot-scope="scope">{{ scope.row.userType }}</template>
       </el-table-column>
-      <el-table-column label="邮箱" width="150">
-        <template slot-scope="scope">{{ scope.row.cusEmail }}</template>
+      <el-table-column label="用户状态" width="120">
+        <template slot-scope="scope">
+          <span :class="scope.row.userStatus == '启用' ? 'color1' : 'color2'">{{
+            scope.row.userStatus
+          }}</span></template
+        >
+      </el-table-column>
+      <el-table-column label="操作" width="100">
+        <template slot-scope="scope">
+          <el-button
+            :class="scope.row.userStatus == '启用' ? 'hide' : 'show'"
+            size="mini"
+            type="primary"
+            @click="userEnableedit(scope.row)"
+            >启用</el-button
+          >
+          <el-button
+            style="margin: 0px"
+            :class="scope.row.userStatus == '启用' ? 'show' : 'hide'"
+            size="mini"
+            type="danger"
+            @click="userLimitedit(scope.row)"
+            >禁用</el-button
+          >
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -47,22 +70,54 @@ export default {
     };
   },
   created() {
-    this.$axios
-      .get("http://127.0.0.1:3000/user")
-      .then((res) => {
-        this.tableData = res.data;
-      })
-      .catch((err) => {
-        window.console.log(err);
-      });
+    this.getdata();
   },
   methods: {
+    userEnableedit(row) {
+      this.$axios
+        .post("/user/enable", { id: row.userName })
+        .then((res) => {
+          if ((res.data = "更新成功")) {
+            this.$message.success("用户启用成功");
+          } else {
+            this.$message.warning("用户启用失败");
+          }
+          this.getdata();
+        })
+        .catch((err) => {
+          window.console.log(err);
+        });
+    },
+    userLimitedit(row) {
+      this.$axios
+        .post("/user/limit", { id: row.userName })
+        .then((res) => {
+          if ((res.data = "更新成功")) {
+            this.$message.success("用户禁用成功");
+          } else {
+            this.$message.warning("用户禁用失败");
+          }
+          this.getdata();
+        })
+        .catch((err) => {
+          window.console.log(err);
+        });
+    },
     psearch() {
       this.$axios
-        .post("http://127.0.0.1:3000/user/select", { search: this.search })
+        .post("/user/select", { search: this.search })
         .then((res) => {
           this.tableData = res.data;
-          this.search = "";
+        })
+        .catch((err) => {
+          window.console.log(err);
+        });
+    },
+    getdata() {
+      this.$axios
+        .get("/user")
+        .then((res) => {
+          this.tableData = res.data;
         })
         .catch((err) => {
           window.console.log(err);
@@ -86,5 +141,17 @@ export default {
   width: 200px;
   top: 10px;
   right: 50px;
+}
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
+.color1 {
+  color: #3a8ee6;
+}
+.color2 {
+  color: red;
 }
 </style>

@@ -5,37 +5,73 @@
       <el-tab-pane label="系列" name="系列">
         <div
           id="xilie"
-          :style="{ width: '1000px', height: '600px', fontSize: '25px' }"
+          :style="{
+            width: '1000px',
+            height: '600px',
+            fontSize: '25px',
+            margin: '30px auto',
+            border: '2px solid #f3f3f3',
+          }"
         ></div>
       </el-tab-pane>
       <el-tab-pane label="鲜花" name="鲜花">
         <div
           id="flower"
-          :style="{ width: '1000px', height: '600px', fontSize: '25px' }"
+          :style="{
+            width: '1000px',
+            height: '600px',
+            fontSize: '25px',
+            margin: '30px auto',
+            border: '2px solid #f3f3f3',
+          }"
         ></div>
       </el-tab-pane>
       <el-tab-pane label="礼盒" name="礼盒">
         <div
           id="box"
-          :style="{ width: '1000px', height: '600px', fontSize: '25px' }"
+          :style="{
+            width: '1000px',
+            height: '600px',
+            fontSize: '25px',
+            margin: '30px auto',
+            border: '2px solid #f3f3f3',
+          }"
         ></div
       ></el-tab-pane>
       <el-tab-pane label="蛋糕" name="蛋糕">
         <div
           id="cake"
-          :style="{ width: '1000px', height: '600px', fontSize: '25px' }"
+          :style="{
+            width: '1000px',
+            height: '600px',
+            fontSize: '25px',
+            margin: '30px auto',
+            border: '2px solid #f3f3f3',
+          }"
         ></div
       ></el-tab-pane>
       <el-tab-pane label="花篮" name="花篮">
         <div
           id="basket"
-          :style="{ width: '1000px', height: '600px', fontSize: '25px' }"
+          :style="{
+            width: '1000px',
+            height: '600px',
+            fontSize: '25px',
+            margin: '30px auto',
+            border: '2px solid #f3f3f3',
+          }"
         ></div
       ></el-tab-pane>
       <el-tab-pane label="绿植" name="绿植">
         <div
           id="plant"
-          :style="{ width: '1000px', height: '600px', fontSize: '25px' }"
+          :style="{
+            width: '1000px',
+            height: '600px',
+            fontSize: '25px',
+            margin: '30px auto',
+            border: '2px solid #f3f3f3',
+          }"
         ></div
       ></el-tab-pane>
     </el-tabs>
@@ -254,5 +290,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -70,12 +70,30 @@
                 trigger="hover"
               >
                 <div>
-                  <router-link to="">热卖鲜花</router-link>
-                  <router-link to="">新款上市</router-link>
-                  <router-link to="">女神最爱</router-link>
-                  <router-link to="">生日鲜花</router-link>
-                  <router-link to="">节日鲜花</router-link>
-                  <router-link to="">礼品</router-link>
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '热卖鲜花' } }"
+                    >热卖鲜花</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '新款上市' } }"
+                    >新款上市</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '女神最爱' } }"
+                    >女神最爱</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '生日鲜花' } }"
+                    >生日鲜花</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '节日鲜花' } }"
+                    >节日鲜花</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '礼品' } }"
+                    >礼品</router-link
+                  >
                 </div>
                 <el-button slot="reference">热门分类</el-button>
               </el-popover>
@@ -88,17 +106,50 @@
                 trigger="hover"
               >
                 <div>
-                  <router-link to="">爱情</router-link>
-                  <router-link to="">生日</router-link>
-                  <router-link to="">婚庆</router-link>
-                  <router-link to="">友情</router-link>
-                  <router-link to="">探望</router-link>
-                  <router-link to="">哀思</router-link>
-                  <router-link to="">道歉</router-link>
-                  <router-link to="">祝福</router-link>
-                  <router-link to="">求婚</router-link>
-                  <router-link to="">纪念</router-link>
-                  <router-link to="">开业花篮</router-link>
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '爱情' } }"
+                    >爱情</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '生日' } }"
+                    >生日</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '婚庆' } }"
+                    >婚庆</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '友情' } }"
+                    >友情</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '探望' } }"
+                    >探望</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '哀思' } }"
+                    >哀思</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '道歉' } }"
+                    >道歉</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '祝福' } }"
+                    >祝福</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '求婚' } }"
+                    >求婚</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '纪念' } }"
+                    >纪念</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '开业花篮' } }"
+                    >开业花篮</router-link
+                  >
                 </div>
                 <el-button slot="reference">按用途分类</el-button>
               </el-popover>
@@ -111,12 +162,30 @@
                 trigger="hover"
               >
                 <div>
-                  <router-link to="">恋人</router-link>
-                  <router-link to="">父母</router-link>
-                  <router-link to="">妻子</router-link>
-                  <router-link to="">老师</router-link>
-                  <router-link to="">朋友</router-link>
-                  <router-link to="">长辈</router-link>
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '恋人' } }"
+                    >恋人</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '父母' } }"
+                    >父母</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '妻子' } }"
+                    >妻子</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '老师' } }"
+                    >老师</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '朋友' } }"
+                    >朋友</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '长辈' } }"
+                    >长辈</router-link
+                  >
                 </div>
                 <el-button slot="reference">按对象分类</el-button>
               </el-popover>
@@ -129,17 +198,50 @@
                 trigger="hover"
               >
                 <div>
-                  <router-link to="">玫瑰花</router-link>
-                  <router-link to="">康乃馨</router-link>
-                  <router-link to="">向日葵</router-link>
-                  <router-link to="">百合花</router-link>
-                  <router-link to="">扶郎花</router-link>
-                  <router-link to="">花篮</router-link>
-                  <router-link to="">蓝色妖姬</router-link>
-                  <router-link to="">绿植</router-link>
-                  <router-link to="">巧克力</router-link>
-                  <router-link to="">礼盒花</router-link>
-                  <router-link to="">满天星</router-link>
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '玫瑰花' } }"
+                    >玫瑰花</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '康乃馨' } }"
+                    >康乃馨</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '向日葵' } }"
+                    >向日葵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '百合花' } }"
+                    >百合花</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '扶郎花' } }"
+                    >扶郎花</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '花篮' } }"
+                    >花篮</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '蓝色妖姬' } }"
+                    >蓝色妖姬</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '绿植' } }"
+                    >绿植</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '巧克力' } }"
+                    >巧克力</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '礼盒花' } }"
+                    >礼盒花</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '满天星' } }"
+                    >满天星</router-link
+                  >
                 </div>
                 <el-button slot="reference">按花材分类</el-button>
               </el-popover>
@@ -152,18 +254,54 @@
                 trigger="hover"
               >
                 <div>
-                  <router-link to="">9朵</router-link>
-                  <router-link to="">11朵</router-link>
-                  <router-link to="">19朵</router-link>
-                  <router-link to="">21朵</router-link>
-                  <router-link to="">33朵</router-link>
-                  <router-link to="">50朵</router-link>
-                  <router-link to="">55朵</router-link>
-                  <router-link to="">99朵</router-link>
-                  <router-link to="">101朵</router-link>
-                  <router-link to="">108朵</router-link>
-                  <router-link to="">365朵</router-link>
-                  <router-link to="">999朵</router-link>
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '9朵' } }"
+                    >9朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '11朵' } }"
+                    >11朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '19朵' } }"
+                    >19朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '21朵' } }"
+                    >21朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '33朵' } }"
+                    >33朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '50朵' } }"
+                    >50朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '55朵' } }"
+                    >55朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '99朵' } }"
+                    >99朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '101朵' } }"
+                    >101朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '108朵' } }"
+                    >108朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '365朵' } }"
+                    >365朵</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '999朵' } }"
+                    >999朵</router-link
+                  >
                 </div>
                 <el-button slot="reference">按朵数分类</el-button>
               </el-popover>
@@ -176,13 +314,34 @@
                 trigger="hover"
               >
                 <div>
-                  <router-link to="">情人节</router-link>
-                  <router-link to="">母亲节</router-link>
-                  <router-link to="">父亲节</router-link>
-                  <router-link to="">七夕节</router-link>
-                  <router-link to="">中秋节</router-link>
-                  <router-link to="">清明节</router-link>
-                  <router-link to="">国庆节</router-link>
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '情人节' } }"
+                    >情人节</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '母亲节' } }"
+                    >母亲节</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '父亲节' } }"
+                    >父亲节</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '七夕节' } }"
+                    >七夕节</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '中秋节' } }"
+                    >中秋节</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '清明节' } }"
+                    >清明节</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '国庆节' } }"
+                    >国庆节</router-link
+                  >
                 </div>
                 <el-button slot="reference">按节日分类</el-button>
               </el-popover>
@@ -195,16 +354,46 @@
                 trigger="hover"
               >
                 <div>
-                  <router-link to="">鲜奶蛋糕</router-link>
-                  <router-link to="">水果蛋糕</router-link>
-                  <router-link to="">情人蛋糕</router-link>
-                  <router-link to="">生日蛋糕</router-link>
-                  <router-link to="">婚庆蛋糕</router-link>
-                  <router-link to="">无糖蛋糕</router-link>
-                  <router-link to="">儿童蛋糕</router-link>
-                  <router-link to="">巧克力蛋糕</router-link>
-                  <router-link to="">欧式蛋糕</router-link>
-                  <router-link to="">冰淇淋蛋糕</router-link>
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '鲜奶蛋糕' } }"
+                    >鲜奶蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '水果蛋糕' } }"
+                    >水果蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '情人蛋糕' } }"
+                    >情人蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '生日蛋糕' } }"
+                    >生日蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '婚庆蛋糕' } }"
+                    >婚庆蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '无糖蛋糕' } }"
+                    >无糖蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '儿童蛋糕' } }"
+                    >儿童蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '巧克力蛋糕' } }"
+                    >巧克力蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '欧式蛋糕' } }"
+                    >欧式蛋糕</router-link
+                  >
+                  <router-link
+                    :to="{ path: '/move', query: { keyword: '冰淇淋蛋糕' } }"
+                    >冰淇淋蛋糕</router-link
+                  >
                 </div>
                 <el-button slot="reference">蛋糕分类</el-button>
               </el-popover>
@@ -213,9 +402,7 @@
         </div>
       </div>
       <div class="nav-top-a">
-        <router-link to="/index"
-          ><i class="el-icon-s-home"></i
-        > 主页</router-link>
+        <router-link to="/index"> 主页</router-link>
         <router-link :to="{ path: '/move', query: { keyword: 'Love' } }"
           >爱情系列</router-link
         >
@@ -263,6 +450,8 @@ export default {
           "");
       }
       this.$store.dispatch("index/setimglist", response);
+      this.$store.dispatch("index/setyuantu", file.name);
+      this.reload();
       this.$router.push("/similar");
     },
     searchf(data) {

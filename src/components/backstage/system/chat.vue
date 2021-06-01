@@ -157,7 +157,6 @@
 </template>
 
 <script>
-import Utils from "../../../assets/util/util";
 export default {
   inject: ["reload"],
   data() {
@@ -175,14 +174,6 @@ export default {
       this.aside = 120;
     }
     this.scrollToBottom();
-    const that = this;
-    Utils.$on("backstage", function () {
-      alert("后台调用成功");
-      that.backchataxios();
-    });
-  },
-  destroyed() {
-    Utils.$off("reception");
   },
   created() {
     this.backchataxios();
@@ -200,9 +191,7 @@ export default {
           user: this.$store.state.backstage_index.user,
         })
         .then((res) => {
-          for (let i = 0; i < res.data.length; i++) {
-            this.chats = res.data;
-          }
+          this.chats = res.data;
           if (this.$store.state.backstage_index.users.length < 2) {
             this.aside = 0;
           } else {
@@ -214,7 +203,8 @@ export default {
         });
     },
     send() {
-      /* var time = this.getdate();
+      var time = this.getdate();
+
       this.$axios
         .post("http://127.0.0.1:3000/chat/send", {
           sendName: "admin",
@@ -227,9 +217,7 @@ export default {
           window.console.log(error);
         });
       this.sendmessage = "";
-      this.backchataxios(); */
-      this.$message("发送成功");
-      Utils.$emit("reception");
+      this.backchataxios();
     },
     scrollToBottom() {
       this.$nextTick(() => {

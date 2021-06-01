@@ -2,6 +2,7 @@ const state = {
     allnav: false,
     chat: false,
     openchat: true,
+    yuantu: '',
     newlist: [],
     lovelist: [],
     friendlist: [],
@@ -51,6 +52,9 @@ const actions = {
     },
     setimglist({ commit }, value) {
         commit("setimglist", value)
+    },
+    setyuantu({ commit }, value) {
+        commit("setyuantu", value)
     }
 }
 
@@ -96,6 +100,9 @@ const mutations = {
     setimglist(state, value) {
         state.searchimglist = value
     },
+    setyuantu(state, value) {
+        state.yuantu = value
+    }
 }
 
 export default {

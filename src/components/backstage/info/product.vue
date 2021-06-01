@@ -350,7 +350,6 @@ export default {
   methods: {
     hangdleupload(file) {
       this.url = file.name;
-      alert(this.url)
     },
     showproduct() {
       this.$axios

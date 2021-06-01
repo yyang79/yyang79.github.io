@@ -6,7 +6,6 @@
       >
     </div>
     <div class="menu">
-      <!--       <div style="width:250px;height:40px;background-color:red"><span>2017年12月13日03时16分45秒</span></div> -->
       <el-menu
         background-color="#545c64"
         text-color="#fff"
@@ -14,11 +13,12 @@
         mode="horizontal"
       >
         <el-submenu>
-          <template slot="title">您好,admin</template>
-          <el-menu-item index="1">数据备份</el-menu-item>
-          <el-menu-item index="2">数据恢复</el-menu-item>
-          <el-menu-item index="3">个人中心</el-menu-item>
-          <el-menu-item @click="quitlogin">注销登录</el-menu-item>
+          <template slot="title"
+            >您好,{{ this.$store.state.login.backinfo.user }}</template
+          >
+          <el-menu-item index="1" v-show="admin">数据备份</el-menu-item>
+          <el-menu-item index="2" v-show="admin">数据恢复</el-menu-item>
+          <el-menu-item index="3" v-show="saler">个人中心</el-menu-item>
           <el-menu-item @click="signout">退出系统</el-menu-item>
         </el-submenu>
       </el-menu>
@@ -30,16 +30,22 @@
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      admin: false,
+      saler: false,
+    };
+  },
+  mounted() {
+    if (this.$store.state.login.backinfo.type == "saler") {
+      this.saler = true;
+    }else{
+      this.admin = true
+    }
   },
   methods: {
-    quitlogin() {
-      this.$router.push("/login");
-      this.$message.success("注销登录成功")
-    },
     signout() {
-      this.$router.push("/index");
-       this.$message.success("退出系统成功")
+      this.$router.push("/back/login");
+      this.$message.success("退出系统成功");
     },
   },
 };

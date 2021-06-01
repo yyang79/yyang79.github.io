@@ -11,29 +11,17 @@
     <el-tabs v-model="activeName">
       <el-tab-pane label="退款" name="first">
         <div
-          style="
-            width: 90%;
-            height: 200px;
-            background: red;
-            margin-bottom: 10px;
-            padding: 10px;
-          "
-          v-for="item in items"
-          :key="item"
-        ></div>
+          style="width: 90%; height: 200px; margin-bottom: 10px; padding: 10px"
+        >
+          <span>当前暂无退款信息</span>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="退货" name="second">
         <div
-          style="
-            width: 90%;
-            height: 200px;
-            background: red;
-            margin-bottom: 10px;
-            padding: 10px;
-          "
-          v-for="item in items"
-          :key="item"
-        ></div>
+          style="width: 90%; height: 200px; margin-bottom: 10px; padding: 10px"
+        >
+          <span>当前暂无退货信息</span>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -44,7 +32,7 @@ export default {
   data() {
     return {
       items: [{}, {}, {}, {}],
-      activeName:"first"
+      activeName: "first",
     };
   },
   methods: {},

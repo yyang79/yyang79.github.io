@@ -16,9 +16,11 @@ import reception_detailpage from '../components/reception/detailpage/index'
 import recpption_commend from '../components/reception/commend/index'
 import reception_similar from "../components/reception/similar/index"
 //后台
+import backlogin from '../components/backstage/login/index'
 import backstage_index from '../components/backstage/index/index'
 import backstage_customer from '../components/backstage/info/customer'
 import backstage_product from '../components/backstage/info/product'
+import backstage_saler from '../components/backstage/info/saler'
 import backstage_protype from '../components/backstage/info/protype'
 import backstage_supplier from '../components/backstage/info/supplier'
 import backstage_purchase from '../components/backstage/purchase/purchase'
@@ -37,6 +39,7 @@ import backstage_historystockcheckdetails from '../components/backstage/stock/hi
 import backstage_salechart from '../components/backstage/chart/salechart'
 import backstage_stockchart from '../components/backstage/chart/stockchart'
 import backstage_purchasechart from '../components/backstage/chart/purchasechart'
+import backstage_liuyan from '../components/backstage/liuyan/index'
 import backstage_user from '../components/backstage/system/user'
 
 Vue.use(VueRouter)
@@ -54,6 +57,10 @@ const routes = [
     {
         path: "/login",
         component: login
+    },
+    {
+        path: "/back/login",
+        component: backlogin
     },
     {
         path: "/resigter",
@@ -77,6 +84,7 @@ const routes = [
     },
     {
         path: "/similar",
+        name:"similar",
         component: reception_similar
     },
 
@@ -115,6 +123,10 @@ const routes = [
         {
             path: "/customer",
             component: backstage_customer,
+        },
+        {
+            path: "/saler",
+            component: backstage_saler,
         },
         {
             path: "/product",
@@ -190,6 +202,10 @@ const routes = [
         {
             path: "/stockchart",
             component: backstage_stockchart,
+        },
+        {
+            path: "/liuyan",
+            component: backstage_liuyan,
         },
         {
             path: "/user",

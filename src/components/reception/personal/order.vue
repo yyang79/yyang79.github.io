@@ -55,7 +55,6 @@
             </el-col>
           </el-row>
           <span>总价：￥{{ order.orderPrice }}.00</span>
-          <el-button>查看详情</el-button>
         </div>
       </el-tab-pane>
       <el-tab-pane :label="fahuo" name="second">
@@ -104,7 +103,6 @@
             </el-col>
           </el-row>
           <span>总价：￥{{ send.orderPrice }}.00</span>
-          <el-button>退款</el-button>
         </div>
       </el-tab-pane>
       <el-tab-pane :label="shouhuo" name="third">

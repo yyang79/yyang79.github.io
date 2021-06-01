@@ -3,7 +3,7 @@
     <Simliarheader />
     <Simliarsearch />
     <el-container>
-      <el-header height="200px" style="background: blue">
+      <el-header height="120px" style="padding:20px">
         <span>搜索图片：</span><br />
         <el-image
           style="width: 100px; height: 100px"
@@ -72,7 +72,9 @@ export default {
     Simliarsearch,
   },
   data() {
-    return {};
+    return {
+      searchimg:require("../../../../../stytemdata/assets/images/"+this.$store.state.index.yuantu+"")
+    };
   },
   created() {
     this.$store.dispatch("index/allnavfalse");

@@ -9,7 +9,7 @@
             :barrageList="barrageList"
             :loop="barrageLoop"
             :messageHeight="messageHeight"
-            style="width: 1000px; height: 300px; background: blue"
+            style="width: 1000px; height: 300px; background: #e3e3e3;border:10px solid #B87333"
           >
           </vue-baberrage>
         </div>
@@ -30,14 +30,14 @@
             width: 800px;
             height: 200px;
             margin: 0px auto;
-            border-bottom: 1px solid #f9f9f9;
-            background: orangered;
+            border-bottom: 10px solid #f9f9f9;
+            background: #e3e3e3;
           "
           v-for="item in items"
           :key="item"
         >
           <el-container>
-            <el-header width="60px" style="background: blue">
+            <el-header width="60px" style="background: #e3e3e3">
               <el-image
                 style="
                   width: 40px;
@@ -106,7 +106,7 @@ export default {
                   ""),
                 msg: data.userName + this.msg,
                 time: 5,
-                extraWidth:100,
+                extraWidth: 100,
                 type: MESSAGE_TYPE.NORMAL,
               });
               this.msg = "";
@@ -126,7 +126,7 @@ export default {
               ""),
             msg: res.data[i].userName + ": " + res.data[i].recommend,
             time: 5,
-            extraWidth:100,
+            extraWidth: 100,
             type: MESSAGE_TYPE.NORMAL,
           });
           res.data[
@@ -134,9 +134,20 @@ export default {
           ].userUrl = require("../../../../../stytemdata/assets/images/" +
             res.data[i].userUrl +
             "");
+          res.data[i].time = this.renderTime(res.data[i].time);
         }
+        res.data.sort(function (a, b) {
+          return a.time < b.time ? 1 : -1;
+        });
         this.items = res.data;
       });
+    },
+    renderTime(date) {
+      var dateee = new Date(date).toJSON();
+      return new Date(+new Date(dateee) + 8 * 3600 * 1000)
+        .toISOString()
+        .replace(/T/g, " ")
+        .replace(/\.[\d]{3}Z/, "");
     },
     getdate() {
       var myDate = new Date();

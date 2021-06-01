@@ -5,6 +5,11 @@
         <span style="color: white; margin-right: 30px"
           >嗨，欢迎来到花无缺花店！</span
         >
+        <el-button
+          @click="toindex"
+          style="border: none; background: gray; color: white"
+          ><i class="el-icon-s-home"></i>首页</el-button
+        >
         <el-popover trigger="hover">
           <div>
             <el-image
@@ -19,7 +24,11 @@
             ><i class=""></i>官方微信</el-button
           >
         </el-popover>
-        <router-link to="/commend">留言板</router-link>
+        <el-button
+          @click="liuyanban"
+          style="border: none; background: gray; color: white"
+          ><i class=""></i>留言板</el-button
+        >
       </div>
       <div class="head-right">
         <div
@@ -83,11 +92,7 @@ export default {
   },
   methods: {
     goshopcar() {
-      if (this.$store.state.login.loginback) {
         this.$router.replace("/shopcar");
-      } else {
-        alert("当前未登录，请先登录后查看！！");
-      }
     },
     quitlogin() {
       this.$store.commit("login/loginbeforestatus");
@@ -101,6 +106,16 @@ export default {
     myorder() {
       this.$store.commit("login/loginbeforestatus");
       this.$router.push("/login");
+    },
+    liuyanban() {
+      if (this.$store.state.login.loginback) {
+        this.$router.replace("/commend");
+      } else {
+        alert("当前未登录，请先登录后查看！！");
+      }
+    },
+    toindex() {
+      this.$router.replace("/index");
     },
   },
 };
@@ -131,7 +146,7 @@ a {
   position: absolute;
   top: 0px;
   left: 50px;
-  width: 400px;
+  width: 600px;
   height: 41.11px;
 }
 

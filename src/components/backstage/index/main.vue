@@ -9,7 +9,7 @@
       <el-col :span="24">
         <div class="nav-menu">
           <el-menu :unique-opened="true" :router="true" style="border: none">
-            <el-submenu index="1">
+            <el-submenu index="1" v-show="sale">
               <template slot="title">
                 <i class="el-icon-suitcase"></i>
                 <span>资料管理</span>
@@ -17,6 +17,7 @@
               <el-menu-item-group>
                 <el-menu-item index="/supplier">供应商资料</el-menu-item>
                 <el-menu-item index="/customer">客户资料</el-menu-item>
+                <el-menu-item index="/saler">员工资料</el-menu-item>
                 <el-menu-item index="/product">商品资料</el-menu-item>
                 <el-menu-item index="/protype">类型资料</el-menu-item>
               </el-menu-item-group>
@@ -57,7 +58,7 @@
                 >
               </el-menu-item-group>
             </el-submenu>
-            <el-submenu index="5">
+            <el-submenu index="5" v-show="sale">
               <template slot="title">
                 <i class="el-icon-data-line"></i>
                 <span>统计报表</span>
@@ -68,7 +69,7 @@
                 <el-menu-item index="/stockchart">库存报表</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-            <el-submenu index="6">
+            <el-submenu index="6" v-show="sale">
               <template slot="title">
                 <i class="el-icon-setting"></i>
                 <span>系统管理</span>
@@ -105,8 +106,8 @@
       <li>
         <a href="javascript:void(0)" @click="chat()">消息管理</a>
       </li>
-        <li>
-        <router-link to="/salechart">留言管理</router-link>
+      <li>
+        <router-link to="/liuyan">留言管理</router-link>
       </li>
     </div>
     <div class="show">
@@ -119,7 +120,14 @@
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      sale: true,
+    };
+  },
+  mounted() {
+    if (this.$store.state.login.backinfo.type == "saler") {
+      this.sale = false;
+    }
   },
   methods: {
     chat() {
